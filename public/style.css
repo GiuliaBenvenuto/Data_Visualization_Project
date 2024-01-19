@@ -16,6 +16,12 @@ body {
     color: #293241;
 }
 
+#section_title{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    color: #293241;
+}
+
 /*
 #digitalize{
     margin-left: 20px;
@@ -36,7 +42,10 @@ body {
     font-weight: 600;
     color: #293241;
 }*/
-
+#nav {
+    background-color: #EEEEEE;
+}
+ 
 #nav a {
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
