@@ -1,0 +1,81 @@
+/* Palette: https://coolors.co/palette/3d5a80-98c1d9-e0fbfc-ee6c4d-293241*/
+
+body {
+    background-color: #EEEEEE;
+}
+
+#first_title{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    color: #293241;
+}
+
+#first_paragraph{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    color: #293241;
+}
+
+/*
+#digitalize{
+    margin-left: 20px;
+    font-family: 'Source Code Pro', monospace;
+    font-weight: 900;
+}*/
+
+#digitalize {
+    margin-left: 20px;
+    font-family: 'Source Code Pro', monospace;
+    font-weight: 900;
+    color: #EE6C4D;
+}
+
+/*
+#nav {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: #293241;
+}*/
+
+#nav a {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: #293241;
+    transition: color 0.3s; /* Smooth color transition on hover */
+}
+
+#nav a:hover {
+    color: #5092B8; /* Replace with the color you want on hover */
+}
+
+
+/*
+#digitalize {
+    margin-left: 20px;
+    font-family: 'Source Code Pro', monospace;
+    font-weight: 900;
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: middle;
+    border-right: .1em solid orange; /* Cursor-like solid line 
+    white-space: nowrap; 
+    letter-spacing: .0em; /* Adjust the spacing between letters 
+    animation: typing 5.5s steps(25, end), blink-caret .75s step-end infinite;
+    max-width: 7em; /* Adjust this value based on the actual width of your text 
+    line-height: normal; /* This should be enough for the "g" not to be cut off 
+    padding-bottom: 10px;
+} 
+
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: orange; }
+}
+
+*/
+
+
