@@ -6,7 +6,7 @@ body {
     font-family: 'Montserrat', sans-serif;
     font-weight: 800;
     color: #293241;
-    margin-top: 15vh;
+    margin-top: 20vh;
 }
 
 #paragraph {
@@ -38,4 +38,13 @@ body {
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
     color: #293241;
+}
+
+#link {
+    text-decoration: underline; /* Adds an underline to the link */
+    transition: color 0.3s;
+}
+
+#link:hover {
+    color: #5092B8; /* Change #007bff to the color you want on hover */
 }
