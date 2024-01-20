@@ -52,6 +52,12 @@ html {
     /* Add animations if needed */
 }
 
+#plot_title{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    color: #293241;
+}
+
 /*
 #nav {
     font-family: 'Montserrat', sans-serif;

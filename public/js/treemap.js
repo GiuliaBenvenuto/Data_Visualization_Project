@@ -44,17 +44,12 @@ var svg = d3.select("#my_treemap")
 // d3.csv('https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/data_hierarchy_1level.csv', function(data) {
 d3.csv('./csv/treemap_processed.csv', function(data) {
 
-    // Create an ordinal scale with the pastel color palette
+    // Color scale
     var colorScale = d3.scaleOrdinal()
         .domain(data.map(function(d) { return d.name; })) // Domain is set to the names
         .range(paletteColors); // Range is the pastel color palette
 
-    // Append Div for tooltip to SVG
-    var div = d3.select("body")
-    .append("div")   
-    .attr("class", "tooltip")               
-    .style("opacity", 0);
-
+    // Tooltip
     var tooltip = d3.select('body')
         .append("div")
         .style("position", "absolute")
@@ -66,7 +61,8 @@ d3.csv('./csv/treemap_processed.csv', function(data) {
         .style("opacity", 0)
         .style("font", "15px Montserrat")
         .style("color", "#333");
-
+ 
+        
     // stratify the data: reformatting for d3.js
     var root = d3.stratify()
         .id(function(d) { return d.name; })   // Name of the entity (column name is name in csv)
@@ -107,10 +103,8 @@ d3.csv('./csv/treemap_processed.csv', function(data) {
            .style("opacity", .9); 
            
            tooltip.html(
-                "<span style='color: #333;'> <strong>State: </strong> " + d.state + "</span><br>" + 
-                "<span style='color: #333;'> <strong>City: </strong> " + d.city + "</span><br>" +
-                "<span style='color: #333;'> <strong>Value: </strong> " + d.value + "</span><br>" + 
-                "<span style='color:  #333;'> <strong>Scientific name:</strong></span>" 
+                "<span style='color: #333;'> <strong>Reason: </strong> " + customTextMapping[d.data.name] + "</span><br>" + 
+                "<span style='color: #333;'> <strong>Value: </strong> " + d.value + "</span><br>" 
             )
            .style("left", (d3.event.pageX) + "px")     
            .style("top", (d3.event.pageY - 28) + "px");    
