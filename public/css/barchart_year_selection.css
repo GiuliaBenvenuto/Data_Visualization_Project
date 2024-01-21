@@ -1,0 +1,33 @@
+.year-selector {
+    display: flex;
+    justify-content: center;
+}
+  
+.year-label {
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    padding: 8px;
+    margin: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-family: 'Montserrat';
+    font-size: medium;
+    font-weight: 600;
+    color: #293241;
+}
+  
+.year-label:hover {
+    background-color: #f0f0f0;
+}
+  
+input[type="radio"] {
+    display: none; /* Hide the default radio button */
+}
+  
+input[type="radio"]:checked + .year-label {
+    background-color: #5092B8; /* Your selected color */
+    color: #fff;
+}

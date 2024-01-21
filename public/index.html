@@ -17,6 +17,7 @@
 
     <!-- Style -->
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/barchart_year_selection.css">
 
     <!-- Fonts -->
     <!-- Montserrat -->
@@ -104,11 +105,80 @@
     </div>
 
     <!-- Barchart -->
+    <div class="mt-20 md:mt-20"> <!-- Adjust the margin-top (mt) values as needed -->
+        <h2 id="plot_title" class="text-2xl text-center">
+            Individuals that never used Internet
+        </h2>
+    </div>
     <div class="flex justify-center items-center ">
-        <div id="my_barchart"  style="margin-top: 50px; border:1px solid black; width: 500px; height: 500px;">
+        <div id="my_barchart"  style="margin-top: 50px; border:1px solid black; width: 1200px; height: 500px;">
             <script type="module" src="./js/barchart.js"></script>
         </div>
     </div>
+
+    <!-- Year Selector -->
+    <div class="year-selector">
+        <input type="radio" id="year2012" name="year" value="2012" checked>
+        <label for="year2012" class="year-label">2012</label>
+      
+        <input type="radio" id="year2013" name="year" value="2013">
+        <label for="year2013" class="year-label">2013</label>
+
+        <input type="radio" id="year2014" name="year" value="2014">
+        <label for="year2014" class="year-label">2014</label>
+
+        <input type="radio" id="year2015" name="year" value="2015">
+        <label for="year2015" class="year-label">2015</label>
+
+        <input type="radio" id="year2016" name="year" value="2016">
+        <label for="year2016" class="year-label">2016</label>
+
+        <input type="radio" id="year2017" name="year" value="2017">
+        <label for="year2017" class="year-label">2017</label>
+
+        <input type="radio" id="year2018" name="year" value="2018">
+        <label for="year2018" class="year-label">2018</label>
+
+        <input type="radio" id="year2019" name="year" value="2019">
+        <label for="year2019" class="year-label">2019</label>
+
+        <input type="radio" id="year2020" name="year" value="2020">
+        <label for="year2020" class="year-label">2020</label>
+
+        <input type="radio" id="year2021" name="year" value="2021">
+        <label for="year2021" class="year-label">2021</label>
+
+        <input type="radio" id="year2022" name="year" value="2022">
+        <label for="year2022" class="year-label">2022</label>
+      
+      
+        <input type="radio" id="year2023" name="year" value="2023">
+        <label for="year2023" class="year-label">2023</label>
+    </div>
+    
+    <script type="module">
+        import { updateBarchart } from './js/barchart.js';
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var yearSelectors = document.querySelectorAll('.year-label');
+            var selectedYear = 2012;
+            updateBarchart(selectedYear);
+            // Set 2012 as the checked value on page load
+            document.getElementById('year2012').checked = true;
+
+            yearSelectors.forEach(function(label) {
+                label.addEventListener('click', function() {
+                    // Handle the click event if needed
+                    selectedYear = this.previousElementSibling.value;
+
+                    // Call the function to update the chart
+                    updateBarchart(selectedYear);
+                });
+            });
+        });
+    </script>
+
+
 
     <!-- Linechart -->
     <div class="flex justify-center items-center ">
