@@ -49,7 +49,7 @@ export function updateBarchart(year) {
 
     // Select the chart container and clear its content
     var chartContainer = d3.select("#my_barchart");
-    chartContainer.selectAll("*").remove();
+    chartContainer.selectAll("*").remove(); 
 
     var margin = {top: 30, right: 60, bottom: 150, left: 60},
         width = 1300 - margin.left - margin.right,
@@ -71,6 +71,7 @@ export function updateBarchart(year) {
 
         console.log("Col" + yearColumn);
 
+        
         // X axis
         var x = d3.scaleBand()
             .range([ 0, width ])
@@ -94,7 +95,7 @@ export function updateBarchart(year) {
         // Initialize max value
         let maxValue = Number.MIN_SAFE_INTEGER;
 
-        // Find the largest value in the dataset
+        // Find the maximum value in the dataset
         data.forEach(function(row) {
             // Check each year's column
             for (let year = 2012; year <= 2023; year++) {
@@ -114,7 +115,8 @@ export function updateBarchart(year) {
 
         // Call the Y axis on the svg
         svg.append("g")
-            .call(d3.axisLeft(y));
+            .call(d3.axisLeft(y))
+            .style("font", "15px Montserrat");
 
         // Create Y grid lines
         svg.selectAll(".horizontal-grid-line")
@@ -127,6 +129,7 @@ export function updateBarchart(year) {
             .attr("y1", function(d) { return y(d); })
             .attr("y2", function(d) { return y(d); })
             .attr("stroke", "#ccc") // Color of the grid lines
+            .style("opacity", 0.9)  // Opacity 
             .attr("stroke-dasharray", "3,3") // Style of the grid lines
             .attr("shape-rendering", "crispEdges");
         
@@ -176,6 +179,7 @@ export function updateBarchart(year) {
                 .duration(100)      
                 .style("opacity", 0);   
             });
+            
 
             // Calculate the average
             let sum = 0;
