@@ -106,12 +106,12 @@
 
     <!-- Barchart -->
     <div class="mt-20 md:mt-20"> <!-- Adjust the margin-top (mt) values as needed -->
-        <h2 id="plot_title" class="text-2xl text-center">
-            Individuals that never used Internet
+        <h2 id="plot_title_barchart" class="text-2xl text-center">
+            Individuals that never used Internet in 2012 
         </h2>
     </div>
     <div class="flex justify-center items-center ">
-        <div id="my_barchart"  style="margin-top: 5px; width: 1200px; height: 500px;">
+        <div id="my_barchart"  style=" width: 1300px; height: 500px;">
             <script type="module" src="./js/barchart.js"></script>
         </div>
     </div>
@@ -169,6 +169,11 @@
     <script type="module">
         import { updateBarchart } from './js/barchart.js';
 
+        function updateTitle(year) {
+            const titleBase = "Individuals that never used Internet in";
+            document.getElementById('plot_title_barchart').textContent = titleBase + " " + year;
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             var yearSelectors = document.querySelectorAll('.year-label');
             var selectedYear = 2012;
@@ -183,6 +188,8 @@
 
                     // Call the function to update the chart
                     updateBarchart(selectedYear);
+                    // Update title
+                    updateTitle(selectedYear);
                 });
             });
         });

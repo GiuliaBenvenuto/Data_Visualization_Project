@@ -58,6 +58,12 @@ html {
     color: #293241;
 }
 
+#plot_title_barchart{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    color: #293241;
+}
+
 /*
 #nav {
     font-family: 'Montserrat', sans-serif;

@@ -1,5 +1,48 @@
 export function updateBarchart(year) {
 
+    const countryMapping = {
+        "AL": "Albania",
+        "AT": "Austria",
+        "BA": "Bosnia and Herzegovina",
+        "BE": "Belgium",
+        "BG": "Bulgaria",
+        "CH": "Switzerland",
+        "CY": "Cyprus",
+        "CZ": "Czechia",
+        "DE": "Germany",
+        "DK": "Denmark",
+        "EE": "Estonia",
+        "EL": "Greece",
+        "ES": "Spain",
+        "EU27_2020": "European Union",
+        "FI": "Finland",
+        "FR": "France",
+        "HR": "Croatia",
+        "HU": "Hungary",
+        "IE": "Ireland",
+        "IS": "Iceland",
+        "IT": "Italy",
+        "LT": "Lithuania",
+        "LU": "Luxembourg",
+        "LV": "Latvia",
+        "ME": "Montenegro",
+        "MK": "North Macedonia",
+        "MT": "Malta",
+        "NL": "Netherlands",
+        "NO": "Norway",
+        "PL": "Poland",
+        "PT": "Portugal",
+        "RO": "Romania",
+        "RS": "Serbia",
+        "SE": "Sweden",
+        "SI": "Slovenia",
+        "SK": "Slovakia",
+        "TR": "Turkey",
+        "UK": "United Kingdom",
+        "XK": "Kosovo"
+    };
+
+    
     // Year basing on which i want to update the barchart
     let yearColumn = year;
     console.log("Year: " + yearColumn);
@@ -8,8 +51,8 @@ export function updateBarchart(year) {
     var chartContainer = d3.select("#my_barchart");
     chartContainer.selectAll("*").remove();
 
-    var margin = {top: 30, right: 60, bottom: 110, left: 60},
-        width = 1200 - margin.left - margin.right,
+    var margin = {top: 30, right: 60, bottom: 150, left: 60},
+        width = 1300 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
     // append the svg object to the body of the page
@@ -31,7 +74,11 @@ export function updateBarchart(year) {
         // X axis
         var x = d3.scaleBand()
             .range([ 0, width ])
-            .domain(data.map(function(d) { return d.geo; }))
+            // .domain(data.map(function(d) { return d.geo; }))
+            .domain(data.map(function(d) { 
+                // Use the countryMapping to convert geo codes to country names
+                return countryMapping[d.geo] || d.geo; // Fallback to geo code if no mapping is found
+            }))
             .padding(0.2);
 
         svg.append("g")
@@ -107,11 +154,9 @@ export function updateBarchart(year) {
             .data(data)
             .enter()
             .append("rect")
-            .attr("x", function(d) { return x(d.geo); })
-            // .attr("y", function(d) { return y(0); })
+            .attr("x", function(d) { return x(countryMapping[d.geo]); })
             .attr("y", function(d) { return y(+d[yearColumn]); })
             .attr("width", x.bandwidth())
-            // .attr("height", function(d) { return height - y(0); })
             .attr("height", function(d) { return height - y(+d[yearColumn]); })
             .attr("fill", function(d) { return colorScale(+d[yearColumn]); })
             .on("mouseover", function(d) {      
@@ -120,7 +165,7 @@ export function updateBarchart(year) {
                 .style("opacity", .9); 
                 
                 tooltip.html(
-                    "<span style='color: #333;'> <strong>State: </strong> " + d.geo + "</span><br>" + 
+                    "<span style='color: #333;'> <strong>State: </strong> " + countryMapping[d.geo] + "</span><br>" + 
                     "<span style='color: #333;'> <strong>Percentage: </strong> " + d[yearColumn] + "% </span><br>" 
                 )
                 .style("left", (d3.event.pageX) + "px")     
@@ -132,10 +177,44 @@ export function updateBarchart(year) {
                 .style("opacity", 0);   
             });
 
-        // Add title
-        // addTitle(svg, "Top-20 number of trees per state", "20px", "#14532d", width / 2, -10);
+            // Calculate the average
+            let sum = 0;
+            let count = 0;
+            data.forEach(function(d) {
+                if (d[yearColumn] !== ":") { // Assuming ":" is used for missing values
+                    sum += +d[yearColumn];
+                    count += 1;
+                }
+            });
+            let average = sum / count;
 
-        // Animation
+            // Add the average line after the Y axis
+            svg.append("line")
+            .attr("x1", 0)
+            .attr("x2", width)
+            .attr("y1", y(average))
+            .attr("y2", y(average))
+            .attr("stroke", "red") // Color of the average line
+            .attr("stroke-width", "2") // Thickness of the average line
+            .attr("stroke-dasharray", "5,5") 
+            .attr("shape-rendering", "crispEdges")
+            .style("z-index", "10"); 
+
+            // Add a label for the average value at the end of the line
+            svg.append("text")
+            .attr("class", "average-label")
+            .attr("x", width) 
+            .attr("y", y(average)) 
+            .attr("dy", "-0.5em") 
+            .attr("text-anchor", "end") 
+            .style("fill", "red") 
+            .style("font-size", "14px") 
+            .style("font-family", "Montserrat")
+            .style("font-weight", 700)
+            .text(`${average.toFixed(2)} %`); 
+    
+        
+
         
         
     })
