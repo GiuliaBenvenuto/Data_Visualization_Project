@@ -203,6 +203,30 @@
             Availability of computers in households
         </h2>
     </div>
+
+    <!--
+    <div class="dropdown">
+        <button class="dropbtn">Select Countries</button>
+        <div class="dropdown-content">
+            <label><input type="checkbox" name="country" value="USA"> USA</label>
+            <label><input type="checkbox" name="country" value="Canada"> Canada</label>
+            <label><input type="checkbox" name="country" value="UK"> UK</label>
+            <!-- Add more countries as needed 
+        </div>
+    </div> -->
+    <div class="p-2 rounded-lg text-center mt-4">
+        <div class="relative inline-block">
+            <select id="topNSelector" class="block appearance-none w-24 bg-white border border-gray-400 hover:border-gray-500 px-2 py-1 pr-6 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                <option value="5" selected>Top 5</option>
+                <option value="10">Top 10</option>
+                <option value="15">Top 15</option>
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 text-gray-700">
+                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9 11l-5-5 1.41-1.41L9 8.17l3.59-3.59L14 6l-5 5z"/></svg>
+            </div>
+        </div>
+      </div>
+
     <div class="flex justify-center items-center ">
         <div id="my_linechart"  style="margin-top: 10px; border:1px solid black; width: 1000px; height: 500px;">
             <script type="module" src="./js/linechart.js"></script>
