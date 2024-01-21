@@ -1,7 +1,12 @@
 export function updateBarchart(year) {
 
+    // Year basing on which i want to update the barchart
     let yearColumn = year;
+    console.log("Year: " + yearColumn);
 
+    // Select the chart container and clear its content
+    var chartContainer = d3.select("#my_barchart");
+    chartContainer.selectAll("*").remove();
 
     var margin = {top: 30, right: 60, bottom: 110, left: 60},
         width = 1200 - margin.left - margin.right,
@@ -21,7 +26,8 @@ export function updateBarchart(year) {
     // d3.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRH4eOpVXSGv8yQFKn3wm5a6yZX8H1uafXM0VjCDKiObj--4cGOnayvqd3aO25kB2DPHZklTK8Gtl2t/pub?gid=1229357561&single=true&output=csv", function(data) {
     d3.csv('./csv/barchart_processed.csv', function(data) {
 
-        console.log("Col"+yearColumn);
+        console.log("Col" + yearColumn);
+
         // X axis
         var x = d3.scaleBand()
             .range([ 0, width ])
@@ -95,11 +101,11 @@ export function updateBarchart(year) {
             .append("rect")
             .attr("x", function(d) { return x(d.geo); })
             // .attr("y", function(d) { return y(0); })
-            .attr("y", function(d) { return y(+d['2012']); })
+            .attr("y", function(d) { return y(+d[yearColumn]); })
             .attr("width", x.bandwidth())
             // .attr("height", function(d) { return height - y(0); })
-            .attr("height", function(d) { return height - y(+d['2012']); })
-            .attr("fill", function(d) { return colorScale(+d['2012']); })
+            .attr("height", function(d) { return height - y(+d[yearColumn]); })
+            .attr("fill", function(d) { return colorScale(+d[yearColumn]); })
             .on("mouseover", function(d) {
                 tooltip.transition()
                 .duration(100)
