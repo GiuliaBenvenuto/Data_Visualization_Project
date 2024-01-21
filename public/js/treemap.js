@@ -108,14 +108,14 @@ d3.csv('./csv/treemap_processed.csv', function(data) {
             )
            .style("left", (d3.event.pageX) + "px")     
            .style("top", (d3.event.pageY - 28) + "px");    
-	})   
+	    })   
 
-    // fade out tooltip on mouse out               
-    .on("mouseout", function(d) {       
-        tooltip.transition()        
-           .duration(100)      
-           .style("opacity", 0);   
-    });
+      // fade out tooltip on mouse out               
+      .on("mouseout", function(d) {       
+          tooltip.transition()        
+            .duration(100)      
+            .style("opacity", 0);   
+      });
 
 
       // Function to split text into chunks of two words

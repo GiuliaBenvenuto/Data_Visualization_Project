@@ -47,7 +47,7 @@ export function updateBarchart(year) {
         // Initialize max value
         let maxValue = Number.MIN_SAFE_INTEGER;
 
-        // Process each row
+        // Find the largest value in the dataset
         data.forEach(function(row) {
             // Check each year's column
             for (let year = 2012; year <= 2023; year++) {
@@ -59,8 +59,6 @@ export function updateBarchart(year) {
             }
         });
 
-        // Log or use the max value as needed
-        console.log(`The maximum value from 2012 to 2023 is: ${maxValue}`);
 
         // Add Y axis
         var y = d3.scaleLinear()
@@ -86,13 +84,23 @@ export function updateBarchart(year) {
             .attr("shape-rendering", "crispEdges");
         
         
-
+        // Color scale
         var colorScale = d3.scaleLinear();
             colorScale.domain([0, maxValue])
-            colorScale.range(['#bbf7d0', '#15803d'])
+            colorScale.range(['#B7E0F8','#3D5A80'])
 
-        // Define the div for the tooltip (show value in a small div on mouse hover)
-        // var tooltip = addTooltip(d3.select('body'));
+        // Tooltip
+        var tooltip = d3.select('body')
+            .append("div")
+            .style("position", "absolute")
+            .style("background", "#f0f0f0") // Use a light grey color for the background
+            .style("padding", "10px")
+            .style("border", "1px solid #ccc") // Use a darker grey for the border
+            .style("border-radius", "8px")
+            .style("pointer-events", "none")
+            .style("opacity", 0)
+            .style("font", "15px Montserrat")
+            .style("color", "#333");
 
         // Bars
         svg.selectAll("mybar")
@@ -106,31 +114,30 @@ export function updateBarchart(year) {
             // .attr("height", function(d) { return height - y(0); })
             .attr("height", function(d) { return height - y(+d[yearColumn]); })
             .attr("fill", function(d) { return colorScale(+d[yearColumn]); })
-            .on("mouseover", function(d) {
-                tooltip.transition()
-                .duration(100)
-                .style("opacity", 0.9);
-                tooltip.html("<strong>Value:</strong> " + d.value)
-                .style("left", (d3.event.pageX + 10) + "px")
-                .style("top", (d3.event.pageY - 28) + "px");
-            })
-            .on("mouseout", function(d) {
-                tooltip.transition()
-                .duration(200)
-                .style("opacity", 0);
+            .on("mouseover", function(d) {      
+                tooltip.transition()        
+                .duration(100)      
+                .style("opacity", .9); 
+                
+                tooltip.html(
+                    "<span style='color: #333;'> <strong>State: </strong> " + d.geo + "</span><br>" + 
+                    "<span style='color: #333;'> <strong>Percentage: </strong> " + d[yearColumn] + "% </span><br>" 
+                )
+                .style("left", (d3.event.pageX) + "px")     
+                .style("top", (d3.event.pageY - 28) + "px");    
+            })             
+            .on("mouseout", function(d) {       
+                tooltip.transition()        
+                .duration(100)      
+                .style("opacity", 0);   
             });
 
         // Add title
         // addTitle(svg, "Top-20 number of trees per state", "20px", "#14532d", width / 2, -10);
 
-        /* Animation
-        svg.selectAll("rect")
-            .transition()
-            .duration(400)
-            .attr("y", function(d) { return y(d.value); })
-            .attr("height", function(d) { return height - y(d.value); })
-            .delay(function(d,i){console.log(i) ; return(i*100)})
-        */
+        // Animation
+        
+        
     })
 }
 
