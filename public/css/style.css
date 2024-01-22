@@ -153,7 +153,7 @@ html {
 
 
 
-/* Dropdown country selection */
+/* Dropdown country selection 
 .dropdown {
     position: relative;
     display: inline-block;
@@ -193,4 +193,72 @@ html {
 
 .dropdown:hover .dropbtn {
     background-color: #3e8e41;
+}
+*/
+.dropdown {
+    display: block;
+    text-align: center; /* Aligns the button to the center */
+    width: 100%; /* Takes full width of the container */
+    
+}
+
+/* Style for the button */
+.dropbtn {
+    background-color: #5092b8;
+
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+
+    font-family: 'Montserrat';
+    font-size: medium;
+    font-weight: 600;
+}
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    left: 50%; /* Position it in the middle */
+    transform: translateX(-50%);
+
+    min-width: 160px;
+    max-height: 220px; /* Set a maximum height */
+    overflow-y: auto; /* Enable vertical scrolling */
+
+    border-radius: 10px;
+    border: 1px solid #ccc;
+
+    padding-top: 1.2vh;
+    padding-bottom: 1.2vh;
+
+    font-family: 'Montserrat';
+    font-size: medium;
+    font-weight: 600;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Style for the checkboxes */
+.dropdown-content label {
+    display: block;
+    padding: 5px;
+}
+
+/* Style for the checkbox inputs */
+.dropdown-content input[type="checkbox"] {
+    margin-right: 5px;
 }
