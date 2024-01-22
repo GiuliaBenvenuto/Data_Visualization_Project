@@ -217,16 +217,45 @@
     <div class="dropdown">
         <button class="dropbtn">Select Options</button>
         <div class="dropdown-content">
-            <label><input type="checkbox" name="AT" value="AT" checked>AT</label>
-            <label><input type="checkbox" name="BE" value="BE">BE</label>
-            <label><input type="checkbox" name="BG" value="BG">BG</label>
-            <label><input type="checkbox" name="CY" value="CY">CY</label>
-
-            <!-- Repeat for more checkboxes -->
+            <label><input type="checkbox" name="AT" value="AT" checked>Austria</label>
+            <label><input type="checkbox" name="BE" value="BE">Belgium</label>
+            <label><input type="checkbox" name="BG" value="BG">Bulgaria</label>
+            <label><input type="checkbox" name="CY" value="CY">Cyprus</label>
+            <label><input type="checkbox" name="CZ" value="CZ">Czechia</label>
+            <label><input type="checkbox" name="DE" value="DE">Germany</label>
+            <label><input type="checkbox" name="DK" value="DK">Denmark</label>
+            <label><input type="checkbox" name="EE" value="EE">Estonia</label>
+            <label><input type="checkbox" name="EL" value="EL">Greece</label>
+            <label><input type="checkbox" name="ES" value="ES">Spain</label>
+            <label><input type="checkbox" name="EU28" value="EU28">European Union</label>
+            <label><input type="checkbox" name="FI" value="FI">Finland</label>
+            <label><input type="checkbox" name="FR" value="FR">France</label>
+            <label><input type="checkbox" name="HR" value="HR">Croatia</label>
+            <label><input type="checkbox" name="HU" value="HU">Hungary</label>
+            <label><input type="checkbox" name="IE" value="IE">Ireland</label>
+            <label><input type="checkbox" name="IS" value="IS">Iceland</label>
+            <label><input type="checkbox" name="IT" value="IT">Italy</label>
+            <label><input type="checkbox" name="LT" value="LT">Lithuania</label>
+            <label><input type="checkbox" name="LU" value="LU">Luxembourg</label>
+            <label><input type="checkbox" name="LV" value="LV">Latvia</label>
+            <label><input type="checkbox" name="MK" value="MK">North Macedonia</label>
+            <label><input type="checkbox" name="MT" value="MT">Malta</label>
+            <label><input type="checkbox" name="NL" value="NL">Netherlands</label>
+            <label><input type="checkbox" name="NO" value="NO">Norway</label>
+            <label><input type="checkbox" name="PL" value="PL">Poland</label>
+            <label><input type="checkbox" name="PT" value="PT">Portugal</label>
+            <label><input type="checkbox" name="RO" value="RO">Romania</label>
+            <label><input type="checkbox" name="RS" value="RS">Serbia</label>
+            <label><input type="checkbox" name="SE" value="SE">Sweden</label>
+            <label><input type="checkbox" name="SI" value="SI">Slovenia</label>
+            <label><input type="checkbox" name="SK" value="SK">Slovakia</label>
+            <label><input type="checkbox" name="TR" value="TR">Türkiye</label>
+            <label><input type="checkbox" name="UK" value="UK">United Kingdom</label>
         </div>
     </div>
+
     <script type="module">
-        import { updateLinechart } from './js/prova.js';
+        import { updateLinechart } from './js/linechart.js';
 
         document.addEventListener('DOMContentLoaded', function() {
             // Initialize an array to store the values of checked checkboxes
@@ -266,8 +295,8 @@
     
 
     <div class="flex justify-center items-center ">
-        <div id="my_linechart"  style="margin-top: 10px; border:1px solid black; width: 1000px; height: 500px;">
-            <script type="module" src="./js/prova.js"></script>
+        <div id="my_linechart"  style="margin-top: 10px; width: 1000px; height: 500px;">
+            <script type="module" src="./js/linechart.js"></script>
         </div>
     </div>
 
