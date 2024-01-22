@@ -217,7 +217,7 @@
     <div class="dropdown">
         <button class="dropbtn">Select Options</button>
         <div class="dropdown-content">
-            <label><input type="checkbox" name="AT" value="AT">AT</label>
+            <label><input type="checkbox" name="AT" value="AT" checked>AT</label>
             <label><input type="checkbox" name="BE" value="BE">BE</label>
             <label><input type="checkbox" name="BG" value="BG">BG</label>
             <label><input type="checkbox" name="CY" value="CY">CY</label>
@@ -225,10 +225,12 @@
             <!-- Repeat for more checkboxes -->
         </div>
     </div>
-    <script>
+    <script type="module">
+        import { updateLinechart } from './js/prova.js';
+
         document.addEventListener('DOMContentLoaded', function() {
             // Initialize an array to store the values of checked checkboxes
-            var checkedValues = [];
+            var checkedValues = ['AT'];
 
             // Function to update the array of checked values
             function updateCheckedValues() {
@@ -237,21 +239,35 @@
                 checkboxes.forEach(function(checkbox) {
                     checkedValues.push(checkbox.value);
                 });
-                console.log(checkedValues); // Log to console (or handle as needed)
+                // console.log(checkedValues); // Log to console (or handle as needed)
+
+                // Call the function to update the chart
+                var chartContainer = d3.select("#my_linechart");
+                chartContainer.selectAll("*").remove(); 
+
+                updateLinechart(checkedValues);
             }
 
             // Attach change event listeners to checkboxes
             var checkboxes = document.querySelectorAll('.dropdown-content input[type="checkbox"]');
             checkboxes.forEach(function(checkbox) {
+                // To clear everything but AT on reload of the page
+                if (checkbox.value !== 'AT') {
+                    checkbox.checked = false; // Uncheck all checkboxes except 'AT'
+                }
                 checkbox.addEventListener('change', updateCheckedValues);
             });
+
+            // Update checked values on initial load
+            updateCheckedValues();
+            
         });
     </script>
     
 
     <div class="flex justify-center items-center ">
         <div id="my_linechart"  style="margin-top: 10px; border:1px solid black; width: 1000px; height: 500px;">
-            <script type="module" src="./js/linechart.js"></script>
+            <script type="module" src="./js/prova.js"></script>
         </div>
     </div>
 
