@@ -45,7 +45,7 @@ export function updateBarchart(year) {
     
     // Year basing on which i want to update the barchart
     let yearColumn = year;
-    console.log("Year: " + yearColumn);
+    // console.log("Year: " + yearColumn);
 
     // Select the chart container and clear its content
     var chartContainer = d3.select("#my_barchart");
@@ -69,7 +69,7 @@ export function updateBarchart(year) {
     // d3.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRH4eOpVXSGv8yQFKn3wm5a6yZX8H1uafXM0VjCDKiObj--4cGOnayvqd3aO25kB2DPHZklTK8Gtl2t/pub?gid=1229357561&single=true&output=csv", function(data) {
     d3.csv('./csv/barchart_processed.csv', function(data) {
 
-        console.log("Col" + yearColumn);
+        // console.log("Col" + yearColumn);
 
         
         // X axis

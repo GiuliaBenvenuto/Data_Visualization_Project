@@ -24,7 +24,7 @@ d3.csv('./csv/linechart_processed.csv', function(data) {
         return year >= 2006 && year <= 2017;
     });
 
-    console.log("Colonne:" + yearColumns);
+    // console.log("Colonne:" + yearColumns);
 
     // X axis 
     var x = d3.scalePoint()
@@ -57,7 +57,7 @@ d3.csv('./csv/linechart_processed.csv', function(data) {
         });
     });
 
-    console.log("Maximum Value:", maxValue);
+    // console.log("Maximum Value:", maxValue);
 
     // Add Y axis
     var y = d3.scaleLinear()
@@ -72,13 +72,13 @@ d3.csv('./csv/linechart_processed.csv', function(data) {
 
     // Filter out the 'AT' row
     var atData = data.filter(function(d) { return d.geo === 'AT'; })[0];
-    console.log("AT Data:", atData);
+    // console.log("AT Data:", atData);
 
     // Process AT data for line chart
     var atDataProcessed = yearColumns.map(year => {
         return { date: year, value: +atData[year] };
     });
-    console.log("AT Data Processed:", atDataProcessed);
+    // console.log("AT Data Processed:", atDataProcessed);
 
     // Add the line
     svg.append("path")
