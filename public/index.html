@@ -217,7 +217,7 @@
     <div class="dropdown">
         <button class="dropbtn">Select Options</button>
         <div class="dropdown-content">
-            <!-- <button id="clearAll" class="mt-2 mb-2">Clear All</button> -->
+            <button id="clearAll" class="mt-2 mb-2">Clear All</button> 
 
             <label><input type="checkbox" name="AT" value="AT" checked>Austria</label>
             <label><input type="checkbox" name="BE" value="BE">Belgium</label>
@@ -288,7 +288,27 @@
                 }
                 checkbox.addEventListener('change', updateCheckedValues);
             });
-            
+
+            // Explicitly set the checkbox for Austria to checked 
+            // Done for the reload of the page
+            var checkboxAT = document.querySelector('.dropdown-content input[type="checkbox"][value="AT"]');
+            if (checkboxAT) {
+                checkboxAT.checked = true;
+            }
+
+            // Draw the chart for the initially checked value 'AT'
+            updateLinechart(checkedValues);
+
+            // Attach click event listener to the "Clear All" button
+            document.getElementById('clearAll').addEventListener('click', function() {
+                checkboxes.forEach(function(checkbox) {
+                    checkbox.checked = false; // Uncheck all checkboxes
+                });
+                updateCheckedValues(); // Update the chart with no selected countries
+            });
+
+            // Initially call updateCheckedValues to draw the chart with default values
+            updateCheckedValues();
             
         });
 
