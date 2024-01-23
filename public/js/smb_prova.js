@@ -6,15 +6,29 @@ const height = 450; // Adjust the height for side-by-side charts
 const margin = { top: 50, right: 10, bottom: 80, left: 90 };
   
   
-d3.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQWan1dg4-fZLQ-gM9V8AR6cBW1DumszVHmQOu51s4vWOuRdLUoB5TzdX_pgO_Kf_1dlsVoU9waEkO5/pub?output=csv", function(data) {
+// d3.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQWan1dg4-fZLQ-gM9V8AR6cBW1DumszVHmQOu51s4vWOuRdLUoB5TzdX_pgO_Kf_1dlsVoU9waEkO5/pub?output=csv", function(data) {
+d3.csv('./csv/smallmultiple_processed.csv', function(data) {
+    console.log("DATA SMALL MULTIPLE:", data);
 
+    // Filter data for 'geo' value 'AL'
+    const filteredData = data.filter(d => d.geo === 'AT');
+    console.log("FILTERED DATA:", filteredData);
 
-    const categories = data.columns.slice(1);
+    // Unique 'indic_is' values for the y-axis
+    const reasons = [ "I_IUG_DKPC", "I_IUG_LPC", "I_IUG_MP", "I_IUG_OTH1", "I_IUG_TPC", "I_IUG_TV" ];
+    //const indicIsValues = [...new Set(filteredData.map(d => d.indic_is))];
+    //console.log("INDIC_IS VALUES:", indicIsValues);
+    console.log("REASONS:", reasons);
+
+    // Define years as categories
+    const categories = ['2016 ', '2018 ', '2021 ', '2023 '];
+    console.log("CATEGORIES:", categories);
+
     // Find the maximum value across all categories
-    
-    const maxCategoryValue = d3.max(data, d => {
-      return d3.max(categories, category => +d[category]);
+    const maxCategoryValue = d3.max(filteredData, d => {
+        return d3.max(categories, category => +d[category]);
     });
+    console.log("MAX CATEGORY VALUE:", maxCategoryValue);
 
     // Normalize the maximum value to 100
     const normalizedMax = 100;  
@@ -30,7 +44,12 @@ d3.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQWan1dg4-fZLQ-gM9V8AR6c
           .attr("transform", `translate(${margin.left},${margin.top})`);
 
         // Filter the data for the current category
-        const categoryData = data.map(d => ({ city: d.city, value: +d[category] }));
+        // Map data for the current category
+        const categoryData = reasons.map(indicIs => {
+            const value = filteredData.find(d => d.indic_is === indicIs)[category];
+            return { indic_is: indicIs, value: +value };
+        });
+        console.log("CATEGORY DATA inside:", categoryData);
 
         // Scales
         const xScale = d3.scaleLinear()
@@ -38,9 +57,10 @@ d3.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQWan1dg4-fZLQ-gM9V8AR6c
           .range([0, width - margin.left - margin.right]);
 
         const yScale = d3.scaleBand()
-            .domain(categoryData.map(d => d.city))
-            .range([0, height - margin.top - margin.bottom])
-            .padding(0.1);
+          .domain(categoryData.map(d => d.indic_is))
+          .range([0, height - margin.top - margin.bottom])
+          .padding(0.1);
+      
 
        //add grid
        /*
@@ -71,30 +91,27 @@ d3.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQWan1dg4-fZLQ-gM9V8AR6c
         // Draw bars for each category
         // Draw bars for the current category
         svg.selectAll("rect")
-            .data(categoryData)
-            .enter()
-            .append("rect")
-            .attr("x", 0)
-            .attr("y", d => yScale(d.city))
-            //.attr("width", d => xScale(d.value))
-            .attr("width", d => xScale(normalizeValue(d.value)))
-            .attr("height", yScale.bandwidth())
-            //.attr("fill", "steelblue")
-            .attr("fill", d => colorScale(category))
-            .on("mouseover", function(d) {
-                tooltip.transition()
-                  .duration(100)
-                  .style("opacity", 0.9);
-                  tooltip.html(`<strong>Category:</strong> ${category}<br><strong>City:</strong> ${d.city}<br><strong>Value:</strong> ${d.value}`)
-                  .style("visibility", "visible")
-                  .style("left", (d3.event.pageX + 10) + "px")
-                  .style("top", (d3.event.pageY - 30) + "px");
-              })
-              .on("mouseout", function(d) {
-                tooltip.transition()
-                  .duration(200)
-                  .style("opacity", 0);
-              })
+        .data(categoryData)
+        .enter()
+        .append("rect")
+        .attr("y", d => yScale(d.indic_is)) // Check yScale mapping
+        .attr("width", d => xScale(normalizeValue(d.value))) // Check xScale and normalization
+        .attr("height", yScale.bandwidth()) // Ensure the height is set
+        .attr("fill", d => colorScale(category)) // Check colorScale mapping
+        .on("mouseover", function(d) {
+            tooltip.transition()
+                .duration(100)
+                .style("opacity", 0.9);
+            tooltip.html(`<strong>Category:</strong> ${category}<br><strong>Indic_is:</strong> ${d.indic_is}<br><strong>Value:</strong> ${d.value}`) // Corrected to indic_is
+                .style("visibility", "visible")
+                .style("left", (d3.event.pageX + 10) + "px")
+                .style("top", (d3.event.pageY - 30) + "px");
+        })
+        .on("mouseout", function(d) {
+            tooltip.transition()
+                .duration(200)
+                .style("opacity", 0);
+        });
 
         // X-axis
         svg.append("g")
@@ -127,4 +144,6 @@ d3.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQWan1dg4-fZLQ-gM9V8AR6c
             .text(category);
         
     });
+
+    
 });

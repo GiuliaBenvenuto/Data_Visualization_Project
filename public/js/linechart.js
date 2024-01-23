@@ -183,7 +183,7 @@ export function updateLinechart(checkedValues) {
 
         // Function to add a dots to the chart
         function addDotsToChart(processedData, country) {
-            console.log("Processed Data:", processedData);
+            // console.log("Processed Data:", processedData);
             svg.append("g")
             .selectAll("dot")
             .data(processedData)
