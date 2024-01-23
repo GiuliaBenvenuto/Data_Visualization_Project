@@ -1,9 +1,20 @@
 // SMALL MULTIPLES BAR CHART
 import { createXGrid, addTooltip } from "./utils.js";
+
+
+const usedDeviceMapping = {
+    "I_IUG_DKPC": "Desktop computer",
+    "I_IUG_LPC": "Laptop computer",
+    "I_IUG_MP": "Mobile phone",
+    "I_IUG_OTH1": "Other",
+    "I_IUG_TPC": "Tablet",
+    "I_IUG_TV": "Smart TV",
+}
+
 // Chart dimensions
-const width = 345; // Adjust the width for side-by-side charts
-const height = 450; // Adjust the height for side-by-side charts
-const margin = { top: 50, right: 10, bottom: 80, left: 90 };
+const width = 350; // Adjust the width for side-by-side charts
+const height = 350; // Adjust the height for side-by-side charts
+const margin = { top: 50, right: 0, bottom: 0, left: 150 };
   
   
 // d3.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQWan1dg4-fZLQ-gM9V8AR6cBW1DumszVHmQOu51s4vWOuRdLUoB5TzdX_pgO_Kf_1dlsVoU9waEkO5/pub?output=csv", function(data) {
@@ -15,10 +26,10 @@ d3.csv('./csv/smallmultiple_processed.csv', function(data) {
     console.log("FILTERED DATA:", filteredData);
 
     // Unique 'indic_is' values for the y-axis
-    const reasons = [ "I_IUG_DKPC", "I_IUG_LPC", "I_IUG_MP", "I_IUG_OTH1", "I_IUG_TPC", "I_IUG_TV" ];
-    //const indicIsValues = [...new Set(filteredData.map(d => d.indic_is))];
-    //console.log("INDIC_IS VALUES:", indicIsValues);
-    console.log("REASONS:", reasons);
+    // const usedDevice = [...new Set(filteredData.map(d => d.indic_is))];
+    // not dynamic: 
+    const usedDevice = [ "I_IUG_DKPC", "I_IUG_LPC", "I_IUG_MP", "I_IUG_OTH1", "I_IUG_TPC", "I_IUG_TV" ];
+    console.log("REASONS:", usedDevice);
 
     // Define years as categories
     const categories = ['2016 ', '2018 ', '2021 ', '2023 '];
@@ -45,9 +56,9 @@ d3.csv('./csv/smallmultiple_processed.csv', function(data) {
 
         // Filter the data for the current category
         // Map data for the current category
-        const categoryData = reasons.map(indicIs => {
+        const categoryData = usedDevice.map(indicIs => {
             const value = filteredData.find(d => d.indic_is === indicIs)[category];
-            return { indic_is: indicIs, value: +value };
+            return { indic_is: usedDeviceMapping[indicIs] || indicIs, value: +value };
         });
         console.log("CATEGORY DATA inside:", categoryData);
 
@@ -60,6 +71,8 @@ d3.csv('./csv/smallmultiple_processed.csv', function(data) {
           .domain(categoryData.map(d => d.indic_is))
           .range([0, height - margin.top - margin.bottom])
           .padding(0.1);
+
+          
       
 
        //add grid
@@ -91,27 +104,27 @@ d3.csv('./csv/smallmultiple_processed.csv', function(data) {
         // Draw bars for each category
         // Draw bars for the current category
         svg.selectAll("rect")
-        .data(categoryData)
-        .enter()
-        .append("rect")
-        .attr("y", d => yScale(d.indic_is)) // Check yScale mapping
-        .attr("width", d => xScale(normalizeValue(d.value))) // Check xScale and normalization
-        .attr("height", yScale.bandwidth()) // Ensure the height is set
-        .attr("fill", d => colorScale(category)) // Check colorScale mapping
-        .on("mouseover", function(d) {
-            tooltip.transition()
-                .duration(100)
-                .style("opacity", 0.9);
-            tooltip.html(`<strong>Category:</strong> ${category}<br><strong>Indic_is:</strong> ${d.indic_is}<br><strong>Value:</strong> ${d.value}`) // Corrected to indic_is
-                .style("visibility", "visible")
-                .style("left", (d3.event.pageX + 10) + "px")
-                .style("top", (d3.event.pageY - 30) + "px");
-        })
-        .on("mouseout", function(d) {
-            tooltip.transition()
-                .duration(200)
-                .style("opacity", 0);
-        });
+            .data(categoryData)
+            .enter()
+            .append("rect")
+            .attr("y", d => yScale(d.indic_is)) // Check yScale mapping
+            .attr("width", d => xScale(normalizeValue(d.value))) // Check xScale and normalization
+            .attr("height", yScale.bandwidth()) // Ensure the height is set
+            .attr("fill", d => colorScale(category)) // Check colorScale mapping
+            .on("mouseover", function(d) {
+                tooltip.transition()
+                    .duration(100)
+                    .style("opacity", 0.9);
+                tooltip.html(`<strong>Category:</strong> ${category}<br><strong>Indic_is:</strong> ${d.indic_is}<br><strong>Value:</strong> ${d.value}`) // Corrected to indic_is
+                    .style("visibility", "visible")
+                    .style("left", (d3.event.pageX + 10) + "px")
+                    .style("top", (d3.event.pageY - 30) + "px");
+            })
+            .on("mouseout", function(d) {
+                tooltip.transition()
+                    .duration(200)
+                    .style("opacity", 0);
+            });
 
         // X-axis
         svg.append("g")
@@ -120,13 +133,13 @@ d3.csv('./csv/smallmultiple_processed.csv', function(data) {
             // .call(d3.axisBottom(xScale))
             .selectAll("text")
             // .attr("transform", "translate(-5, 10)rotate(-45)")
-            .style("font", "12px Fira Sans")
+            .style("font", "15px Montserrat")
             .style("text-anchor", "end");
 
             if (index === 0) {
                 svg.append("g")
                     .attr("class", "y-axis")
-                    .style("font", "12px Fira Sans")
+                    .style("font", "15px Montserrat")
                     .call(d3.axisLeft(yScale));
             } else {
                 svg.append("g")
@@ -139,7 +152,8 @@ d3.csv('./csv/smallmultiple_processed.csv', function(data) {
             .attr("x", 140)
             .attr("y", -20) // Position above the chart
             .style("text-anchor", "middle")
-            .style("font-size", "20px")
+            .style("font", "25px Montserrat")
+            .style("weight", "bold")
             .style("fill", "#14532d")
             .text(category);
         
