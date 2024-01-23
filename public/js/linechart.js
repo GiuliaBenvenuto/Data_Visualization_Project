@@ -4,8 +4,8 @@ export function updateLinechart(checkedValues) {
         'AL': {'name': 'Albania', 'color': '#FF6347'},
         'AT': {'name': 'Austria', 'color': '#4682B4'},
         'BE': {'name': 'Belgium', 'color': '#32CD32'},
-        'BG': {'name': 'Bulgaria', 'color': '#FFD700'},
-        'CY': {'name': 'Cyprus', 'color': '#6A5ACD'},
+        'BG': {'name': 'Bulgaria', 'color': '#ffc107'},
+        'CY': {'name': 'Cyprus', 'color': '#DC143C'},
         'CZ': {'name': 'Czechia', 'color': '#FF69B4'},
         'DE': {'name': 'Germany', 'color': '#8B4513'},
         'DK': {'name': 'Denmark', 'color': '#9ACD32'},
@@ -14,7 +14,7 @@ export function updateLinechart(checkedValues) {
         'ES': {'name': 'Spain', 'color': '#FF8C00'},
         'EU28': {'name': 'European Union', 'color': '#2E8B57'},
         'FI': {'name': 'Finland', 'color': '#C71585'},
-        'FR': {'name': 'France', 'color': '#DC143C'},
+        'FR': {'name': 'France', 'color': '#6A5ACD'},
         'HR': {'name': 'Croatia', 'color': '#008B8B'},
         'HU': {'name': 'Hungary', 'color': '#BDB76B'},
         'IE': {'name': 'Ireland', 'color': '#556B2F'},
@@ -45,8 +45,8 @@ export function updateLinechart(checkedValues) {
     // console.log("Checked Countries: " + countries);
 
     // set the dimensions and margins of the graph
-    var margin = {top: 80, right: 80, bottom: 80, left: 80},
-        width = 1000 - margin.left - margin.right,
+    var margin = {top: 80, right: 400, bottom: 80, left: 400},
+        width = 1600 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
     // append the svg object to the body of the page
@@ -56,6 +56,13 @@ export function updateLinechart(checkedValues) {
         .attr("height", height + margin.top + margin.bottom)
     .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    // Legend
+    // Create a legend container
+    var legend = svg.append("g")
+        .attr("class", "legend")
+        .attr("transform", "translate(" + (width + 20) + ", 20)"); // Adjust the translation as needed
+
 
 
     d3.csv('./csv/linechart_processed.csv', function(data) {
@@ -148,19 +155,6 @@ export function updateLinechart(checkedValues) {
         }
         
 
-        /* Function to add a line to the chart
-        function addLineToChart(processedData, country) {
-            // console.log("Processed Data:", processedData);
-            svg.append("path")
-                .datum(processedData)
-                .attr("fill", "none")
-                .attr("stroke", countryMapping[country]["color"])
-                .attr("stroke-width", 1.5)
-                .attr("d", d3.line()
-                    .x(function(d) { return x(d.date); })
-                    .y(function(d) { return y(d.value); })
-                );
-        } */
         function addLineToChart(processedData, country) {
             // Custom line generator
             var lineGenerator = d3.line()
@@ -221,6 +215,40 @@ export function updateLinechart(checkedValues) {
             });
         }
 
+        // Function to update the legend based on the selected years
+        function updateLegend(allCountriesData) {
+            // Remove existing legend items
+            legend.selectAll("*").remove();
+        
+            // Add a colored square and text for each country in allCountriesData
+            var legendItems = legend.selectAll(".legend-item")
+                .data(allCountriesData)
+                .enter().append("g")
+                .attr("class", "legend-item")
+                .attr("transform", function(d, i) {
+                    return "translate(0, " + (i * 20) + ")";
+                });
+        
+            legendItems.append("rect")
+                .attr("width", 15)
+                .attr("height", 15)
+                .style("fill", function(d) { return countryMapping[d.country]["color"]; }) // Use color from the data
+                .style("stroke", "#293241") // Add black border
+                .style("stroke-width", 1);
+                
+            legendItems.append("text")
+                .attr("x", 20)
+                .attr("y", 10)
+                .attr("dy", ".35em")
+                .style("text-anchor", "start")
+                .style("color", "#293241")
+                .style("font", "15px Montserrat")
+                .text(function(d) { return countryMapping[d.country]["name"]; }); // Use country name from the data
+        }
+        
+
+        var allCountriesData = [];
+
         // Iterate over each country and add a line for each
         countries.forEach(function(country, index) {
             var countryDataProcessed = processDataForCountry(country);
@@ -231,7 +259,13 @@ export function updateLinechart(checkedValues) {
 
             addLineToChart(countryDataProcessed, country);
             addDotsToChart(countryDataProcessed, country);
+
+            // Add the processed data to the allCountriesData array
+            allCountriesData.push({ country: country, data: countryDataProcessed });
+            
         });
+        updateLegend(allCountriesData);
+        
             
         // Add horizontal grid lines
         svg.append("g")
