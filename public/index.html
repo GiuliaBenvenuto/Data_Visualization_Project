@@ -214,8 +214,8 @@
             <!-- Add more countries as needed 
         </div>
     </div> -->
-    <div class="dropdown">
-        <button class="dropbtn">Select Options</button>
+    <div class="dropdown" id="dropdown_linechart">
+        <button class="dropbtn">Select State</button>
         <div class="dropdown-content">
             <button id="clearAll" class="mt-2 mb-2">Clear All</button> 
 
@@ -258,29 +258,31 @@
 
     <script type="module">
         import { updateLinechart } from './js/linechart.js';
-
+    
         document.addEventListener('DOMContentLoaded', function() {
+            // Get the specific dropdown by its ID
+            var linechartDropdown = document.getElementById('dropdown_linechart');
+    
             // Initialize an array to store the values of checked checkboxes
             var checkedValues = ['AT'];
-
+    
             // Function to update the array of checked values
             function updateCheckedValues() {
                 checkedValues = []; // Reset the array
-                var checkboxes = document.querySelectorAll('.dropdown-content input[type="checkbox"]:checked');
+                var checkboxes = linechartDropdown.querySelectorAll('.dropdown-content input[type="checkbox"]:checked');
                 checkboxes.forEach(function(checkbox) {
                     checkedValues.push(checkbox.value);
                 });
-                // console.log(checkedValues); // Log to console (or handle as needed)
-
+    
                 // Call the function to update the chart
                 var chartContainer = d3.select("#my_linechart");
                 chartContainer.selectAll("*").remove(); 
-
+    
                 updateLinechart(checkedValues);
             }
-
-            // Attach change event listeners to checkboxes
-            var checkboxes = document.querySelectorAll('.dropdown-content input[type="checkbox"]');
+    
+            // Attach change event listeners to checkboxes within the specific dropdown
+            var checkboxes = linechartDropdown.querySelectorAll('.dropdown-content input[type="checkbox"]');
             checkboxes.forEach(function(checkbox) {
                 // To clear everything but AT on reload of the page
                 if (checkbox.value !== 'AT') {
@@ -288,33 +290,31 @@
                 }
                 checkbox.addEventListener('change', updateCheckedValues);
             });
-
+    
             // Explicitly set the checkbox for Austria to checked 
             // Done for the reload of the page
-            var checkboxAT = document.querySelector('.dropdown-content input[type="checkbox"][value="AT"]');
+            var checkboxAT = linechartDropdown.querySelector('.dropdown-content input[type="checkbox"][value="AT"]');
             if (checkboxAT) {
                 checkboxAT.checked = true;
             }
-
+    
             // Draw the chart for the initially checked value 'AT'
             updateLinechart(checkedValues);
-
-            // Attach click event listener to the "Clear All" button
-            document.getElementById('clearAll').addEventListener('click', function() {
+    
+            // Attach click event listener to the "Clear All" button within the specific dropdown
+            linechartDropdown.querySelector('#clearAll').addEventListener('click', function() {
                 checkboxes.forEach(function(checkbox) {
                     checkbox.checked = false; // Uncheck all checkboxes
                 });
                 updateCheckedValues(); // Update the chart with no selected countries
             });
-
+    
             // Initially call updateCheckedValues to draw the chart with default values
             updateCheckedValues();
             
         });
-
-        
-
     </script>
+    
     
 
     <div class="flex justify-center items-center ">
@@ -322,6 +322,7 @@
             <script type="module" src="./js/linechart.js"></script>
         </div>
     </div>
+
 
     <!-- Treemap -->
     <div class="mt-20 md:mt-20"> <!-- Adjust the margin-top (mt) values as needed -->
@@ -394,17 +395,116 @@
         </div> 
     </div>
 
+    
     <!-- Small multiple barchart -->
-    <h1 class="text-center">SMALL MULTIPLE</h1>
-    <div class="flex justify-center items-center ">
-        <div id="my_multiple_barchart"  style="margin-top: 50px; border:1px solid black; width: 1600px; height: 400px;">
+    <div class="dropdown" id="dropdown_small_multiple">
+        <button class="dropbtn">Select State</button>
+        <div class="dropdown-content">    
+            <label><input type="radio" name="state" value="AT" checked>Austria</label>
+            <label><input type="radio" name="state" value="BE">Belgium</label>
+            <label><input type="radio" name="state" value="BG">Bulgaria</label>
+            <label><input type="radio" name="state" value="CY">Cyprus</label>
+            <label><input type="radio" name="state" value="CZ">Czechia</label>
+            <label><input type="radio" name="state" value="DE">Germany</label>
+            <label><input type="radio" name="state" value="DK">Denmark</label>
+            <label><input type="radio" name="state" value="EE">Estonia</label>
+            <label><input type="radio" name="state" value="EL">Greece</label>
+            <label><input type="radio" name="state" value="ES">Spain</label>
+            <label><input type="radio" name="state" value="EU28">European Union</label>
+            <label><input type="radio" name="state" value="FI">Finland</label>
+            <label><input type="radio" name="state" value="FR">France</label>
+            <label><input type="radio" name="state" value="HR">Croatia</label>
+            <label><input type="radio" name="state" value="HU">Hungary</label>
+            <label><input type="radio" name="state" value="IE">Ireland</label>
+            <label><input type="radio" name="state" value="IS">Iceland</label>
+            <label><input type="radio" name="state" value="IT">Italy</label>
+            <label><input type="radio" name="state" value="LT">Lithuania</label>
+            <label><input type="radio" name="state" value="LU">Luxembourg</label>
+            <label><input type="radio" name="state" value="LV">Latvia</label>
+            <label><input type="radio" name="state" value="MK">North Macedonia</label>
+            <label><input type="radio" name="state" value="MT">Malta</label>
+            <label><input type="radio" name="state" value="NL">Netherlands</label>
+            <label><input type="radio" name="state" value="NO">Norway</label>
+            <label><input type="radio" name="state" value="PL">Poland</label>
+            <label><input type="radio" name="state" value="PT">Portugal</label>
+            <label><input type="radio" name="state" value="RO">Romania</label>
+            <label><input type="radio" name="state" value="RS">Serbia</label>
+            <label><input type="radio" name="state" value="SE">Sweden</label>
+            <label><input type="radio" name="state" value="SI">Slovenia</label>
+            <label><input type="radio" name="state" value="SK">Slovakia</label>
+            <label><input type="radio" name="state" value="TR">Türkiye</label>
+            <label><input type="radio" name="state" value="UK">United Kingdom</label>
+
+        </div>
+    </div>
+    
+
+    <!-- TODO: change this such that only one choice is possible at a time -->
+    <script type="module">
+        import { updateSmallMultiple } from './js/smb_prova.js';
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the specific dropdown by its ID
+            var smallMultipleDropdown = document.getElementById('dropdown_small_multiple');
+        
+            // Initialize a variable to store the value of the checked radio button
+            var checkedValue_barchart = 'AT';
+    
+            // Function to update the value of the checked radio button
+            function updateCheckedValue_barchart() {
+                var checkedRadio = smallMultipleDropdown.querySelector('.dropdown-content input[type="radio"]:checked');
+                if (checkedRadio) {
+                    checkedValue_barchart = checkedRadio.value;
+                }
+        
+                // Call the function to update the chart
+                var chartContainer = d3.select("#my_multiple_barchart");
+                chartContainer.selectAll("*").remove(); 
+        
+                updateSmallMultiple(checkedValue_barchart);
+            }
+    
+            // Attach change event listeners to radio buttons within the specific dropdown
+            var radioButtons = smallMultipleDropdown.querySelectorAll('.dropdown-content input[type="radio"]');
+            radioButtons.forEach(function(radioButton) {
+                radioButton.addEventListener('change', updateCheckedValue_barchart);
+            });
+    
+            // Explicitly set the radio button for Austria to checked
+            // Done for the reload of the page
+            var radioAT = smallMultipleDropdown.querySelector('.dropdown-content input[type="radio"][value="AT"]');
+            if (radioAT) {
+                radioAT.checked = true;
+            }
+    
+            // Draw the chart for the initially checked value 'AT'
+            updateSmallMultiple(checkedValue_barchart);
+    
+        });
+    </script>
+    
+    
+
+    <div class="flex-container">
+        <div id="labels_div" style="margin-top: 50px; width: 200px; height: 350px;">
+            <ul style="list-style: none; padding: 0; margin: 0; width: 100%; height: 100%;">
+                <li style="text-align: right; margin-bottom: 25px; margin-top: 65px; margin-right: 8px;">Desktop computer</li>
+                <li style="text-align: right; margin-bottom: 25px; margin-right: 8px;">Laptop computer</li>
+                <li style="text-align: right; margin-bottom: 25px; margin-right: 8px;">Mobile phone</li>
+                <li style="text-align: right; margin-bottom: 25px; margin-right: 8px;">Other</li>
+                <li style="text-align: right; margin-bottom: 25px; margin-right: 8px;">Tablet</li>
+                <li style="text-align: right; margin-right: 8px;">Smart TV</li>
+            </ul>
+        </div>
+        <div id="my_multiple_barchart" style="margin-top: 50px; width: 1400px; height: 350px;">
             <script type="module" src="./js/smb_prova.js"></script>
         </div>
     </div>
 
+
     <!-- Ridgeline -->
     <div class="flex justify-center items-center ">
-        <div id="my_ridgeline"  style="margin-top: 50px; border:1px solid black; width: 500px; height: 500px;">
+        <div id="my_ridgeline"  style="margin-top: 80px; border:1px solid black; width: 500px; height: 500px;">
             <script type="module" src="./js/ridgeline.js"></script>
         </div>
     </div>
