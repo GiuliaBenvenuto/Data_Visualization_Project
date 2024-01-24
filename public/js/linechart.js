@@ -46,8 +46,8 @@ export function updateLinechart(checkedValues) {
 
     // set the dimensions and margins of the graph
     var margin = {top: 80, right: 400, bottom: 80, left: 400},
-        width = 1600 - margin.left - margin.right,
-        height = 500 - margin.top - margin.bottom;
+        width = 1800 - margin.left - margin.right,
+        height = 600 - margin.top - margin.bottom;
 
     // append the svg object to the body of the page
     var svg = d3.select("#my_linechart")
@@ -165,9 +165,10 @@ export function updateLinechart(checkedValues) {
             // Draw the line for defined areas
             svg.append("path")
                 .datum(processedData)
+                .attr("class", "chart-line")
                 .attr("fill", "none")
                 .attr("stroke", countryMapping[country]["color"])
-                .attr("stroke-width", 1.5)
+                .attr("stroke-width", 2)
                 .attr("d", lineGenerator);
         
             // Draw a dotted line for undefined areas
@@ -186,16 +187,24 @@ export function updateLinechart(checkedValues) {
             // console.log("Processed Data:", processedData);
             svg.append("g")
             .selectAll("dot")
+            .attr("class", "chart-dot")
             .data(processedData)
             .enter()
             .append("circle")
                 .attr("cx", function(d) { return x(d.date) } )
                 .attr("cy", function(d) { return y(d.value) } )
-                .attr("r", 5)
+                .attr("r", 6)
                 .attr("fill", countryMapping[country]["color"])
                 .attr("stroke", "#fff")
 
             .on("mouseover", function (d) {
+                // Set all dots and lines to #333
+                d3.selectAll("path").attr("stroke", "#ccc");
+                d3.selectAll("circle").attr("fill", "#ccc");
+
+                // Highlight the current dot
+                d3.select(this).attr("fill", countryMapping[country]["color"]);
+
                 tooltip.transition()
                     .duration(100)
                     .style("opacity", 0.9);
@@ -205,10 +214,32 @@ export function updateLinechart(checkedValues) {
                         (d.value === 0 ? "Data not available" : d.value + "%") + "</span><br>"
                     )
                     
-                .style("left", (d3.event.pageX + 10) + "px")
-                .style("top", (d3.event.pageY - 28) + "px");
+                    .style("left", (d3.event.pageX > window.innerWidth / 2) ? (d3.event.pageX - 180) + "px" : (d3.event.pageX + 5) + "px")
+                    .style("top", (d3.event.pageY > window.innerHeight / 2) ? (d3.event.pageY - 80) + "px" : (d3.event.pageY + 5) + "px");
+
             })
             .on("mouseout", function (d) {
+                // d3.selectAll("path").attr("stroke", countryMapping[country]["color"]);
+                // d3.selectAll("circle").attr("fill", countryMapping[country]["color"]);
+                svg.selectAll(".chart-line").remove();
+                svg.selectAll(".chart-dot").remove();
+
+                countries.forEach(function(country, index) {
+                    var countryDataProcessed = processDataForCountry(country);
+                    // console.log("Country Data Processed:", countryDataProcessed);
+        
+                    // Assign a unique color for each line
+                    // var color = d3.schemeCategory10[index % 10]; // Change or expand this for more than 10 countries
+        
+                    addLineToChart(countryDataProcessed, country);
+                    addDotsToChart(countryDataProcessed, country);
+        
+                    // Add the processed data to the allCountriesData array
+                    allCountriesData.push({ country: country, data: countryDataProcessed });
+                    
+                });
+    
+
                 tooltip.transition()
                     .duration(200)
                     .style("opacity", 0);

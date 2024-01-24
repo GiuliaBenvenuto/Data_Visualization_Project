@@ -218,6 +218,8 @@ export function updateSmallMultiple(checkedValue) {
                     if (isNaN(d.value)) {
                         // Move the label to the right if the value is NaN
                         return xScale(0) + 5; // You can adjust the 10 to whatever number works best
+                    } else if (d.value < 15) {
+                        return xScale(normalizeValue(d.value)) + 5;
                     } else {
                         // Otherwise, position the label to the left inside the bar
                         return xScale(normalizeValue(d.value)) - 48;

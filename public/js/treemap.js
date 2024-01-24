@@ -106,8 +106,8 @@ d3.csv('./csv/treemap_processed.csv', function(data) {
                 "<span style='color: #333;'> <strong>Reason: </strong> " + customTextMapping[d.data.name] + "</span><br>" + 
                 "<span style='color: #333;'> <strong>Value: </strong> " + d.value + "</span><br>" 
             )
-           .style("left", (d3.event.pageX) + "px")     
-           .style("top", (d3.event.pageY - 28) + "px");    
+            .style("left", (d3.event.pageX > window.innerWidth / 2) ? (d3.event.pageX - 180) + "px" : (d3.event.pageX + 5) + "px")
+            .style("top", (d3.event.pageY > window.innerHeight / 2) ? (d3.event.pageY - 80) + "px" : (d3.event.pageY + 5) + "px");    
 	    })   
 
       // fade out tooltip on mouse out               

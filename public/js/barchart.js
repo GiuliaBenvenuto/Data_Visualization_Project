@@ -53,7 +53,7 @@ export function updateBarchart(year) {
 
     var margin = {top: 30, right: 60, bottom: 150, left: 60},
         width = 1300 - margin.left - margin.right,
-        height = 500 - margin.top - margin.bottom;
+        height = 600 - margin.top - margin.bottom;
 
     // append the svg object to the body of the page
     var svg = d3.select("#my_barchart")
@@ -152,17 +152,29 @@ export function updateBarchart(year) {
             .style("font", "15px Montserrat")
             .style("color", "#333");
 
+
         // Bars
-        svg.selectAll("mybar")
+        svg.selectAll(".bar")
             .data(data)
             .enter()
             .append("rect")
+            .attr("class", "bar")
             .attr("x", function(d) { return x(countryMapping[d.geo]); })
             .attr("y", function(d) { return y(+d[yearColumn]); })
             .attr("width", x.bandwidth())
             .attr("height", function(d) { return height - y(+d[yearColumn]); })
+            .attr("rx", 5) // rounded corners
+            .attr("ry", 5) // rounded corners
             .attr("fill", function(d) { return colorScale(+d[yearColumn]); })
-            .on("mouseover", function(d) {      
+            .on("mouseover", function(d) { 
+
+                // Reduce opacity of all bars except the hovered one
+                // d3.selectAll(".bar").style("opacity", o => (o === d ? 1.0 : 0.6));
+                d3.selectAll(".bar").attr("fill", function(o) {
+                    return (o === d) ? colorScale(+d[yearColumn]) : "#ccc"; // #ccc is the color for non-hovered bars
+                });
+                
+
                 tooltip.transition()        
                 .duration(100)      
                 .style("opacity", .9); 
@@ -171,10 +183,15 @@ export function updateBarchart(year) {
                     "<span style='color: #333;'> <strong>State: </strong> " + countryMapping[d.geo] + "</span><br>" + 
                     "<span style='color: #333;'> <strong>Percentage: </strong> " + d[yearColumn] + "% </span><br>" 
                 )
-                .style("left", (d3.event.pageX) + "px")     
-                .style("top", (d3.event.pageY - 28) + "px");    
+                .style("left", (d3.event.pageX > window.innerWidth / 2) ? (d3.event.pageX - 180) + "px" : (d3.event.pageX + 5) + "px")
+                .style("top", (d3.event.pageY > window.innerHeight / 2) ? (d3.event.pageY - 80) + "px" : (d3.event.pageY + 5) + "px");   
             })             
-            .on("mouseout", function(d) {       
+            .on("mouseout", function(d) {  
+                // Reset opacity of all bars
+                // d3.selectAll(".bIar").style("opacity", 1.0);
+                d3.selectAll(".bar").attr("fill", function(d) { return colorScale(+d[yearColumn]); });
+                
+
                 tooltip.transition()        
                 .duration(100)      
                 .style("opacity", 0);   
@@ -218,6 +235,7 @@ export function updateBarchart(year) {
             .text(`${average.toFixed(2)} %`); 
     
         
+            
 
         
         
