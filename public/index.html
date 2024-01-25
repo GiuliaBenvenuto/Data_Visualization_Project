@@ -324,18 +324,94 @@
 
     <!-- Treemap -->
     <div class="mt-20 md:mt-20"> <!-- Adjust the margin-top (mt) values as needed -->
-        <h2 id="plot_title" class="text-2xl text-center">
-            Reasons for not having internet access at home
+        <h2 id="plot_title_treemap" class="text-2xl text-center mb-8">
+            Reasons for not having internet access at home in 2010
         </h2>
     </div>
+
+    <div class="dropdown mb-8" id="dropdown_treemap">
+        <button class="dropbtn">Select Year</button>
+        <div class="dropdown-content">    
+            <label><input type="radio" name="year_treemap" value="2010" checked>2010</label>
+            <label><input type="radio" name="year_treemap" value="2011">2011</label>
+            <label><input type="radio" name="year_treemap" value="2012">2012</label>
+            <label><input type="radio" name="year_treemap" value="2013">2013</label>
+            <label><input type="radio" name="year_treemap" value="2014">2014</label>
+            <label><input type="radio" name="year_treemap" value="2015">2015</label>
+            <label><input type="radio" name="year_treemap" value="2016">2016</label>
+            <label><input type="radio" name="year_treemap" value="2017">2017</label>
+            <label><input type="radio" name="year_treemap" value="2019">2019</label>
+        </div>
+    </div>
+
+    <script type="module">
+        import { updateTreemap } from './js/treemap.js';
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the specific dropdown by its ID
+            var treemapDropdown = document.getElementById('dropdown_treemap');
+        
+            // Initialize a variable to store the value of the checked radio button
+            var checkedValue_treemap = '2010';
+            // console.log("CHECKED:", checkedValue_stacked);
+
+            function updateTitleTreemap(year_treemap) {
+                const titleBaseTreemap = "Reasons for not having Internet access at home in";
+                document.getElementById('plot_title_treemap').textContent = titleBaseTreemap + " " + year_treemap;
+            }
+    
+            // Function to update the value of the checked radio button
+            function updateCheckedValue_treemap() {
+                var checkedRadio_treemap = treemapDropdown.querySelector('.dropdown-content input[type="radio"][name="year_treemap"]:checked');
+                if (checkedRadio_treemap) {
+                    checkedValue_treemap = checkedRadio_treemap.value;
+                }
+        
+                // Call the function to update the chart
+                var chartContainer_treemap = d3.select("#my_treemap");
+                chartContainer_treemap.selectAll("*").remove();     
+
+                updateTreemap(checkedValue_treemap);
+                updateTitleTreemap(checkedValue_treemap);
+            }
+    
+            // Attach change event listeners to radio buttons within the specific dropdown
+            var radioButtons_treemap = treemapDropdown.querySelectorAll('.dropdown-content input[type="radio"][name="year_treemap"]');
+            radioButtons_treemap.forEach(function(radioButton) {
+                radioButton.addEventListener('change', updateCheckedValue_treemap);
+            });
+    
+            // Explicitly set the radio button for Austria to checked
+            // Done for the reload of the page
+            var radio2010 = treemapDropdown.querySelector('.dropdown-content input[type="radio"][name="year_treemap"][value="2010"]');
+            if (radio2010) {
+                radio2010.checked = true;
+            }
+    
+            // Draw the chart for the initially checked value 'AT'
+            updateTreemap(checkedValue_treemap);
+            
+    
+        });
+    </script>
+
     <div class="flex justify-center items-center ">
         <div id="my_treemap"  style="margin-top: 5px; width: 600px; height: 700px;">
             <script type="module" src="./js/treemap.js"></script>
         </div>
     </div>
 
+
+
+
     <!-- Percent Stacked Barchart -->
-    <div class="dropdown" id="dropdown_stacked_percent">
+    <div class="mt-20 md:mt-20"> <!-- Adjust the margin-top (mt) values as needed -->
+        <h2 id="plot_title_stacked" class="text-2xl text-center mb-8">
+            Individuals frequently using Internet
+        </h2>
+    </div>
+
+    <div class="dropdown mb-8" id="dropdown_stacked_percent">
         <button class="dropbtn">Select State</button>
         <div class="dropdown-content">    
             <label><input type="radio" name="stacked_state" value="AT" checked>Austria</label>
@@ -426,7 +502,7 @@
     </script>
 
     <div class="flex justify-center items-center ">
-        <div id="my_stacked_barchart"  style="margin-top: 50px; border:1px solid black; width: 1100px; height: 500px;">
+        <div id="my_stacked_barchart"  style="border:1px solid black; width: 1100px; height: 500px;">
             <script type="module" src="./js/stacked_percent.js"></script>
         </div>
     </div>
@@ -487,12 +563,12 @@
     <!-- Small multiple barchart -->
     <!-- Dynamic title -->
     <div class="mt-20 md:mt-20"> <!-- Adjust the margin-top (mt) values as needed -->
-        <h2 id="plot_title_small_multiple" class="text-2xl text-center">
+        <h2 id="plot_title_small_multiple" class="text-2xl text-center mb-8">
             Device used in Austria to access Internet 
         </h2>
     </div>
 
-    <div class="dropdown" id="dropdown_small_multiple">
+    <div class="dropdown mb-8" id="dropdown_small_multiple">
         <button class="dropbtn">Select State</button>
         <div class="dropdown-content">    
             <label><input type="radio" name="state" value="AT" checked>Austria</label>
@@ -583,8 +659,6 @@
         });
     </script>
     
-    
-
     <div class="flex-container">
         <div id="labels_div" style="margin-top: 50px; width: 200px; height: 350px;">
             <ul style="list-style: none; padding: 0; margin: 0; width: 100%; height: 100%;">
@@ -602,6 +676,7 @@
     </div>
 
 
+
     <!-- Ridgeline -->
     <div class="flex justify-center items-center ">
         <div id="my_ridgeline"  style="margin-top: 80px; border:1px solid black; width: 500px; height: 500px;">
@@ -609,6 +684,8 @@
         </div>
     </div>
 
+
+    
     <!-- Map -->
     <div class="flex justify-center items-center ">
         <div id="my_map"  style="margin-top: 50px; border:1px solid black; width: 500px; height: 500px;">

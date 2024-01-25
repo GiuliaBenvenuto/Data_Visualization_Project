@@ -1,5 +1,5 @@
 export function updateStacked(checkedValue) {
-    console.log("Checked value:", checkedValue);
+    // console.log("Checked value:", checkedValue);
 
     const countryMapping = {
         "AL": "Albania",
@@ -71,7 +71,7 @@ export function updateStacked(checkedValue) {
             // return row['geo'] === 'AT';
             return row['geo'] === checkedValue;
         })[0];
-        console.log("Filtered data for checked value:", filteredData);
+        //console.log("Filtered data for checked value:", filteredData);
 
         // List of groups = species here = value of the first column called group -> I show them on the X axis
         // var groups = d3.map(data, function(d){return(d.group)}).keys()
@@ -131,7 +131,7 @@ export function updateStacked(checkedValue) {
             }
         });
 
-        console.log("Transformed Data:", transformedData);
+        // console.log("Transformed Data:", transformedData);
 
 
         var stackedData = d3.stack()
