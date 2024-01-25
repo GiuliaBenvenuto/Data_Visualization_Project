@@ -98,6 +98,8 @@ export function updateSmallMultiple(checkedValue) {
         
 
         categories.forEach((category, index) => {
+            console.log("CATEGORY:", category);
+            console.log("INDEX:", index);
 
             const padding = {
                 top: 10,
@@ -138,7 +140,7 @@ export function updateSmallMultiple(checkedValue) {
             .padding(0.1);
 
             
-        // Xgrid
+            // Xgrid
             svg.selectAll("xGrid")
                 .data(xScale.ticks(12)) // You can change the number of ticks as per your preference
                 .enter()
@@ -162,10 +164,12 @@ export function updateSmallMultiple(checkedValue) {
             const normalizeValue = value => (value / maxCategoryValue) * normalizedMax;
 
             // Draw bars for each category
-                svg.selectAll("rect")
+                svg.selectAll(".category-bar")
                 .data(categoryData)
                 .enter()
                 .append("rect")
+                .attr("id", (d, i) => "bar-" + i)
+                .attr("class", "category-bar")
                 .attr("y", d => yScale(d.indic_is))
                 .attr("width", 0) // start width from 0 for transition
                 .attr("height", yScale.bandwidth())
@@ -189,16 +193,60 @@ export function updateSmallMultiple(checkedValue) {
                         .style("color", "#333")
                         .style("left", (d3.event.pageX + 10) + "px")
                         .style("top", (d3.event.pageY - 30) + "px");
+
+                    /* Change the color of all bars with the class "category-bar"
+                    d3.selectAll(".category-bar").attr("fill", function(o) {
+                        return (o === d) ? colorScale(index) : "#ccc"; // #ccc is the color for non-hovered bars
+                    });*/
+                    var hoveredIndex = d3.selectAll(".category-bar").nodes().indexOf(this);
+
+                    d3.selectAll(".category-bar").attr("fill", function(o, i) {
+                        var groupIndex = Math.floor(i / 6);
+                        if (hoveredIndex === i) {
+                            if (groupIndex === 0) return "#ea3a30";
+                            else if (groupIndex === 1) return "#ff9908";
+                            else if (groupIndex === 2) return "#58ba35";
+                            else return "#2EA8C7";
+                        } else {
+                            return "#ccc"; // Non-hovered bars color
+                        }
+                    });
+
                 })
                 .on("mouseout", function(d) {
                     tooltip.transition()
                         .duration(200)
                         .style("opacity", 0);
+
+                    // Reset the color of all bars with the class "category-bar"
+                    // d3.selectAll(".category-bar").attr("fill", d => colorScale(category))
+                    // Extract the index from the bar's ID
+                    d3.selectAll(".category-bar").each(function(d, i) {
+                        // Calculate the group index (0 for the first 6 bars, 1 for the next 6, and so on)
+                        var groupIndex = Math.floor(i / 6);
+                
+                        // Assign color based on the group index
+                        var color;
+                        if (groupIndex === 0) {
+                            color = "#ea3a30";
+                        } else if (groupIndex === 1) {
+                            color = "#ff9908";
+                        } else if (groupIndex === 2) {
+                            color = "#58ba35";
+                        } else {
+                            color = "#2EA8C7";
+                        }
+                
+                        // Set the fill color
+                        d3.select(this).attr("fill", color);
+                    });
+        
                 })
                 .transition() // adding a transition
                 .duration(800)
                 .attr("width", d => xScale(normalizeValue(d.value))) // transition to the actual width
                 .attr("fill-opacity", 0.8); // slightly transparent for a more pleasant effect
+            
             
             // Adding text labels on bars
             svg.selectAll(".bar-text")
@@ -261,7 +309,5 @@ export function updateSmallMultiple(checkedValue) {
                 .text(category);
             
         });
-
-        
     });
 }
