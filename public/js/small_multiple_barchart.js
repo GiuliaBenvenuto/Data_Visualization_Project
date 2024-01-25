@@ -1,5 +1,5 @@
 export function updateSmallMultiple(checkedValue) {
-    console.log("CHECKED VALUES smb:", checkedValue);
+    // console.log("CHECKED VALUES smb:", checkedValue);
 
     const countryMapping = {
         "AL": "Albania",
@@ -61,28 +61,23 @@ export function updateSmallMultiple(checkedValue) {
     
     // d3.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQWan1dg4-fZLQ-gM9V8AR6cBW1DumszVHmQOu51s4vWOuRdLUoB5TzdX_pgO_Kf_1dlsVoU9waEkO5/pub?output=csv", function(data) {
     d3.csv('./csv/smallmultiple_processed.csv', function(data) {
-        //console.log("DATA SMALL MULTIPLE:", data);
 
         // Filter data for 'geo' value 'AL'
         // const filteredData = data.filter(d => d.geo === 'AT');
         const filteredData = data.filter(d => d.geo === checkedValue);
-        console.log("FILTERED DATA:", filteredData);
 
         // Unique 'indic_is' values for the y-axis
         // const usedDevice = [...new Set(filteredData.map(d => d.indic_is))];
         // not dynamic: 
         const usedDevice = [ "I_IUG_DKPC", "I_IUG_LPC", "I_IUG_MP", "I_IUG_OTH1", "I_IUG_TPC", "I_IUG_TV" ];
-        //console.log("REASONS:", usedDevice);
 
         // Define years as categories
         const categories = ['2016 ', '2018 ', '2021 ', '2023 '];
-        //console.log("CATEGORIES:", categories);
 
         // Find the maximum value across all categories
         const maxCategoryValue = d3.max(filteredData, d => {
             return d3.max(categories, category => +d[category]);
         });
-        //console.log("MAX CATEGORY VALUE:", maxCategoryValue);
 
         // Normalize the maximum value to 100
         const normalizedMax = 100;  

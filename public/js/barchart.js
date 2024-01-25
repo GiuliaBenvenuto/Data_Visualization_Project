@@ -127,9 +127,9 @@ export function updateBarchart(year) {
             .attr("x2", width)
             .attr("y1", function(d) { return y(d); })
             .attr("y2", function(d) { return y(d); })
-            .attr("stroke", "#ccc") // Color of the grid lines
+            .attr("stroke", "#aaaaaa") // Color of the grid lines
             .style("opacity", 0.9)  // Opacity 
-            .attr("stroke-dasharray", "3,3") // Style of the grid lines
+            .attr("stroke-dasharray", "3,6") // Style of the grid lines
             .attr("shape-rendering", "crispEdges");
         
         
@@ -162,8 +162,8 @@ export function updateBarchart(year) {
             .attr("y", function(d) { return y(+d[yearColumn]); })
             .attr("width", x.bandwidth())
             .attr("height", function(d) { return height - y(+d[yearColumn]); })
-            .attr("rx", 5) // rounded corners
-            .attr("ry", 5) // rounded corners
+            //.attr("rx", 5) // rounded corners
+            //.attr("ry", 5) // rounded corners
             .attr("fill", function(d) { return colorScale(+d[yearColumn]); })
             .on("mouseover", function(d) { 
 

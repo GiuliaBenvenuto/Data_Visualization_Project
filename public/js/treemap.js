@@ -42,7 +42,7 @@ var svg = d3.select("#my_treemap")
 
 // Read data
 // d3.csv('https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/data_hierarchy_1level.csv', function(data) {
-d3.csv('./csv/treemap_processed.csv', function(data) {
+d3.csv('./csv/treemap_average_2010.csv', function(data) {
 
     // Color scale
     var colorScale = d3.scaleOrdinal()

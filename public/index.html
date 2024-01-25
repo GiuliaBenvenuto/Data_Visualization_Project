@@ -335,9 +335,98 @@
     </div>
 
     <!-- Percent Stacked Barchart -->
-    <h2>STACKED PERCENT</h2>
+    <div class="dropdown" id="dropdown_stacked_percent">
+        <button class="dropbtn">Select State</button>
+        <div class="dropdown-content">    
+            <label><input type="radio" name="stacked_state" value="AT" checked>Austria</label>
+            <label><input type="radio" name="stacked_state" value="AL">Albania</label>
+            <label><input type="radio" name="stacked_state" value="BA">Bosnia and Herzegovina</label>
+            <label><input type="radio" name="stacked_state" value="BE">Belgium</label>
+            <label><input type="radio" name="stacked_state" value="BG">Bulgaria</label>
+            <label><input type="radio" name="stacked_state" value="CH">Switzerland</label>
+            <label><input type="radio" name="stacked_state" value="CY">Cyprus</label>
+            <label><input type="radio" name="stacked_state" value="CZ">Czechia</label>
+            <label><input type="radio" name="stacked_state" value="DE">Germany</label>
+            <label><input type="radio" name="stacked_state" value="DK">Denmark</label>
+            <label><input type="radio" name="stacked_state" value="EE">Estonia</label>
+            <label><input type="radio" name="stacked_state" value="EL">Greece</label>
+            <label><input type="radio" name="stacked_state" value="ES">Spain</label>
+            <label><input type="radio" name="stacked_state" value="EU28">European Union</label>
+            <label><input type="radio" name="stacked_state" value="FI">Finland</label>
+            <label><input type="radio" name="stacked_state" value="FR">France</label>
+            <label><input type="radio" name="stacked_state" value="HR">Croatia</label>
+            <label><input type="radio" name="stacked_state" value="HU">Hungary</label>
+            <label><input type="radio" name="stacked_state" value="IE">Ireland</label>
+            <label><input type="radio" name="stacked_state" value="IS">Iceland</label>
+            <label><input type="radio" name="stacked_state" value="IT">Italy</label>
+            <label><input type="radio" name="stacked_state" value="LT">Lithuania</label>
+            <label><input type="radio" name="stacked_state" value="LU">Luxembourg</label>
+            <label><input type="radio" name="stacked_state" value="LV">Latvia</label>
+            <label><input type="radio" name="stacked_state" value="MK">North Macedonia</label>
+            <label><input type="radio" name="stacked_state" value="MT">Malta</label>
+            <label><input type="radio" name="stacked_state" value="NL">Netherlands</label>
+            <label><input type="radio" name="stacked_state" value="NO">Norway</label>
+            <label><input type="radio" name="stacked_state" value="PL">Poland</label>
+            <label><input type="radio" name="stacked_state" value="PT">Portugal</label>
+            <label><input type="radio" name="stacked_state" value="RO">Romania</label>
+            <label><input type="radio" name="stacked_state" value="RS">Serbia</label>
+            <label><input type="radio" name="stacked_state" value="SE">Sweden</label>
+            <label><input type="radio" name="stacked_state" value="SI">Slovenia</label>
+            <label><input type="radio" name="stacked_state" value="SK">Slovakia</label>
+            <label><input type="radio" name="stacked_state" value="TR">Türkiye</label>
+            <label><input type="radio" name="stacked_state" value="UK">United Kingdom</label>
+        </div>        
+    </div>
+
+    <script type="module">
+        import { updateStacked } from './js/stacked_percent.js';
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the specific dropdown by its ID
+            var stackedDropdown = document.getElementById('dropdown_stacked_percent');
+        
+            // Initialize a variable to store the value of the checked radio button
+            var checkedValue_stacked = 'AT';
+            // console.log("CHECKED:", checkedValue_stacked);
+    
+            // Function to update the value of the checked radio button
+            function updateCheckedValue_stacked() {
+                var checkedRadio_stacked = stackedDropdown.querySelector('.dropdown-content input[type="radio"][name="stacked_state"]:checked');
+                if (checkedRadio_stacked) {
+                    checkedValue_stacked = checkedRadio_stacked.value;
+                    // console.log("Checked value updated:", checkedValue_stacked); // Log the updated value
+                }
+        
+                // Call the function to update the chart
+                var chartContainer_stacked = d3.select("#my_stacked_barchart");
+                
+                chartContainer_stacked.selectAll("*").remove();     
+                updateStacked(checkedValue_stacked);
+            }
+    
+            // Attach change event listeners to radio buttons within the specific dropdown
+            var radioButtons_stacked = stackedDropdown.querySelectorAll('.dropdown-content input[type="radio"][name="stacked_state"]');
+            // var radioButtons_stacked = stackedDropdown.querySelectorAll('.dropdown-content input[type="radio"]');
+            radioButtons_stacked.forEach(function(radioButton) {
+                radioButton.addEventListener('change', updateCheckedValue_stacked);
+            });
+    
+            // Explicitly set the radio button for Austria to checked
+            // Done for the reload of the page
+            var radioAT_stacked = stackedDropdown.querySelector('.dropdown-content input[type="radio"][name="stacked_state"][value="AT"]');
+            if (radioAT_stacked) {
+                radioAT_stacked.checked = true;
+            }
+    
+            // Draw the chart for the initially checked value 'AT'
+            updateStacked(checkedValue_stacked);
+            
+    
+        });
+    </script>
+
     <div class="flex justify-center items-center ">
-        <div id="my_stacked_barchart"  style="margin-top: 50px; border:1px solid black; width: 1200px; height: 600px;">
+        <div id="my_stacked_barchart"  style="margin-top: 50px; border:1px solid black; width: 1100px; height: 500px;">
             <script type="module" src="./js/stacked_percent.js"></script>
         </div>
     </div>
@@ -396,6 +485,13 @@
 
     
     <!-- Small multiple barchart -->
+    <!-- Dynamic title -->
+    <div class="mt-20 md:mt-20"> <!-- Adjust the margin-top (mt) values as needed -->
+        <h2 id="plot_title_small_multiple" class="text-2xl text-center">
+            Device used in Austria to access Internet 
+        </h2>
+    </div>
+
     <div class="dropdown" id="dropdown_small_multiple">
         <button class="dropbtn">Select State</button>
         <div class="dropdown-content">    
@@ -438,11 +534,11 @@
     </div>
     
 
-    <!-- TODO: change this such that only one choice is possible at a time -->
     <script type="module">
         import { updateSmallMultiple } from './js/small_multiple_barchart.js';
     
         document.addEventListener('DOMContentLoaded', function() {
+
             // Get the specific dropdown by its ID
             var smallMultipleDropdown = document.getElementById('dropdown_small_multiple');
         
@@ -461,10 +557,15 @@
                 chartContainer.selectAll("*").remove(); 
         
                 updateSmallMultiple(checkedValue_barchart);
+
             }
     
             // Attach change event listeners to radio buttons within the specific dropdown
-            var radioButtons = smallMultipleDropdown.querySelectorAll('.dropdown-content input[type="radio"]');
+            // var radioButtons = smallMultipleDropdown.querySelectorAll('.dropdown-content input[type="radio"]');
+            // For dropdown_small_multiple
+            var radioButtons = smallMultipleDropdown.querySelectorAll('.dropdown-content input[type="radio"][name="state"]');
+
+
             radioButtons.forEach(function(radioButton) {
                 radioButton.addEventListener('change', updateCheckedValue_barchart);
             });

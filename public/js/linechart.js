@@ -309,8 +309,9 @@ export function updateLinechart(checkedValues) {
 
         // Style the grid lines
         svg.selectAll(".grid line")
-        .style("stroke", "#ccc")  // Grey color
-        .style("stroke-dasharray", "3 3")  // Dashed line
+        .style("stroke", "#aaaaaa")  // Grey color
+        .style("stroke-dasharray", "3 6")  // Dashed line
         .style("opacity", 0.9);  // Opacity 
+
     })
 }
