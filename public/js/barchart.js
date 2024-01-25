@@ -25,7 +25,6 @@ export function updateBarchart(year) {
         "LT": "Lithuania",
         "LU": "Luxembourg",
         "LV": "Latvia",
-        "ME": "Montenegro",
         "MK": "North Macedonia",
         "MT": "Malta",
         "NL": "Netherlands",

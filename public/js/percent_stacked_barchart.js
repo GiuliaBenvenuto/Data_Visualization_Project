@@ -1,4 +1,3 @@
-console.log("STACKED PERCENT BAR CHART");
 // STACKED PERCENT BAR CHART
 import { createYGrid, addTitle, addTooltip } from "./utils.js";
 // set the dimensions and margins of the graph
