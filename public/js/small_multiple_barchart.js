@@ -98,8 +98,8 @@ export function updateSmallMultiple(checkedValue) {
         
 
         categories.forEach((category, index) => {
-            console.log("CATEGORY:", category);
-            console.log("INDEX:", index);
+            // console.log("CATEGORY:", category);
+            // console.log("INDEX:", index);
 
             const padding = {
                 top: 10,

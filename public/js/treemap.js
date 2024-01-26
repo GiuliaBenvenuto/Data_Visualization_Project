@@ -1,7 +1,5 @@
 export function updateTreemap(year) {
 
-  console.log("treemap.js: updateTreemap() called with year: " + year);
-
 
   if (year == 2010) {
     var path = "./csv/treemap/treemap_average2010.csv";
@@ -105,7 +103,7 @@ export function updateTreemap(year) {
           .padding(8)
           (root)
 
-      console.log(root.leaves())
+      //console.log(root.leaves())
       // use this information to add rectangles:
       svg
       .selectAll("rect")

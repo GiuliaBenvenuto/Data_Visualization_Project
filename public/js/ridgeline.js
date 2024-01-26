@@ -15,7 +15,7 @@ var svg = d3.select("#my_ridgeline")
 //read data
 // d3.csv("https://raw.githubusercontent.com/zonination/perceptions/master/probly.csv", function(data) {
 d3.csv('./csv/ridgeline_processed.csv', function(data) {
-    console.log("DATA:", data);
+    //console.log("DATA:", data);
 
     // Get the different categories and count them
     var categories = ["2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019"]
@@ -32,8 +32,8 @@ d3.csv('./csv/ridgeline_processed.csv', function(data) {
         allMeans.push(mean);
         roundedMeans.push(+mean.toFixed(2)); // Push the rounded value to the new array
     }
-    console.log("allMeans:", allMeans);
-    console.log("roundedMeans:", roundedMeans);
+    //console.log("allMeans:", allMeans);
+    //console.log("roundedMeans:", roundedMeans);
 
 
 
@@ -119,7 +119,7 @@ d3.csv('./csv/ridgeline_processed.csv', function(data) {
         density = kde( data.map(function(d){  return d[key]; }) )
         allDensity.push({key: key, density: density})
     }
-    console.log("allDensity:", allDensity);
+    //console.log("allDensity:", allDensity);
 
     var grp
     var index
