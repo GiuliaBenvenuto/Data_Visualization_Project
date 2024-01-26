@@ -184,7 +184,12 @@ export function updateBarchart(year) {
                 )
                 .style("left", (d3.event.pageX > window.innerWidth / 2) ? (d3.event.pageX - 180) + "px" : (d3.event.pageX + 5) + "px")
                 .style("top", (d3.event.pageY > window.innerHeight / 2) ? (d3.event.pageY - 80) + "px" : (d3.event.pageY + 5) + "px");   
-            })             
+            })   
+            .on("mousemove", function(d) {
+                tooltip
+                .style("left", (d3.event.pageX > window.innerWidth / 2) ? (d3.event.pageX - 180) + "px" : (d3.event.pageX + 5) + "px")
+                .style("top", (d3.event.pageY > window.innerHeight / 2) ? (d3.event.pageY - 80) + "px" : (d3.event.pageY + 5) + "px");
+            })         
             .on("mouseout", function(d) {  
                 // Reset opacity of all bars
                 // d3.selectAll(".bIar").style("opacity", 1.0);

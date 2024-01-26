@@ -213,6 +213,11 @@ export function updateSmallMultiple(checkedValue) {
                     });
 
                 })
+                .on("mousemove", function(d) {
+                    tooltip
+                    .style("left", (d3.event.pageX + 10) + "px")
+                    .style("top", (d3.event.pageY + 30) + "px");
+                }) 
                 .on("mouseout", function(d) {
                     tooltip.transition()
                         .duration(200)

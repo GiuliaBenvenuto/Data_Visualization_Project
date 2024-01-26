@@ -30,18 +30,18 @@ var svg = d3.select("#my_heatmap")
 //Read the data
 // d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/heatmap_data.csv", function(data) {
 d3.csv('./csv/heatmap_processed_test.csv', function(data) {
-    console.log("DATA:", data);
+    //console.log("DATA:", data);
 
     var myYears = ["2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"]
-    console.log("myYears:", myYears); 
+    //console.log("myYears:", myYears); 
 
     // var internetUse = ["I_IUEM", "I_IUSELL", "I_IUSNET", "I_IUOLC", "I_IUVOTE", "I_IUJOB", "I_IUBK", "I_IUIF", "I_IHIF"]
     var internetUse = ["I_IHIF", "I_IUIF", "I_IUBK", "I_IUJOB", "I_IUVOTE", "I_IUOLC", "I_IUSNET", "I_IUSELL", "I_IUEM"]
-    console.log("internetUse:", internetUse);
+    //console.log("internetUse:", internetUse);
 
 
     const filteredData = data.filter(d => d.geo === "AT");
-    console.log("filteredData:", filteredData);
+    //console.log("filteredData:", filteredData);
 
 
     var heatmapData = [];
@@ -56,11 +56,7 @@ d3.csv('./csv/heatmap_processed_test.csv', function(data) {
             }
         }
     });
-
-
-
-    
-    console.log("HEATMAP DATA:", heatmapData);
+    //console.log("HEATMAP DATA:", heatmapData);
 
 
     // Build X scales and axis:
@@ -146,9 +142,14 @@ d3.csv('./csv/heatmap_processed_test.csv', function(data) {
             .style("visibility", "visible")
             .style("font", "15px Montserrat")
             .style("color", "#333")
-            .style("left", (d3.event.pageX + 10) + "px")
-            .style("top", (d3.event.pageY - 30) + "px");
+            .style("left", (d3.event.pageX > window.innerWidth / 2) ? (d3.event.pageX - 50) + "px" : (d3.event.pageX + 5) + "px")
+            .style("top", (d3.event.pageY > window.innerHeight / 2) ? (d3.event.pageY - 50) + "px" : (d3.event.pageY + 5) + "px");
     })
+    .on("mousemove", function(d) {
+        tooltip
+        .style("left", (d3.event.pageX > window.innerWidth / 2) ? (d3.event.pageX - 50) + "px" : (d3.event.pageX + 5) + "px")
+        .style("top", (d3.event.pageY > window.innerHeight / 2) ? (d3.event.pageY - 50) + "px" : (d3.event.pageY + 5) + "px");
+    })  
     .on("mouseout", function(d) {
         tooltip.transition()
             .duration(200)

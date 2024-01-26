@@ -130,6 +130,7 @@ d3.csv('./csv/ridgeline_processed.csv', function(data) {
         .data(allDensity)
         .enter()
         .append("path")
+        .attr("class", "area")
         .attr("transform", function(d){return("translate(0," + (yName(d.key)-height) +")" )})
         .attr("fill", function(d){
             grp = d.key ;
@@ -139,7 +140,7 @@ d3.csv('./csv/ridgeline_processed.csv', function(data) {
             return myColor(value / 80)
         })
         .datum(function(d){return(d.density)})
-        .attr("opacity", 0.7)
+        .attr("opacity", 0.8)
         .attr("stroke", "#000")
         .attr("stroke-width", 0.1)
         .attr("d",  d3.line()
@@ -148,6 +149,21 @@ d3.csv('./csv/ridgeline_processed.csv', function(data) {
             .y(function(d) { return y(d[1]); })
         )
         .on("mouseover", function(d) {
+            d3.select(this)
+            .raise() // This brings the hovered area to the front
+            .transition()
+            .duration(100)
+            .attr("opacity", 0.8)
+            .attr("stroke-width", 2);
+
+            // Reduce opacity of other areas
+            d3.selectAll('.area')
+                .transition()
+                .duration(100)
+                .attr("opacity", function(otherD) {
+                    return otherD === d ? 0.8 : 0.3;
+                });
+
             tooltip.transition()
                 .duration(100)
                 .style("opacity", 0.9);
@@ -160,10 +176,21 @@ d3.csv('./csv/ridgeline_processed.csv', function(data) {
                 .style("visibility", "visible")
                 .style("font", "15px Montserrat")
                 .style("color", "#333")
-                .style("left", (d3.event.pageX + 10) + "px")
-                .style("top", (d3.event.pageY - 30) + "px");
+                .style("left", (d3.event.pageX > window.innerWidth / 2) ? (d3.event.pageX - 150) + "px" : (d3.event.pageX + 5) + "px")
+                .style("top", (d3.event.pageY > window.innerHeight / 2) ? (d3.event.pageY - 80) + "px" : (d3.event.pageY + 5) + "px");
         })
+        .on("mousemove", function(d) {
+            tooltip
+            .style("left", (d3.event.pageX > window.innerWidth / 2) ? (d3.event.pageX - 150) + "px" : (d3.event.pageX + 5) + "px")
+            .style("top", (d3.event.pageY > window.innerHeight / 2) ? (d3.event.pageY - 80) + "px" : (d3.event.pageY + 5) + "px");
+        }) 
         .on("mouseout", function(d) {
+            d3.selectAll('.area')
+            .transition()
+            .duration(200)
+            .attr("opacity", 0.7)
+            .attr("stroke-width", 0.1); // Reset stroke width
+
             tooltip.transition()
                 .duration(200)
                 .style("opacity", 0);
