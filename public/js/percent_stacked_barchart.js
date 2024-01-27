@@ -83,6 +83,7 @@ d3.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQWan1dg4-fZLQ-gM9V8AR6c
   // Define the div for the tooltip (show value in a small div on mouse hover)
   var tooltip = addTooltip(d3.select('body'));
 
+  
   // Show the bars
   svg_percent.append("g")
     .selectAll("g")

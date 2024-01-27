@@ -138,6 +138,21 @@ export function updateStacked(checkedValue) {
         .keys(subgroups)
         (transformedData);
 
+        console.log("Stacked Data:", stackedData);
+
+        // Tooltip
+        var tooltip = d3.select('body')
+            .append("div")
+            .style("position", "absolute")
+            .style("background", "#f0f0f0") // Use a light grey color for the background
+            .style("padding", "10px")
+            .style("border", "1px solid #ccc") // Use a darker grey for the border
+            .style("border-radius", "8px")
+            .style("pointer-events", "none")
+            .style("opacity", 0)
+            .style("font", "15px Montserrat")
+            .style("color", "#333");
+
         // Visualization code (assuming x, y, color, and svg are already defined)
         svg.append("g")
         .selectAll("g")
@@ -150,9 +165,39 @@ export function updateStacked(checkedValue) {
             .attr("x", function(d) {
                 return x(d.data.year) + x.bandwidth() * 0.1; // Shift the bar right to center it
             })
-            .attr("width", x.bandwidth() * 0.8) // Shrink the width of the bar by 20%
             .attr("y", function(d) { return y(d[1]); })
+            .attr("width", x.bandwidth() * 0.8) // Shrink the width of the bar by 20%
             .attr("height", function(d) { return y(d[0]) - y(d[1]); })
+
+            .on("mouseover", function(d) {
+                
+
+                var frequentlyUsingInternet = d[1] - d[0]; // This calculates the height of the bar, which represents the percentage
+                var notFrequentlyUsingInternet = 100 - frequentlyUsingInternet; // Subtracting from 100 to get the complementary percentage
+            
+                tooltip.transition()        
+                    .duration(100)      
+                    .style("opacity", .9); 
+                
+                tooltip.html(
+                    "<span style='color: #333;'> <strong>State: </strong> " + countryMapping[checkedValue] + "</span><br>" +
+                    "<span style='color: #75c359;'> <strong>Frequently using internet: </strong> " + "<span style='color: #333;'> " + frequentlyUsingInternet.toFixed(2) +"% </span><br>" + 
+                    "<span style='color: #ea5d55;'> <strong>Not frequently using internet: </strong> " + "<span style='color: #333;'> " + notFrequentlyUsingInternet.toFixed(2) + "% </span><br>"
+                )
+                .style("left", (d3.event.pageX > window.innerWidth / 2) ? (d3.event.pageX - 180) + "px" : (d3.event.pageX + 5) + "px")
+                .style("top", (d3.event.pageY > window.innerHeight / 2) ? (d3.event.pageY - 90) + "px" : (d3.event.pageY + 5) + "px"); 
+            })
+            .on("mousemove", function(d) {
+                tooltip
+                .style("left", (d3.event.pageX > window.innerWidth / 2) ? (d3.event.pageX - 180) + "px" : (d3.event.pageX + 5) + "px")
+                .style("top", (d3.event.pageY > window.innerHeight / 2) ? (d3.event.pageY - 90) + "px" : (d3.event.pageY + 5) + "px");
+            })         
+            .on("mouseout", function(d) {  
+                tooltip.transition()        
+                .duration(100)      
+                .style("opacity", 0);   
+            });
+            
     
     })
 }
