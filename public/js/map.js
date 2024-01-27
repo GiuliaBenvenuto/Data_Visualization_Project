@@ -1,10 +1,10 @@
 
   export function updateMap(year) {
-    console.log("SELECTED YEAR js:", year);
+    //console.log("SELECTED YEAR js:", year);
 
     var csvUrl = "./csv/map_processed_" + year + ".csv"
     var geoJsonUrl = "./json/europe.geojson"
-    console.log("CSV URL:", csvUrl);
+    //console.log("CSV URL:", csvUrl);
     // var csvUrl = "./csv/map_processed_2015.csv"
 
     // Select the chart container and clear its content
@@ -106,7 +106,7 @@
       })
       .await(ready);
 
-    console.log("DATA MAP", populationData)
+    // console.log("DATA MAP", populationData)
 
     function ready(error, topo) {
       if (error) throw error;

@@ -59,7 +59,12 @@ html {
 }
 
 
-#plot_title_small_multiple, #plot_title_treemap, #plot_title_barchart, #plot_title_stacked, #plot_title_map
+#plot_title_small_multiple, 
+#plot_title_treemap, 
+#plot_title_barchart, 
+#plot_title_stacked, 
+#plot_title_map, 
+#plot_title_heatmap
 {
     font-family: 'Montserrat', sans-serif;
     font-weight: 800;

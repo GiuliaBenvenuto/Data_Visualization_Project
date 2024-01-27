@@ -524,8 +524,104 @@
     </div>
 
     <!-- Heatmap -->
+    <div class="mt-20 md:mt-20"> <!-- Adjust the margin-top (mt) values as needed -->
+        <h2 id="plot_title_heatmap" class="text-2xl text-center mb-8">
+            Different use of Internet
+        </h2>
+    </div>
+
+    <div class="dropdown mb-4" id="dropdown_heatmap">
+        <button class="dropbtn">Select State</button>
+        <div class="dropdown-content">    
+            <label><input type="radio" name="heatmap_state" value="AT" checked>Austria</label>
+            <label><input type="radio" name="heatmap_state" value="AL">Albania</label>
+            <label><input type="radio" name="heatmap_state" value="BA">Bosnia and Herzegovina</label>
+            <label><input type="radio" name="heatmap_state" value="BE">Belgium</label>
+            <label><input type="radio" name="heatmap_state" value="BG">Bulgaria</label>
+            <label><input type="radio" name="heatmap_state" value="CH">Switzerland</label>
+            <label><input type="radio" name="heatmap_state" value="CY">Cyprus</label>
+            <label><input type="radio" name="heatmap_state" value="CZ">Czechia</label>
+            <label><input type="radio" name="heatmap_state" value="DE">Germany</label>
+            <label><input type="radio" name="heatmap_state" value="DK">Denmark</label>
+            <label><input type="radio" name="heatmap_state" value="EE">Estonia</label>
+            <label><input type="radio" name="heatmap_state" value="EL">Greece</label>
+            <label><input type="radio" name="heatmap_state" value="ES">Spain</label>
+            <label><input type="radio" name="heatmap_state" value="EU27_2020">European Union</label>
+            <label><input type="radio" name="heatmap_state" value="FI">Finland</label>
+            <label><input type="radio" name="heatmap_state" value="FR">France</label>
+            <label><input type="radio" name="heatmap_state" value="HR">Croatia</label>
+            <label><input type="radio" name="heatmap_state" value="HU">Hungary</label>
+            <label><input type="radio" name="heatmap_state" value="IE">Ireland</label>
+            <label><input type="radio" name="heatmap_state" value="IS">Iceland</label>
+            <label><input type="radio" name="heatmap_state" value="IT">Italy</label>
+            <label><input type="radio" name="heatmap_state" value="LT">Lithuania</label>
+            <label><input type="radio" name="heatmap_state" value="LU">Luxembourg</label>
+            <label><input type="radio" name="heatmap_state" value="LV">Latvia</label>
+            <label><input type="radio" name="heatmap_state" value="MK">North Macedonia</label>
+            <label><input type="radio" name="heatmap_state" value="MT">Malta</label>
+            <label><input type="radio" name="heatmap_state" value="NL">Netherlands</label>
+            <label><input type="radio" name="heatmap_state" value="NO">Norway</label>
+            <label><input type="radio" name="heatmap_state" value="PL">Poland</label>
+            <label><input type="radio" name="heatmap_state" value="PT">Portugal</label>
+            <label><input type="radio" name="heatmap_state" value="RO">Romania</label>
+            <label><input type="radio" name="heatmap_state" value="RS">Serbia</label>
+            <label><input type="radio" name="heatmap_state" value="SE">Sweden</label>
+            <label><input type="radio" name="heatmap_state" value="SI">Slovenia</label>
+            <label><input type="radio" name="heatmap_state" value="SK">Slovakia</label>
+            <label><input type="radio" name="heatmap_state" value="TR">Turkey</label>
+            <label><input type="radio" name="heatmap_state" value="UK">United Kingdom</label>
+        </div>
+    </div>
+
+    <script type="module">
+        import { updateHeatmap } from './js/heatmap.js';
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the specific dropdown by its ID
+            var heatmapDropdown = document.getElementById('dropdown_heatmap');
+        
+            // Initialize a variable to store the value of the checked radio button
+            var checkedValue_heatmap = 'AT';
+            // console.log("CHECKED:", checkedValue_stacked);
+    
+            // Function to update the value of the checked radio button
+            function updateCheckedValue_heatmap() {
+                var checkedRadio_heatmap = heatmapDropdown.querySelector('.dropdown-content input[type="radio"][name="heatmap_state"]:checked');
+                if (checkedRadio_heatmap) {
+                    checkedValue_heatmap = checkedRadio_heatmap.value;
+                    // console.log("Checked value updated:", checkedValue_stacked); // Log the updated value
+                }
+        
+                // Call the function to update the chart
+                var chartContainer_heatmap= d3.select("#my_heatmap");
+                
+                chartContainer_heatmap.selectAll("*").remove();     
+                updateHeatmap(checkedValue_heatmap);
+            }
+    
+            // Attach change event listeners to radio buttons within the specific dropdown
+            var radioButtons_heatmap = heatmapDropdown.querySelectorAll('.dropdown-content input[type="radio"][name="heatmap_state"]');
+            radioButtons_heatmap.forEach(function(radioButton) {
+                radioButton.addEventListener('change', updateCheckedValue_heatmap);
+            });
+    
+            // Explicitly set the radio button for Austria to checked
+            // Done for the reload of the page
+            var radioAT_heatmap = heatmapDropdown.querySelector('.dropdown-content input[type="radio"][name="heatmap_state"][value="AT"]');
+            if (radioAT_heatmap) {
+                radioAT_heatmap.checked = true;
+            }
+    
+            // Draw the chart for the initially checked value 'AT'
+            updateHeatmap(checkedValue_heatmap);
+            
+    
+        });
+    </script>
+
     <div class="flex justify-center items-center ">
-        <div id="my_heatmap"  style="margin-top: 50px; margin-right: 200px; border:1px solid black; width: 1300px; height: 500px;">
+        <div id="my_heatmap"  style="margin-right: 200px; width: 1300px; height: 500px;">
+            <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
             <script type="module" src="./js/heatmap.js"></script>
         </div>
     </div>
