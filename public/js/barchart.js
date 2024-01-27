@@ -180,6 +180,7 @@ export function updateBarchart(year) {
                 
                 tooltip.html(
                     "<span style='color: #333;'> <strong>State: </strong> " + countryMapping[d.geo] + "</span><br>" + 
+                    "<span style='color: #333;'> <strong>Year: </strong> " + yearColumn + " </span><br>" +
                     "<span style='color: #333;'> <strong>Percentage: </strong> " + d[yearColumn] + "% </span><br>" 
                 )
                 .style("left", (d3.event.pageX > window.innerWidth / 2) ? (d3.event.pageX - 180) + "px" : (d3.event.pageX + 5) + "px")

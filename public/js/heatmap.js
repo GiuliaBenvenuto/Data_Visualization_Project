@@ -198,7 +198,9 @@ export function updateHeatmap(checkedValue) {
                     
                     `
                     <strong>State:</strong> ${countryMapping[checkedValue]} <br>
-                    <strong>Percentage:</strong> ${d.value ? `${d.value}%` : "No data available"} 
+                    <strong>Percentage:</strong> ${d.value ? `${d.value}%` : "No data available"} <br>
+                    <strong>Year:</strong> ${d.year} <br>
+                    <strong>Use:</strong> ${d.category}
                     
                     `
                 ) // Corrected to indic_is
@@ -206,7 +208,7 @@ export function updateHeatmap(checkedValue) {
                 .style("font", "15px Montserrat")
                 .style("color", "#333")
                 .style("left", (d3.event.pageX > window.innerWidth / 2) ? (d3.event.pageX - 90) + "px" : (d3.event.pageX + 5) + "px")
-                .style("top", (d3.event.pageY > window.innerHeight / 2) ? (d3.event.pageY - 90) + "px" : (d3.event.pageY + 5) + "px");
+                .style("top", (d3.event.pageY > window.innerHeight / 2) ? (d3.event.pageY - 110) + "px" : (d3.event.pageY + 5) + "px");
         })
         .on("mousemove", function(d) {
             d3.selectAll("rect").style("stroke", "none"); // First remove all borders
@@ -214,7 +216,7 @@ export function updateHeatmap(checkedValue) {
 
             tooltip
             .style("left", (d3.event.pageX > window.innerWidth / 2) ? (d3.event.pageX - 90) + "px" : (d3.event.pageX + 5) + "px")
-            .style("top", (d3.event.pageY > window.innerHeight / 2) ? (d3.event.pageY - 90) + "px" : (d3.event.pageY + 5) + "px");
+            .style("top", (d3.event.pageY > window.innerHeight / 2) ? (d3.event.pageY - 110) + "px" : (d3.event.pageY + 5) + "px");
         })  
         .on("mouseout", function(d) {
             d3.select(this).style("stroke", "none");

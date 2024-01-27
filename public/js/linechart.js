@@ -210,6 +210,7 @@ export function updateLinechart(checkedValues) {
                     .style("opacity", 0.9);
                     tooltip.html(
                         "<span style='color: #333;'> <strong>State: </strong> " + countryMapping[country]["name"] + "</span><br>" + 
+                        "<span style='color: #333;'> <strong>Year: </strong> " + d.date + " </span><br>" +
                         "<span style='color: #333;'> <strong>Percentage: </strong> " + 
                         (d.value === 0 ? "Data not available" : d.value + "%") + "</span><br>"
                     )

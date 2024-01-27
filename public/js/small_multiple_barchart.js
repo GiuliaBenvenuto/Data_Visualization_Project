@@ -183,9 +183,9 @@ export function updateSmallMultiple(checkedValue) {
                     tooltip.html(
                             `
                             <strong>State:</strong> ${countryMapping[checkedValue]}<br> 
+                            <strong>Year:</strong> ${category} <br>
                             <strong>Percentage:</strong> ${d.value} % <br>
-                            <strong>Device:</strong> ${d.indic_is}<br>
-                            <strong>Year:</strong> ${category}
+                            <strong>Device:</strong> ${d.indic_is}
                             `
                         ) // Corrected to indic_is
                         .style("visibility", "visible")

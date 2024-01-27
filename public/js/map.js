@@ -160,8 +160,10 @@
           .duration(100)
           .style("opacity", 0.9);
         tooltip
-        .html("<strong>Country: </strong>" + (d.properties.NAME) + "<br><strong>Percentage: </strong> " + 
-          (d.total ? d.total + "%" : "No data")
+        .html(
+          "<strong>State: </strong>" + (d.properties.NAME) + "<br>"+
+          "<strong>Year: </strong>" + year + "<br>"+
+          "<strong>Percentage: </strong> " + (d.total ? d.total + "%" : "No data")
         )
 
           .style("left", (d3.event.pageX + 10) + "px")

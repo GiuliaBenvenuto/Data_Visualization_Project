@@ -181,16 +181,17 @@ export function updateStacked(checkedValue) {
                 
                 tooltip.html(
                     "<span style='color: #333;'> <strong>State: </strong> " + countryMapping[checkedValue] + "</span><br>" +
+                    "<span style='color: #333;'> <strong>Year: </strong> " + d.data.year + "</span><br>" +
                     "<span style='color: #75c359;'> <strong>Frequently using internet: </strong> " + "<span style='color: #333;'> " + frequentlyUsingInternet.toFixed(2) +"% </span><br>" + 
                     "<span style='color: #ea5d55;'> <strong>Not frequently using internet: </strong> " + "<span style='color: #333;'> " + notFrequentlyUsingInternet.toFixed(2) + "% </span><br>"
                 )
                 .style("left", (d3.event.pageX > window.innerWidth / 2) ? (d3.event.pageX - 180) + "px" : (d3.event.pageX + 5) + "px")
-                .style("top", (d3.event.pageY > window.innerHeight / 2) ? (d3.event.pageY - 90) + "px" : (d3.event.pageY + 5) + "px"); 
+                .style("top", (d3.event.pageY > window.innerHeight / 2) ? (d3.event.pageY - 130) + "px" : (d3.event.pageY + 5) + "px"); 
             })
             .on("mousemove", function(d) {
                 tooltip
                 .style("left", (d3.event.pageX > window.innerWidth / 2) ? (d3.event.pageX - 180) + "px" : (d3.event.pageX + 5) + "px")
-                .style("top", (d3.event.pageY > window.innerHeight / 2) ? (d3.event.pageY - 90) + "px" : (d3.event.pageY + 5) + "px");
+                .style("top", (d3.event.pageY > window.innerHeight / 2) ? (d3.event.pageY - 130) + "px" : (d3.event.pageY + 5) + "px");
             })         
             .on("mouseout", function(d) {  
                 tooltip.transition()        
