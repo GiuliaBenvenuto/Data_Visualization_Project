@@ -1,9 +1,9 @@
-.year-selector {
+.year-selector, .year-selector-map {
     display: flex;
     justify-content: center;
 }
   
-.year-label {
+.year-label, .year-label-map {
     display: block;
     border: 1px solid #ccc;
     border-radius: 10px;
@@ -19,7 +19,7 @@
     color: #293241;
 }
   
-.year-label:hover {
+.year-label:hover, .year-label-map:hover {
     background-color: #f0f0f0;
 }
   
@@ -28,6 +28,11 @@ input[type="radio"] {
 }
   
 input[type="radio"]:checked + .year-label {
+    background-color: #5092B8; /* Your selected color */
+    color: #fff;
+}
+
+input[type="radio"]:checked + .year-label-map {
     background-color: #5092B8; /* Your selected color */
     color: #fff;
 }

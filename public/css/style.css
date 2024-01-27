@@ -59,7 +59,7 @@ html {
 }
 
 
-#plot_title_small_multiple, #plot_title_treemap, #plot_title_barchart, #plot_title_stacked
+#plot_title_small_multiple, #plot_title_treemap, #plot_title_barchart, #plot_title_stacked, #plot_title_map
 {
     font-family: 'Montserrat', sans-serif;
     font-weight: 800;
@@ -236,4 +236,10 @@ html {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+
+#my_wordcloud {
+    position: relative; /* If necessary */
+    z-index: 10; /* Adjust z-index as needed */
 }

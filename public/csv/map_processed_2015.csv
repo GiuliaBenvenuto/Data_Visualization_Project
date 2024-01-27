@@ -1,10 +1,10 @@
 name,code,pop
-Albania,ALB,0
+Albania,ALB,
 Austria,AUT,32.79
 Bosnia and Herzegovina,BIH,
 Belgium,BEL,31.13
 Bulgaria,BGR,12.75
-Switzerland,CHE,0
+Switzerland,CHE,
 Cyprus,CYP,15.36
 Czech Republic,CZE,22.93
 Germany,DEU,35.30
@@ -17,7 +17,7 @@ France,FRA,26.85
 Croatia,HRV,30.28
 Hungary,HUN,22.42
 Ireland,IRL,25.01
-Iceland,ISL,0
+Iceland,ISL,
 Italy,ITA,19.32
 Lithuania,LTU,30.29
 Luxembourg,LUX,55.89

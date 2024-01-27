@@ -9,10 +9,11 @@
     <!-- Load d3.js -->
     <script src="https://d3js.org/d3.v4.js"></script>
 
+
     <!-- Font-awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
-    <!-- tailwind -->
+    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Style -->
@@ -531,7 +532,9 @@
 
     <!-- Wordcloud -->
     <div class="flex justify-center items-center ">
-        <div id="my_wordcloud"  style="margin-top: 50px; border:1px solid black; width: 500px; height: 500px;">
+        <div id="my_wordcloud"  style="margin-top: 50px; border:1px solid black; width: 1000px; height: 600px;">
+            <!-- Load d3-cloud -->
+            <script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3.layout.cloud.js"></script>
             <script type="module" src="./js/wordcloud.js"></script>
         </div>
     </div>
@@ -693,8 +696,71 @@
 
 
     <!-- Map -->
+    <div class="mt-20 md:mt-20"> <!-- Adjust the margin-top (mt) values as needed -->
+        <h2 id="plot_title_map" class="text-2xl text-center mb-8">
+            Percentage of individuals with above basic digital skills in 2015
+        </h2>
+    </div>
+
+    <div class="mt-20 md:mt-20"> <!-- Adjust the margin-top (mt) values as needed -->
+        <h2 id="plot_title_map" class="text-2xl text-center mb-8">
+            Percentage of individuals with above basic digital skills in 2015
+        </h2>
+    </div>
+
+    <div class="year-selector-map">
+        <input type="radio" id="year2015_map" name="year_map" value="2015" checked>
+        <label for="year2015_map" class="year-label-map">2015</label>
+
+        <input type="radio" id="year2016_map" name="year_map" value="2016">
+        <label for="year2016_map" class="year-label-map">2016</label>
+
+        <input type="radio" id="year2017_map" name="year_map" value="2017">
+        <label for="year2017_map" class="year-label-map">2017</label>
+
+        <input type="radio" id="year2019_map" name="year_map" value="2019">
+        <label for="year2019_map" class="year-label-map">2019</label>
+    </div>
+
+    <script type="module">
+        import { updateMap } from './js/map.js';
+
+        
+        function updateTitleMap(year) {
+            const titleBase = "Percentage of individuals with above basic digital skills in";
+            document.getElementById('plot_title_map').textContent = titleBase + " " + year;
+        }
+        
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Use querySelectorAll to select the radio buttons directly within the 'year-selector-map' class
+            var yearSelectors_map = document.querySelectorAll('.year-selector-map input[type="radio"]');
+            var selectedYear_map = '2015'; // Initialize selectedYear_map as a string to match the value of the radio buttons
+
+            // Set 2015 as the checked value on page load
+            document.getElementById('year2015_map').checked = true;
+            // Initially call updateMap to set the map to the year 2015
+            updateMap(selectedYear_map);
+
+            yearSelectors_map.forEach(function(radio) {
+                radio.addEventListener('change', function() {
+                    // Update selectedYear_map based on the value of the checked radio button
+                    selectedYear_map = this.value;
+
+                    // console.log("SELECTED YEAR:", selectedYear_map);
+
+                    // Call the function to update the map with the selected year
+                    updateMap(selectedYear_map);
+                    // Optionally, update the map title to reflect the selected year
+                    updateTitleMap(selectedYear_map);
+                });
+            });
+        });
+    </script>
+
     <div class="flex justify-center items-center ">
-        <div id="my_map"  style="margin-top: 50px; border:1px solid black; width: 1000px; height: 1000px;">
+        <div id="my_map"  style="width: 1000px; height: 800px;">
+            <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
             <script type="module" src="./js/map.js"></script>
         </div>
     </div>
