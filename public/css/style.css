@@ -8,6 +8,12 @@ html {
     scroll-behavior: smooth;
 }
 
+p{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    color: #293241;
+}
+
 /* Fade In Keyframes */
 @keyframes fadeIn {
     from { opacity: 0; }
@@ -65,6 +71,8 @@ html {
 #plot_title_stacked, 
 #plot_title_map, 
 #plot_title_heatmap,
+#plot_title_piechart_right, 
+#plot_title_piechart_left,
 #plot_title_piechart
 {
     font-family: 'Montserrat', sans-serif;

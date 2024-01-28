@@ -621,14 +621,12 @@
         
             // Initialize a variable to store the value of the checked radio button
             var checkedValue_heatmap = 'AT';
-            // console.log("CHECKED:", checkedValue_stacked);
     
             // Function to update the value of the checked radio button
             function updateCheckedValue_heatmap() {
                 var checkedRadio_heatmap = heatmapDropdown.querySelector('.dropdown-content input[type="radio"][name="heatmap_state"]:checked');
                 if (checkedRadio_heatmap) {
                     checkedValue_heatmap = checkedRadio_heatmap.value;
-                    // console.log("Checked value updated:", checkedValue_stacked); // Log the updated value
                 }
 
                 // Update the title with the selected country name
@@ -673,32 +671,187 @@
     </div>
 
     <!-- Pie chart -->
-    <h2 id="plot_title_piechart" class="text-2xl text-center mt-12">
+    <h2 id="plot_title_piechart" class="text-2xl text-center mt-12 mb-4">
         How the use of Internet has changed over 10 years
     </h2>
+    <p class="text-center mb-6">
+        Piechart showing the top 5 use of Internet in 2013 and 2023 only for States that have data for both years.
+    </p>
+
+    <div class="dropdown mb-4" id="dropdown_pie">
+        <button class="dropbtn">Select State</button>
+        <div class="dropdown-content">    
+            <label><input type="radio" name="pie_state" value="AT" checked>Austria</label>
+            <label><input type="radio" name="pie_state" value="BE">Belgium</label>
+            <label><input type="radio" name="pie_state" value="BG">Bulgaria</label>
+            <label><input type="radio" name="pie_state" value="CY">Cyprus</label>
+            <label><input type="radio" name="pie_state" value="CZ">Czechia</label>
+            <label><input type="radio" name="pie_state" value="DE">Germany</label>
+            <label><input type="radio" name="pie_state" value="DK">Denmark</label>
+            <label><input type="radio" name="pie_state" value="EE">Estonia</label>
+            <label><input type="radio" name="pie_state" value="EL">Greece</label>
+            <label><input type="radio" name="pie_state" value="ES">Spain</label>
+            <label><input type="radio" name="pie_state" value="EU27_2020">European Union</label>
+            <label><input type="radio" name="pie_state" value="FI">Finland</label>
+            <label><input type="radio" name="pie_state" value="FR">France</label>
+            <label><input type="radio" name="pie_state" value="HR">Croatia</label>
+            <label><input type="radio" name="pie_state" value="HU">Hungary</label>
+            <label><input type="radio" name="pie_state" value="IE">Ireland</label>
+            <label><input type="radio" name="pie_state" value="IT">Italy</label>
+            <label><input type="radio" name="pie_state" value="LT">Lithuania</label>
+            <label><input type="radio" name="pie_state" value="LU">Luxembourg</label>
+            <label><input type="radio" name="pie_state" value="LV">Latvia</label>
+            <label><input type="radio" name="pie_state" value="MT">Malta</label>
+            <label><input type="radio" name="pie_state" value="NL">Netherlands</label>
+            <label><input type="radio" name="pie_state" value="NO">Norway</label>
+            <label><input type="radio" name="pie_state" value="PT">Portugal</label>
+            <label><input type="radio" name="pie_state" value="RO">Romania</label>
+            <label><input type="radio" name="pie_state" value="SE">Sweden</label>
+            <label><input type="radio" name="pie_state" value="SI">Slovenia</label>
+            <label><input type="radio" name="pie_state" value="SK">Slovakia</label>
+            <label><input type="radio" name="pie_state" value="TR">Turkey</label>
+        </div>
+    </div>
+
+    <script type="module">
+        import { updatePiechartRight } from './js/piechart_right.js';
+        import { updatePiechartLeft } from './js/piechart_left.js';
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the specific dropdown by its ID
+            var pieDropdown = document.getElementById('dropdown_pie');
+        
+            // Initialize a variable to store the value of the checked radio button
+            var checkedValue_pie = 'AT';
+    
+            // Function to update the value of the checked radio button
+            function updateCheckedValue_pie() {
+                var checkedRadio_pie = pieDropdown.querySelector('.dropdown-content input[type="radio"][name="pie_state"]:checked');
+                if (checkedRadio_pie) {
+                    checkedValue_pie = checkedRadio_pie.value;
+                    console.log("Checked value PIECHART updated:", checkedValue_pie); // Log the updated value
+                }
+
+                // Update the title with the selected country name
+                var plotTitleRight = document.getElementById('plot_title_piechart_right');
+                console.log("PLOT TITLE RIGHT:", plotTitleRight)
+                var plotTitleLeft = document.getElementById('plot_title_piechart_left');
+                console.log("PLOT TITLE LEFT:", plotTitleLeft)
+                if (plotTitleRight && plotTitleLeft) {
+                    console.log("HERE")
+                    var selectedCountryName = countryMapping[checkedValue_pie] || 'Austria'; // Default to 'Austria' if the mapping fails
+                    console.log("SELECTED COUNTRY NAME:", selectedCountryName)
+                    plotTitleLeft.textContent = '2013 in ' + selectedCountryName;
+                    plotTitleRight.textContent = '2023 in ' + selectedCountryName;
+                    
+                }
+        
+                // Call the function to update the chart
+                var chartContainer_pie_right = d3.select("#my_piechart_right");
+                var chartContainer_pie_left = d3.select("#my_piechart_left");
+                
+                chartContainer_pie_right.selectAll("*").remove();     
+                updatePiechartRight(checkedValue_pie);
+
+                chartContainer_pie_left.selectAll("*").remove();     
+                updatePiechartLeft(checkedValue_pie);
+            }
+    
+            // Attach change event listeners to radio buttons within the specific dropdown
+            var radioButtons_pie = pieDropdown.querySelectorAll('.dropdown-content input[type="radio"][name="pie_state"]');
+            radioButtons_pie.forEach(function(radioButton) {
+                radioButton.addEventListener('change', updateCheckedValue_pie);
+            });
+    
+            // Explicitly set the radio button for Austria to checked
+            // Done for the reload of the page
+            var radioAT_pie = pieDropdown.querySelector('.dropdown-content input[type="radio"][name="pie_state"][value="AT"]');
+            if (radioAT_pie) {
+                radioAT_pie.checked = true;
+            }
+    
+            // Draw the chart for the initially checked value 'AT'
+            updatePiechartLeft(checkedValue_pie);
+            updatePiechartRight(checkedValue_pie);
+            
+    
+        });
+    </script>
 
     <div class="flex justify-center items-center">
-        <div id="my_piechart_left" style="margin: 20px; border:1px solid black; width: 700px; height: 450px;">
-            <h2 id="plot_title_piechart" class="text-2xl text-center">
+        <div id="title_left" style="margin-right: 20px; width: 700px; height: 30px;">
+            <h2 id="plot_title_piechart_left" class="text-2xl text-center">
                 2013 in Austria
             </h2>
-            <script type="module" src="./js/piechart_left.js"></script>
         </div>
-        <div id="my_piechart_right" style="margin: 20px; border:1px solid black; width: 700px; height: 450px;">
-            <h2 id="plot_title_piechart" class="text-2xl text-center">
+        <div id="title_right" style="margin-left: 20px; width: 700px; height: 30px;">
+            <h2 id="plot_title_piechart_right" class="text-2xl text-center">
                 2023 in Austria
             </h2>
+        </div>
+    </div>
+
+    <div class="flex justify-center items-center">
+        <div id="my_piechart_left" style="margin-right: 20px; width: 700px; height: 450px;">
+            <script type="module" src="./js/piechart_left.js"></script>
+        </div>
+        <div id="my_piechart_right" style="margin-left: 20px; width: 700px; height: 450px;">
             <script type="module" src="./js/piechart_right.js"></script>
         </div>
     </div>
     
 
-    <!-- Wordcloud -->
+    <!-- Wordcloud / Bubblemap -->
+    <!-- Button -->
+    <div class="year-selector-bubblemap">
+        <input type="radio" id="year2013_bubblemap" name="year_bubblemap" value="2013" checked>
+        <label for="year2013_bubblemap" class="year-label-bubblemap">2013</label>
+
+        <input type="radio" id="year2023_bubblemap" name="year_bubblemap" value="2023" checked>
+        <label for="year2023_bubblemap" class="year-label-bubblemap">2023</label>
+    </div>
+
+    <script type="module">
+        import { updateBubbleMap } from './js/bubblemap_prova.js';
+
+        /*
+        function updateTitleMap(year) {
+            const titleBase = "Percentage of individuals with above basic digital skills in";
+            document.getElementById('plot_title_map').textContent = titleBase + " " + year;
+        }*/
+        
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Use querySelectorAll to select the radio buttons directly within the 'year-selector-map' class
+            var yearSelectors_bubblemap = document.querySelectorAll('.year-selector-bubblemap input[type="radio"]');
+            var selectedYear_bubblemap = '2013'; // Initialize selectedYear_map as a string to match the value of the radio buttons
+
+            // Set 2015 as the checked value on page load
+            document.getElementById('year2013_bubblemap').checked = true;
+            // Initially call updateMap to set the map to the year 2015
+            updateBubbleMap(selectedYear_bubblemap);
+
+            yearSelectors_bubblemap.forEach(function(radio) {
+                radio.addEventListener('change', function() {
+                    // Update selectedYear_map based on the value of the checked radio button
+                    selectedYear_bubblemap = this.value;
+
+                    // console.log("SELECTED YEAR:", selectedYear_map);
+
+                    // Call the function to update the map with the selected year
+                    updateBubbleMap(selectedYear_bubblemap);
+                    // Optionally, update the map title to reflect the selected year
+                    // updateTitleBubbleMap(selectedYear_bubblemap);
+                });
+            });
+        });
+    </script>
+
     <div class="flex justify-center items-center ">
-        <div id="my_wordcloud"  style="margin-top: 50px; border:1px solid black; width: 1000px; height: 600px;">
+        <div id="my_bubblemap"  style="margin-top: 50px; border:1px solid black; width: 1000px; height: 800px;">
             <!-- Load d3-cloud -->
-            <script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3.layout.cloud.js"></script>
-            <script type="module" src="./js/wordcloud.js"></script>
+            <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+            <script type="module" src="./js/bubblemap_prova.js"></script>
         </div>
     </div>
 
