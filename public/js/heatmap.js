@@ -198,8 +198,8 @@ export function updateHeatmap(checkedValue) {
                     
                     `
                     <strong>State:</strong> ${countryMapping[checkedValue]} <br>
-                    <strong>Percentage:</strong> ${d.value ? `${d.value}%` : "No data available"} <br>
                     <strong>Year:</strong> ${d.year} <br>
+                    <strong>Percentage:</strong> ${d.value ? `${d.value}%` : "No data available"} <br>
                     <strong>Use:</strong> ${d.category}
                     
                     `

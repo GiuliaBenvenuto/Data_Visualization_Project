@@ -91,6 +91,48 @@
         }
     </script>
     
+    <script>
+        const countryMapping = {
+            "AL": "Albania",
+            "AT": "Austria",
+            "BA": "Bosnia and Herzegovina",
+            "BE": "Belgium",
+            "BG": "Bulgaria",
+            "CH": "Switzerland",
+            "CY": "Cyprus",
+            "CZ": "Czechia",
+            "DE": "Germany",
+            "DK": "Denmark",
+            "EE": "Estonia",
+            "EL": "Greece",
+            "ES": "Spain",
+            "EU27_2020": "European Union",
+            "FI": "Finland",
+            "FR": "France",
+            "HR": "Croatia",
+            "HU": "Hungary",
+            "IE": "Ireland",
+            "IS": "Iceland",
+            "IT": "Italy",
+            "LT": "Lithuania",
+            "LU": "Luxembourg",
+            "LV": "Latvia",
+            "ME": "Montenegro",
+            "MK": "North Macedonia",
+            "MT": "Malta",
+            "NL": "Netherlands",
+            "NO": "Norway",
+            "PL": "Poland",
+            "PT": "Portugal",
+            "RO": "Romania",
+            "RS": "Serbia",
+            "SE": "Sweden",
+            "SI": "Slovenia",
+            "SK": "Slovakia",
+            "TR": "Turkey",
+            "UK": "United Kingdom"
+        }
+    </script>
 
 
     <!-- First Section -->
@@ -205,16 +247,6 @@
         </h2>
     </div>
 
-    <!--
-    <div class="dropdown">
-        <button class="dropbtn">Select Countries</button>
-        <div class="dropdown-content">
-            <label><input type="checkbox" name="country" value="USA"> USA</label>
-            <label><input type="checkbox" name="country" value="Canada"> Canada</label>
-            <label><input type="checkbox" name="country" value="UK"> UK</label>
-            <!-- Add more countries as needed 
-        </div>
-    </div> -->
     <div class="dropdown" id="dropdown_linechart">
         <button class="dropbtn">Select State</button>
         <div class="dropdown-content">
@@ -408,7 +440,7 @@
     <!-- Percent Stacked Barchart -->
     <div class="mt-20 md:mt-20"> <!-- Adjust the margin-top (mt) values as needed -->
         <h2 id="plot_title_stacked" class="text-2xl text-center mb-8">
-            Individuals frequently using Internet
+            Individuals frequently using Internet in Austria
         </h2>
     </div>
 
@@ -472,6 +504,13 @@
                 if (checkedRadio_stacked) {
                     checkedValue_stacked = checkedRadio_stacked.value;
                     // console.log("Checked value updated:", checkedValue_stacked); // Log the updated value
+                }
+
+                // Update the title with the selected country name
+                var plotTitle = document.getElementById('plot_title_stacked');
+                if (plotTitle) {
+                    var selectedCountryName = countryMapping[checkedValue_stacked] || 'Austria'; // Default to 'Austria' if the mapping fails
+                    plotTitle.textContent = 'Individuals frequently using Internet in ' + selectedCountryName;
                 }
         
                 // Call the function to update the chart
@@ -680,7 +719,7 @@
             <label><input type="radio" name="state" value="EE">Estonia</label>
             <label><input type="radio" name="state" value="EL">Greece</label>
             <label><input type="radio" name="state" value="ES">Spain</label>
-            <label><input type="radio" name="state" value="EU28">European Union</label>
+            <label><input type="radio" name="state" value="EU27_2020">European Union</label>
             <label><input type="radio" name="state" value="FI">Finland</label>
             <label><input type="radio" name="state" value="FR">France</label>
             <label><input type="radio" name="state" value="HR">Croatia</label>
@@ -725,6 +764,13 @@
                 var checkedRadio = smallMultipleDropdown.querySelector('.dropdown-content input[type="radio"]:checked');
                 if (checkedRadio) {
                     checkedValue_barchart = checkedRadio.value;
+                }
+
+                // Update the title with the selected country name in the middle of the sentence
+                var plotTitle = document.getElementById('plot_title_small_multiple');
+                if (plotTitle) {
+                    var selectedCountryName = countryMapping[checkedValue_barchart] || 'Austria'; // Default to 'Austria' if the mapping fails
+                    plotTitle.textContent = 'Device used in ' + selectedCountryName + ' to access Internet';
                 }
         
                 // Call the function to update the chart

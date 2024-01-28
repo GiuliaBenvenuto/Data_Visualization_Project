@@ -1,5 +1,4 @@
 export function updateSmallMultiple(checkedValue) {
-    // console.log("CHECKED VALUES smb:", checkedValue);
 
     const countryMapping = {
         "AL": "Albania",
@@ -15,7 +14,7 @@ export function updateSmallMultiple(checkedValue) {
         "EE": "Estonia",
         "EL": "Greece",
         "ES": "Spain",
-        "EU27_2020": "European Union",
+        "EU28": "European Union",
         "FI": "Finland",
         "FR": "France",
         "HR": "Croatia",
@@ -60,19 +59,20 @@ export function updateSmallMultiple(checkedValue) {
     
     
     // d3.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQWan1dg4-fZLQ-gM9V8AR6cBW1DumszVHmQOu51s4vWOuRdLUoB5TzdX_pgO_Kf_1dlsVoU9waEkO5/pub?output=csv", function(data) {
-    d3.csv('./csv/smallmultiple_processed.csv', function(data) {
+    d3.csv('./csv/smallmultiple_noletters.csv', function(data) {
 
-        // Filter data for 'geo' value 'AL'
-        // const filteredData = data.filter(d => d.geo === 'AT');
         const filteredData = data.filter(d => d.geo === checkedValue);
 
-        // Unique 'indic_is' values for the y-axis
-        // const usedDevice = [...new Set(filteredData.map(d => d.indic_is))];
-        // not dynamic: 
+        if (!filteredData.length) {
+            console.error("No data found for " + checkedValue);
+            return; // Exit the function if no data found to avoid further errors
+        }
+
+        // Define the categories to be used in the chart (the columns in the CSV)
         const usedDevice = [ "I_IUG_DKPC", "I_IUG_LPC", "I_IUG_MP", "I_IUG_OTH1", "I_IUG_TPC", "I_IUG_TV" ];
 
         // Define years as categories
-        const categories = ['2016 ', '2018 ', '2021 ', '2023 '];
+        const categories = ['2016', '2018', '2021', '2023'];
 
         // Find the maximum value across all categories
         const maxCategoryValue = d3.max(filteredData, d => {
@@ -96,10 +96,7 @@ export function updateSmallMultiple(checkedValue) {
             .style("color", "#333");
 
         
-
         categories.forEach((category, index) => {
-            // console.log("CATEGORY:", category);
-            // console.log("INDEX:", index);
 
             const padding = {
                 top: 10,
@@ -121,13 +118,19 @@ export function updateSmallMultiple(checkedValue) {
                 .append("g")
                 .attr("transform", `translate(${margin.left},${margin.top})`);
 
-            // Filter the data for the current category
-            // Map data for the current category
+
             const categoryData = usedDevice.map(indicIs => {
-                const value = filteredData.find(d => d.indic_is === indicIs)[category];
-                return { indic_is: usedDeviceMapping[indicIs] || indicIs, value: +value };
+                const record = filteredData.find(d => d.indic_is === indicIs);
+                // Initialize value as 0 by default
+                let value = 0;
+                if (record && record[category] !== ":" && !isNaN(record[category])) {
+                    // If the record exists, the value for the category is not ":", and is not NaN, then use the actual value
+                    value = +record[category];
+                }
+                return { indic_is: usedDeviceMapping[indicIs] || indicIs, value: value };
             });
-            //console.log("CATEGORY DATA inside:", categoryData);
+            console.log("CATEGORY DATA inside:", categoryData);
+            
 
             // Scales
             const xScale = d3.scaleLinear()
@@ -155,8 +158,6 @@ export function updateSmallMultiple(checkedValue) {
 
             const colorScale = d3.scaleOrdinal()
             .domain(categories)
-            //.range(['#14532d','#15803d','#22c55e', '#86efac']);
-            // .range(['#F04C43', '#FAAF19', '#58ba35', '#2EA8C7']);
             .range(['#ea3a30', '#ff9908', '#58ba35', '#2EA8C7']);
             
                 
@@ -194,10 +195,7 @@ export function updateSmallMultiple(checkedValue) {
                         .style("left", (d3.event.pageX + 10) + "px")
                         .style("top", (d3.event.pageY - 30) + "px");
 
-                    /* Change the color of all bars with the class "category-bar"
-                    d3.selectAll(".category-bar").attr("fill", function(o) {
-                        return (o === d) ? colorScale(index) : "#ccc"; // #ccc is the color for non-hovered bars
-                    });*/
+                    
                     var hoveredIndex = d3.selectAll(".category-bar").nodes().indexOf(this);
 
                     d3.selectAll(".category-bar").attr("fill", function(o, i) {
@@ -252,34 +250,34 @@ export function updateSmallMultiple(checkedValue) {
                 .attr("width", d => xScale(normalizeValue(d.value))) // transition to the actual width
                 .attr("fill-opacity", 0.8); // slightly transparent for a more pleasant effect
             
-            
-            // Adding text labels on bars
-            svg.selectAll(".bar-text")
+
+                // Add labels to the right of each bar
+                svg.selectAll(".bar-text")
                 .data(categoryData)
                 .enter()
                 .append("text")
                 .attr("class", "bar-text")
-                .text(d => `${d.value}%`)
-                // .attr("x", d => xScale(normalizeValue(d.value)) - 45) // position to the right of the bar
+                .text(d => d.value === 0 ? "No data" : `${d.value}%`)  // Conditionally set the text based on the value
                 .attr("x", d => {
-                    // Check if the value is NaN
-                    if (isNaN(d.value)) {
-                        // Move the label to the right if the value is NaN
-                        return xScale(0) + 5; // You can adjust the 10 to whatever number works best
+                    // Adjust the x position based on whether the label is "No data" or a percentage
+                    if (d.value === 0) {
+                        return xScale(0) + 5; // Position "No data" labels slightly right of the y-axis
                     } else if (d.value < 15) {
+                        // For small non-zero values, position the label outside the bar to ensure readability
                         return xScale(normalizeValue(d.value)) + 5;
                     } else {
-                        // Otherwise, position the label to the left inside the bar
-                        return xScale(normalizeValue(d.value)) - 48;
+                        // For larger values, position the label inside the bar
+                        return xScale(normalizeValue(d.value)) - 48; // Adjust as needed for your chart's aesthetics
                     }
                 })
-                .attr("y", d => yScale(d.indic_is) + yScale.bandwidth() / 2 + 4) // center vertically in bar
-                .attr("fill", "#333")
+                .attr("y", d => yScale(d.indic_is) + yScale.bandwidth() / 2 + 4) // Center vertically in bar
+                .attr("fill", d => d.value === 0 ? "#333" : "#333") // Change text color for "No data" labels if needed
                 .style("font", "12px Montserrat")
-                .style("visibility", "hidden") // hide by default
-                .transition() // add transition for the text as well
+                .style("visibility", "hidden") // Initially hide the labels
+                .transition() // Add a transition for the text
                 .duration(800)
-                .style("visibility", "visible"); // make visible after the bars have been drawn
+                .style("visibility", "visible"); // Make the labels visible after the transition
+
             
 
             // X-axis
