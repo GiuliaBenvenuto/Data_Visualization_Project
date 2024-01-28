@@ -138,7 +138,7 @@ export function updateStacked(checkedValue) {
         .keys(subgroups)
         (transformedData);
 
-        console.log("Stacked Data:", stackedData);
+        // console.log("Stacked Data:", stackedData);
 
         // Tooltip
         var tooltip = d3.select('body')

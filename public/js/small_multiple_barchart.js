@@ -59,12 +59,12 @@ export function updateSmallMultiple(checkedValue) {
     
     
     // d3.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQWan1dg4-fZLQ-gM9V8AR6cBW1DumszVHmQOu51s4vWOuRdLUoB5TzdX_pgO_Kf_1dlsVoU9waEkO5/pub?output=csv", function(data) {
-    d3.csv('./csv/smallmultiple_noletters.csv', function(data) {
+    d3.csv('./csv/smallmultiple_processed.csv', function(data) {
 
         const filteredData = data.filter(d => d.geo === checkedValue);
 
         if (!filteredData.length) {
-            console.error("No data found for " + checkedValue);
+            // console.error("No data found for " + checkedValue);
             return; // Exit the function if no data found to avoid further errors
         }
 
@@ -129,7 +129,7 @@ export function updateSmallMultiple(checkedValue) {
                 }
                 return { indic_is: usedDeviceMapping[indicIs] || indicIs, value: value };
             });
-            console.log("CATEGORY DATA inside:", categoryData);
+            // console.log("CATEGORY DATA inside:", categoryData);
             
 
             // Scales

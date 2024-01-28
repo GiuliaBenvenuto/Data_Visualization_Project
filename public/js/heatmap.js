@@ -1,14 +1,14 @@
 export function updateHeatmap(checkedValue) {
-    console.log("SELECTED COUNTRY js:", checkedValue);
+    // console.log("SELECTED COUNTRY js:", checkedValue);
 
     const internetUseMapping = {
-        "I_IHIF": "Health related information",
+        "I_IHIF": "Health information",
         "I_IUIF": "Information for goods and services",
         "I_IUBK": "Internet banking",
-        "I_IUJOB": "Looking for job / sending job application",
+        "I_IUJOB": "Looking for job / job application",
         "I_IUVOTE": "Voting or online consultation",
         "I_IUOLC": "Online course",
-        "I_IUSNET": "Participating in social networks",
+        "I_IUSNET": "Social networks",
         "I_IUSELL": "Selling goods or services",
         "I_IUEM": "Sending or receiving emails" 
     };
@@ -100,7 +100,7 @@ export function updateHeatmap(checkedValue) {
                 }
             }
         });
-        console.log("HEATMAP DATA:", heatmapData);
+        // console.log("HEATMAP DATA:", heatmapData);
 
 
         // Build X scales and axis:

@@ -64,7 +64,8 @@ html {
 #plot_title_barchart, 
 #plot_title_stacked, 
 #plot_title_map, 
-#plot_title_heatmap
+#plot_title_heatmap,
+#plot_title_piechart
 {
     font-family: 'Montserrat', sans-serif;
     font-weight: 800;

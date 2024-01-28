@@ -565,7 +565,7 @@
     <!-- Heatmap -->
     <div class="mt-20 md:mt-20"> <!-- Adjust the margin-top (mt) values as needed -->
         <h2 id="plot_title_heatmap" class="text-2xl text-center mb-8">
-            Different use of Internet
+            Different use of Internet in Austria 
         </h2>
     </div>
 
@@ -630,6 +630,13 @@
                     checkedValue_heatmap = checkedRadio_heatmap.value;
                     // console.log("Checked value updated:", checkedValue_stacked); // Log the updated value
                 }
+
+                // Update the title with the selected country name
+                var plotTitle = document.getElementById('plot_title_heatmap');
+                if (plotTitle) {
+                    var selectedCountryName = countryMapping[checkedValue_heatmap] || 'Austria'; // Default to 'Austria' if the mapping fails
+                    plotTitle.textContent = 'Different use of Internet in ' + selectedCountryName;
+                }
         
                 // Call the function to update the chart
                 var chartContainer_heatmap= d3.select("#my_heatmap");
@@ -665,6 +672,27 @@
         </div>
     </div>
 
+    <!-- Pie chart -->
+    <h2 id="plot_title_piechart" class="text-2xl text-center mt-12">
+        How the use of Internet has changed over 10 years
+    </h2>
+
+    <div class="flex justify-center items-center">
+        <div id="my_piechart_left" style="margin: 20px; border:1px solid black; width: 700px; height: 450px;">
+            <h2 id="plot_title_piechart" class="text-2xl text-center">
+                2013 in Austria
+            </h2>
+            <script type="module" src="./js/piechart_left.js"></script>
+        </div>
+        <div id="my_piechart_right" style="margin: 20px; border:1px solid black; width: 700px; height: 450px;">
+            <h2 id="plot_title_piechart" class="text-2xl text-center">
+                2023 in Austria
+            </h2>
+            <script type="module" src="./js/piechart_right.js"></script>
+        </div>
+    </div>
+    
+
     <!-- Wordcloud -->
     <div class="flex justify-center items-center ">
         <div id="my_wordcloud"  style="margin-top: 50px; border:1px solid black; width: 1000px; height: 600px;">
@@ -674,12 +702,6 @@
         </div>
     </div>
 
-    <!-- Pie chart -->
-    <div class="flex justify-center items-center ">
-        <div id="my_piechart"  style="margin-top: 50px; border:1px solid black; width: 500px; height: 500px;">
-            <script type="module" src="./js/piechart.js"></script>
-        </div>
-    </div>
     
 
     <!-- Third Section -->
