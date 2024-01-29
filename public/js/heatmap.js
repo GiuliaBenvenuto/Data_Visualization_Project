@@ -201,7 +201,6 @@ export function updateHeatmap(checkedValue) {
                     <strong>Year:</strong> ${d.year} <br>
                     <strong>Percentage:</strong> ${d.value ? `${d.value}%` : "No data available"} <br>
                     <strong>Use:</strong> ${d.category}
-                    
                     `
                 ) // Corrected to indic_is
                 .style("visibility", "visible")

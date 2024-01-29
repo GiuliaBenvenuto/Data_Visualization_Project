@@ -120,17 +120,85 @@ export function updatePiechartRight(selectedState){
             .outerRadius(radius);
 
 
+        var tooltip = d3.select('body')
+            .append("div")
+            .style("position", "absolute")
+            .style("background", "#f0f0f0") // Use a light grey color for the background
+            .style("padding", "10px")
+            .style("border", "1px solid #ccc") // Use a darker grey for the border
+            .style("border-radius", "8px")
+            .style("pointer-events", "none")
+            .style("opacity", 0)
+            .style("font", "15px Montserrat")
+            .style("color", "#333");
+
         // Build the pie chart for the top 5 values
         svg.selectAll('mySlices')
         .data(data_ready)
         .enter()
         .append('path')
         .attr('d', arcGenerator)
+        .attr("class", "slice")
         // .attr('fill', function(d){ return color(d.data.indic_is); }) // Use 'indic_is' to set fill color
         .attr('fill', function(d){ return internetUseMapping[d.data.indic_is].color; }) 
         .attr("stroke", "black")
         .style("stroke-width", "2px")
-        .style("opacity", 0.8);
+        .style("opacity", 0.8)
+        .on("mouseover", function(d) {
+            svg.selectAll(".slice")
+                      .transition()
+                      .duration(200)
+                      .style("opacity", 0.2);
+
+                      d3.select(this)
+                      .transition()
+                      .duration(200)
+                      .style("opacity", 0.8);
+
+            var value = (d.data['2023'] / totalValue * 100).toFixed(2); // One decimal place
+
+            // Ensure d.data exists
+                tooltip.transition()
+                    .duration(200)
+                    .style("opacity", 1);
+        
+                tooltip.html(
+                    `
+                    <strong>State:</strong> ${countryMapping[selectedState]} <br>
+                    <strong>Year:</strong> 2023 <br>
+                    <strong>Percentage:</strong> ${value}% <br>
+                    <strong>Use:</strong> ${internetUseMapping[d.data.indic_is].text} 
+                    `
+                )
+                .style("left", (d3.event.pageX > window.innerWidth / 2) ? (d3.event.pageX - 90) + "px" : (d3.event.pageX + 5) + "px")
+                .style("top", (d3.event.pageY > window.innerHeight / 2) ? (d3.event.pageY - 130) + "px" : (d3.event.pageY + 5) + "px")
+            }
+        )
+        .on("mousemove", function(d) {
+            svg.selectAll(".slice")
+                      .transition()
+                      .duration(200)
+                      .style("opacity", 0.2);
+
+                      d3.select(this)
+                      .transition()
+                      .duration(200)
+                      .style("opacity", 0.8);
+
+            tooltip
+            .style("left", (d3.event.pageX > window.innerWidth / 2) ? (d3.event.pageX - 90) + "px" : (d3.event.pageX + 5) + "px")
+            .style("top", (d3.event.pageY > window.innerHeight / 2) ? (d3.event.pageY - 130) + "px" : (d3.event.pageY + 5) + "px");
+        })  
+        .on("mouseout", function() {
+            svg.selectAll(".slice")
+                      .transition()
+                      .duration(200)
+                      .style("opacity", 0.9);
+
+            tooltip.transition()
+                .duration(500)
+                .style("opacity", 0);
+        });
 
         // Add lines connecting the labels to the slices
         svg.selectAll('mySlices')
