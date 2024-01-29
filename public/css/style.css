@@ -258,3 +258,42 @@ p{
     position: relative; /* If necessary */
     z-index: 10; /* Adjust z-index as needed */
 }
+
+#labels_div{
+    font-family: 'Montserrat';
+}
+
+
+
+
+/*---- RESPONSIVE ------*/
+#my_barchart {
+    width: 1300px;
+    height: 600px;
+    border: 1px solid black;
+}
+
+/* Styles for smaller screens, like smartphones */
+@media (max-width: 768px) { /* Adjust this value based on your needs */
+    #my_barchart {
+        width: 100%; /* Take the full width of the screen */
+        height: auto; /* Adjust the height automatically */
+        /* You can specify a fixed height if you prefer, e.g., height: 300px; */
+    }
+}
+
+
+#my_linechart {
+    width: 1800px;
+    height: 600px;
+    border: 1px solid black;
+}
+
+/* Styles for smaller screens, like smartphones */
+@media (max-width: 768px) { /* Adjust this value based on your needs */
+    #my_linechart {
+        width: 100%; /* Take the full width of the screen */
+        height: auto; /* Adjust the height automatically */
+        /* You can specify a fixed height if you prefer, e.g., height: 300px; */
+    }
+}

@@ -4,6 +4,8 @@
 {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
 }
   
 .year-label,
@@ -50,3 +52,4 @@ input[type="radio"]:checked + .year-label-bubblemap {
     background-color: #5092B8; /* Your selected color */
     color: #fff;
 }
+

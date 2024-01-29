@@ -242,11 +242,19 @@ export function updateBarchart(year) {
             .style("font-family", "Montserrat")
             .style("font-weight", 700)
             .text(`${average.toFixed(2)} %`); 
-    
-        
-            
 
-        
+            svg.append("text")
+            .attr("class", "average-label")
+            .attr("x", width) 
+            .attr("y", y(average) - 16) 
+            .attr("dy", "-0.5em") 
+            .attr("text-anchor", "end") 
+            .style("fill", "red") 
+            .style("font-size", "14px") 
+            .style("font-family", "Montserrat")
+            .style("font-weight", 700)
+            .text(`average:`); 
+    
         
     })
 }

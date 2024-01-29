@@ -38,7 +38,6 @@ export function updateSmallMultiple(checkedValue) {
         "SI": "Slovenia",
         "SK": "Slovakia",
         "TR": "Turkey",
-        "UK": "United Kingdom",
         "XK": "Kosovo"
     }
     
