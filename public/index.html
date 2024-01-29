@@ -132,6 +132,18 @@
             "TR": "Turkey",
             "UK": "United Kingdom"
         }
+
+        const internetUseMapping = {
+            "I_IHIF": "Health information",
+            "I_IUIF": "Information for goods and services",
+            "I_IUBK": "Internet banking",
+            "I_IUJOB": "Looking for job / job application",
+            "I_IUVOTE": "Voting or online consultation",
+            "I_IUOLC": "Online course",
+            "I_IUSNET": "Social networks",
+            "I_IUSELL": "Selling goods or services",
+            "I_IUEM": "Sending or receiving emails" 
+        }
     </script>
 
 
@@ -386,7 +398,6 @@
         
             // Initialize a variable to store the value of the checked radio button
             var checkedValue_treemap = '2010';
-            // console.log("CHECKED:", checkedValue_stacked);
 
             function updateTitleTreemap(year_treemap) {
                 const titleBaseTreemap = "Reasons for not having Internet access at home in";
@@ -429,7 +440,7 @@
     </script>
 
     <div class="flex justify-center items-center ">
-        <div id="my_treemap"  style="margin-top: 5px; width: 600px; height: 700px;">
+        <div id="my_treemap"  style="margin-top: 5px; width: 950px; height: 500px;">
             <script type="module" src="./js/treemap.js"></script>
         </div>
     </div>
@@ -542,7 +553,7 @@
     </script>
 
     <div class="flex justify-center items-center ">
-        <div id="my_stacked_barchart"  style="border:1px solid black; width: 1100px; height: 500px;">
+        <div id="my_stacked_barchart"  style="width: 1100px; height: 500px;">
             <script type="module" src="./js/stacked_percent.js"></script>
         </div>
     </div>
@@ -802,7 +813,25 @@
     
 
     <!-- Wordcloud / Bubblemap -->
+    <h2 id="plot_title_bubblemap" class="text-2xl text-center mt-12 mb-4">
+        Internet used for Health Information in Europe 
+    </h2>
     <!-- Button -->
+    <div class="dropdown mb-4" id="dropdown_bubblemap">
+        <button class="dropbtn">Select Internet Use</button>
+        <div class="dropdown-content">    
+            <label><input type="radio" name="useBubblemap" value="I_IHIF" checked>Health information</label>
+            <label><input type="radio" name="useBubblemap" value="I_IUIF">Information for goods and services</label>
+            <label><input type="radio" name="useBubblemap" value="I_IUBK">Internet banking</label>
+            <label><input type="radio" name="useBubblemap" value="I_IUJOB">Looking for job / job application</label>
+            <label><input type="radio" name="useBubblemap" value="I_IUVOTE">Voting or online consultation</label>
+            <label><input type="radio" name="useBubblemap" value="I_IUOLC">Online course</label>
+            <label><input type="radio" name="useBubblemap" value="I_IUSNET">Social networks</label>
+            <label><input type="radio" name="useBubblemap" value="I_IUSELL">Selling goods or services</label>
+            <label><input type="radio" name="useBubblemap" value="I_IUEM">Sending or receiving emails</label>
+        </div>
+    </div>
+
     <div class="year-selector-bubblemap">
         <input type="radio" id="year2013_bubblemap" name="year_bubblemap" value="2013" checked>
         <label for="year2013_bubblemap" class="year-label-bubblemap">2013</label>
@@ -812,24 +841,22 @@
     </div>
 
     <script type="module">
-        import { updateBubbleMap } from './js/bubblemap_prova.js';
-
-        /*
-        function updateTitleMap(year) {
-            const titleBase = "Percentage of individuals with above basic digital skills in";
-            document.getElementById('plot_title_map').textContent = titleBase + " " + year;
-        }*/
-        
+        import { updateBubbleMap } from './js/bubblemap.js';
 
         document.addEventListener('DOMContentLoaded', function() {
+            // ------- YEAR SELECTION BUBBLEMAP -------
             // Use querySelectorAll to select the radio buttons directly within the 'year-selector-map' class
             var yearSelectors_bubblemap = document.querySelectorAll('.year-selector-bubblemap input[type="radio"]');
             var selectedYear_bubblemap = '2013'; // Initialize selectedYear_map as a string to match the value of the radio buttons
 
+
+            var bubblemapDropdown = document.getElementById('dropdown_bubblemap');
+            var checkedValue_bubblemap = 'I_IHIF';
+
             // Set 2015 as the checked value on page load
             document.getElementById('year2013_bubblemap').checked = true;
             // Initially call updateMap to set the map to the year 2015
-            updateBubbleMap(selectedYear_bubblemap);
+            updateBubbleMap(checkedValue_bubblemap, selectedYear_bubblemap);
 
             yearSelectors_bubblemap.forEach(function(radio) {
                 radio.addEventListener('change', function() {
@@ -839,19 +866,54 @@
                     // console.log("SELECTED YEAR:", selectedYear_map);
 
                     // Call the function to update the map with the selected year
-                    updateBubbleMap(selectedYear_bubblemap);
+                    updateBubbleMap(checkedValue_bubblemap, selectedYear_bubblemap);
                     // Optionally, update the map title to reflect the selected year
                     // updateTitleBubbleMap(selectedYear_bubblemap);
                 });
             });
+
+            function updateCheckedValue_bubblemap() {
+                var checkedRadio_bubblemap = bubblemapDropdown.querySelector('.dropdown-content input[type="radio"][name="useBubblemap"]:checked');
+                if (checkedRadio_bubblemap) {
+                    checkedValue_bubblemap = checkedRadio_bubblemap.value;
+                }
+        
+                // Call the function to update the chart
+                var chartContainer_bubblemap = d3.select("#my_bubblemap");
+                chartContainer_bubblemap.selectAll("*").remove(); 
+                
+                var plotTitle = document.getElementById('plot_title_bubblemap');
+                if (plotTitle) {
+                    var selectedInternetUse = internetUseMapping[checkedValue_bubblemap] || 'Health information'; // Default to 'Austria' if the mapping fails
+                    plotTitle.textContent = "Internet used for " + selectedInternetUse + " in Europe"
+                }
+
+                updateBubbleMap(checkedValue_bubblemap, selectedYear_bubblemap);
+            }
+
+            // Attach change event listeners to radio buttons within the specific dropdown
+            var radioButtons_bubblemap = bubblemapDropdown.querySelectorAll('.dropdown-content input[type="radio"][name="useBubblemap"]');
+            radioButtons_bubblemap.forEach(function(radioButton) {
+                radioButton.addEventListener('change', updateCheckedValue_bubblemap);
+            });
+    
+            // Explicitly set the radio button for Austria to checked
+            // Done for the reload of the page
+            var radioHealth = bubblemapDropdown.querySelector('.dropdown-content input[type="radio"][name="useBubblemap"][value="I_IHIF"]');
+            if (radioHealth) {
+                radioHealth.checked = true;
+            }
+    
+            // Draw the chart for the initially checked value 'AT'
+            updateBubbleMap(checkedValue_bubblemap, selectedYear_bubblemap);
         });
     </script>
 
     <div class="flex justify-center items-center ">
-        <div id="my_bubblemap"  style="margin-top: 50px; border:1px solid black; width: 1000px; height: 800px;">
+        <div id="my_bubblemap"  style="width: 1000px; height: 800px;">
             <!-- Load d3-cloud -->
             <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-            <script type="module" src="./js/bubblemap_prova.js"></script>
+            <script type="module" src="./js/bubblemap.js"></script>
         </div>
     </div>
 

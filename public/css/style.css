@@ -73,7 +73,8 @@ p{
 #plot_title_heatmap,
 #plot_title_piechart_right, 
 #plot_title_piechart_left,
-#plot_title_piechart
+#plot_title_piechart,
+#plot_title_bubblemap
 {
     font-family: 'Montserrat', sans-serif;
     font-weight: 800;
