@@ -267,7 +267,7 @@ export function updateBubbleMap(use, selectedYear) {
                     .attr("r", size(value)) // Use 'size' function to determine the radius based on the 2013 value
                     // .style("fill", "rgba(0, 0, 255, 0.6)")
                     .style("fill", internetUseMapping[internetUseKey].color)
-                    .style("opacity", 0.8)
+                    .style("opacity", 0.7)
                     .attr("stroke", "rgba(0, 0, 0, 0.2)")
                     .attr("stroke-width", 1)
                     .attr("class", "bubble")
@@ -280,7 +280,7 @@ export function updateBubbleMap(use, selectedYear) {
                       d3.select(this)
                       .transition()
                       .duration(200)
-                      .style("opacity", 0.8);
+                      .style("opacity", 0.7);
 
                       tooltip.transition()
                           .duration(200)
@@ -305,7 +305,7 @@ export function updateBubbleMap(use, selectedYear) {
                       d3.select(this)
                       .transition()
                       .duration(200)
-                      .style("opacity", 0.8);
+                      .style("opacity", 0.7);
 
           
                       tooltip
@@ -317,7 +317,7 @@ export function updateBubbleMap(use, selectedYear) {
                       svg.selectAll(".bubble")
                       .transition()
                       .duration(200)
-                      .style("opacity", 0.8);
+                      .style("opacity", 0.7);
 
                       tooltip.transition()
                           .duration(500)

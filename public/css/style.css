@@ -297,3 +297,57 @@ p{
         /* You can specify a fixed height if you prefer, e.g., height: 300px; */
     }
 }
+
+
+/* ----- LINECHART ALERT ------ */
+.custom-alert {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.custom-alert-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px; /* Keep or reduce this padding if you need space inside the box */
+    border: 1px solid #888;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    /* Add the following to ensure there is no extra space from the paragraph */
+    line-height: 1.4; /* Adjust line-height as needed for the text */
+}
+
+.custom-alert-close-btn {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #fff;
+    padding: 8px;
+    margin-left: auto;
+    margin-bottom: 0; /* Make sure there is no bottom margin pushing the text up */
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-family: 'Montserrat';
+    font-size: medium;
+    font-weight: 600;
+    color: #293241;
+}
+
+.custom-alert-content p {
+    margin: 0; /* Removes default margins from the paragraph */
+}
+
+.custom-alert-close-btn:hover {
+    background-color: #f0f0f0;
+}
+
+

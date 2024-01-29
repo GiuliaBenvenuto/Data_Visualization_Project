@@ -116,7 +116,6 @@ export function updateHeatmap(checkedValue) {
         .call(d3.axisBottom(x).tickSize(0))
         .select(".domain").remove()
 
-
         var internetUseLabels = internetUse.map(useKey => internetUseMapping[useKey] || useKey);
 
         var y = d3.scaleBand()
@@ -130,15 +129,11 @@ export function updateHeatmap(checkedValue) {
             .call(d3.axisLeft(y).tickSize(0))
             .select(".domain").remove()
 
-        /* Build color scale
-        var myColor = d3.scaleSequential()
-            .interpolator(d3.interpolateInferno)
-            .domain([1,100]) */
+
         var myColor = d3.scaleSequential()
             .interpolator(d3.interpolateBlues)
             .domain([0, d3.max(heatmapData, d => d.value)])
             
-
 
         var tooltip = d3.select('body')
         .append("div")
@@ -176,7 +171,6 @@ export function updateHeatmap(checkedValue) {
         .attr("ry", 4)
         .attr("width", x.bandwidth())
         .attr("height", y.bandwidth())
-        //.style("fill", function(d) { return myColor(d.value); })
         .style("fill", function(d) {
             // Check if the value is 0 and apply the stripes pattern
             if (d.value === 0) {

@@ -301,6 +301,7 @@
         </div>
     </div>
 
+    <!-- WITHOUT ALERT
     <script type="module">
         import { updateLinechart } from './js/linechart.js';
     
@@ -358,7 +359,91 @@
             updateCheckedValues();
             
         });
+    </script> -->
+
+    <!-- Custom Alert -->
+    <div id="customAlert" class="custom-alert" style="display:none;">
+        <div class="custom-alert-content">
+            <p>Select up to 5 states for a better visualization.</p>
+            <button class="custom-alert-close-btn">Close</button>
+        </div>
+    </div>
+
+    <script type="module">
+        import { updateLinechart } from './js/linechart.js';
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var linechartDropdown = document.getElementById('dropdown_linechart');
+            var checkedValues = ['AT'];
+            var maxCheckboxes = 5; // Maximum number of checkboxes that can be checked
+
+            function showCustomAlert() {
+                document.querySelector('.custom-alert-close-btn').addEventListener('click', function() {
+                    document.getElementById('customAlert').style.display = "none";
+                });
+
+                var modal = document.getElementById('customAlert');
+                modal.style.display = "block";
+
+                var span = modal.getElementsByClassName("custom-alert-close-btn")[0];
+                span.onclick = function() {
+                    modal.style.display = "none";
+                }
+
+                window.onclick = function(event) {
+                    if (event.target == modal) {
+                        modal.style.display = "none";
+                    }
+                }
+            }
+
+            function updateCheckedValues() {
+                checkedValues = [];
+                var checkboxes = linechartDropdown.querySelectorAll('.dropdown-content input[type="checkbox"]:checked');
+
+                if (checkboxes.length > maxCheckboxes) {
+                    this.checked = false; // Uncheck the newly checked box
+                    showCustomAlert(); // Show custom alert
+                    return;
+                }
+
+                checkboxes.forEach(function(checkbox) {
+                    checkedValues.push(checkbox.value);
+                });
+
+                var chartContainer = d3.select("#my_linechart");
+                chartContainer.selectAll("*").remove(); 
+
+                updateLinechart(checkedValues);
+            }
+
+            var checkboxes = linechartDropdown.querySelectorAll('.dropdown-content input[type="checkbox"]');
+            checkboxes.forEach(function(checkbox) {
+                if (checkbox.value !== 'AT') {
+                    checkbox.checked = false;
+                }
+                checkbox.addEventListener('change', updateCheckedValues);
+            });
+
+            var checkboxAT = linechartDropdown.querySelector('.dropdown-content input[type="checkbox"][value="AT"]');
+            if (checkboxAT) {
+                checkboxAT.checked = true;
+            }
+
+            updateLinechart(checkedValues);
+
+            linechartDropdown.querySelector('#clearAll').addEventListener('click', function() {
+                checkboxes.forEach(function(checkbox) {
+                    checkbox.checked = false;
+                });
+                updateCheckedValues();
+            });
+
+            updateCheckedValues();
+        });
     </script>
+
+    
 
     <div class="flex justify-center items-center ">
         <div id="my_linechart">
