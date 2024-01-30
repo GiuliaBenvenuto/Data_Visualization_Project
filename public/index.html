@@ -874,19 +874,27 @@
         });
     </script>
 
-    <div class="flex justify-center items-center">
-        <div id="title_left" style="margin-right: 20px; width: 700px; height: 30px;">
+    
+    <div class="flex-container justify-center items-center">
+        <div id="container_left" style="margin-right: 20px;  border: 1px solid black;">
             <h2 id="plot_title_piechart_left" class="text-2xl text-center">
                 2013 in Austria
             </h2>
+            <div id="my_piechart_left" style="border: 1px solid black">
+                <script type="module" src="./js/piechart_left.js"></script>
+            </div>
         </div>
-        <div id="title_right" style="margin-left: 20px; width: 700px; height: 30px;">
+        <div id="container_right" style="margin-left: 20px; border: 1px solid black;">
             <h2 id="plot_title_piechart_right" class="text-2xl text-center">
                 2023 in Austria
             </h2>
+            <div id="my_piechart_right" style="border: 1px solid black">
+                <script type="module" src="./js/piechart_right.js"></script>
+            </div>
         </div>
     </div>
 
+    <!--
     <div class="flex justify-center items-center">
         <div id="my_piechart_left">
             <script type="module" src="./js/piechart_left.js"></script>
@@ -895,6 +903,7 @@
             <script type="module" src="./js/piechart_right.js"></script>
         </div>
     </div>
+    -->
     
 
     <!-- Wordcloud / Bubblemap -->

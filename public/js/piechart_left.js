@@ -56,9 +56,17 @@ export function updatePiechartLeft(selectedState){
     }
 
     // set the dimensions and margins of the graph
-    var width = 700
-    var height = 400
-    var margin = 30
+    //var width = 700
+    //var height = 400
+    //var margin = 30
+
+    var container = d3.select("#my_piechart_left").node();
+    var width = container.getBoundingClientRect().width;
+    var height = Math.min(width, 400); // Set a maximum height or make it dynamic as well
+    var margin = 30;
+
+    // Calculate the radius dynamically
+    var radius = Math.min(width, height) / 2 - margin;
 
     // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
     var radius = Math.min(width, height) / 2 - margin
@@ -201,57 +209,59 @@ export function updatePiechartLeft(selectedState){
         });
 
 
-        // Add lines connecting the labels to the slices
-        svg.selectAll('mySlices')
-        .data(data_ready)
-        .enter()
-        .append('polyline')
-        .attr('points', function(d) {
-            var posA = arcGenerator.centroid(d) // line insertion in the slice
-            var posB = arcGenerator.centroid(d) // line break: we use the same points to add a break in the line
-            var posC = arcGenerator.centroid(d); // Label position
-            var midAngle = d.startAngle + (d.endAngle - d.startAngle) / 2 // Position the label on the left or right depending on the angle
-            posC[0] = radius * 1 * (midAngle < Math.PI ? 1 : -1);
-            return [posA, posB, posC]
-        })
-        .attr('stroke', 'black')
-        .style('fill', 'none')
-        .attr('stroke-width', 1);
+        if (window.innerWidth >= 768) {
+            // Add lines connecting the labels to the slices
+            svg.selectAll('mySlices')
+            .data(data_ready)
+            .enter()
+            .append('polyline')
+            .attr('points', function(d) {
+                var posA = arcGenerator.centroid(d) // line insertion in the slice
+                var posB = arcGenerator.centroid(d) // line break: we use the same points to add a break in the line
+                var posC = arcGenerator.centroid(d); // Label position
+                var midAngle = d.startAngle + (d.endAngle - d.startAngle) / 2 // Position the label on the left or right depending on the angle
+                posC[0] = radius * 1 * (midAngle < Math.PI ? 1 : -1);
+                return [posA, posB, posC]
+            })
+            .attr('stroke', 'black')
+            .style('fill', 'none')
+            .attr('stroke-width', 1);
 
-        // Now add the labels at the end of the lines
-        svg.selectAll('mySlices')
-        .data(data_ready)
-        .enter()
-        .append('text')
-        .attr('transform', function(d) {
-            var pos = arcGenerator.centroid(d);
-            var midAngle = d.startAngle + (d.endAngle - d.startAngle) / 2;
-            pos[0] = radius * 1.02 * (midAngle < Math.PI ? 1 : -1);
-            return 'translate(' + pos + ')';
-        })
-        .style('text-anchor', function(d) {
-            var midAngle = d.startAngle + (d.endAngle - d.startAngle) / 2;
-            return (midAngle < Math.PI ? 'start' : 'end');
-        })
-        .style("font", "15px Montserrat")
-        .each(function(d) {
-            // var text = internetUseMapping[d.data.indic_is];
-            var text = internetUseMapping[d.data.indic_is].text; // Use the text from the mapping
+            // Now add the labels at the end of the lines
+            svg.selectAll('mySlices')
+            .data(data_ready)
+            .enter()
+            .append('text')
+            .attr('transform', function(d) {
+                var pos = arcGenerator.centroid(d);
+                var midAngle = d.startAngle + (d.endAngle - d.startAngle) / 2;
+                pos[0] = radius * 1.02 * (midAngle < Math.PI ? 1 : -1);
+                return 'translate(' + pos + ')';
+            })
+            .style('text-anchor', function(d) {
+                var midAngle = d.startAngle + (d.endAngle - d.startAngle) / 2;
+                return (midAngle < Math.PI ? 'start' : 'end');
+            })
+            .style("font", "15px Montserrat")
+            .each(function(d) {
+                // var text = internetUseMapping[d.data.indic_is];
+                var text = internetUseMapping[d.data.indic_is].text; // Use the text from the mapping
 
-            var words = text.split(' ');
-            var tspan = d3.select(this).append('tspan')
-                .attr('x', '0')
-                .attr('dy', '0.2em');
+                var words = text.split(' ');
+                var tspan = d3.select(this).append('tspan')
+                    .attr('x', '0')
+                    .attr('dy', '0.2em');
 
-            for (var i = 0; i < words.length; i++) {
-                if (i > 0 && i % 3 === 0) { // Every three words, append a new tspan
-                    tspan = d3.select(this).append('tspan')
-                        .attr('x', 0)
-                        .attr('dy', '1.2em');
+                for (var i = 0; i < words.length; i++) {
+                    if (i > 0 && i % 3 === 0) { // Every three words, append a new tspan
+                        tspan = d3.select(this).append('tspan')
+                            .attr('x', 0)
+                            .attr('dy', '1.2em');
+                    }
+                    tspan.text(function() { return tspan.text() + ' ' + words[i]; });
                 }
-                tspan.text(function() { return tspan.text() + ' ' + words[i]; });
-            }
-        })
+            })
+        }
 
 
         var totalValue = d3.sum(top5Data, function(d) { return d['2013']; });
@@ -272,6 +282,7 @@ export function updatePiechartLeft(selectedState){
         .style('text-anchor', 'middle')
         .style('font', '15px Montserrat')
         .attr('fill', '#333'); // Text color
+    
 
 
     })

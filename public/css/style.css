@@ -349,9 +349,6 @@ p{
 }
 
 
-
-
-
 /* ----- Piechart Left ----- */
 #my_piechart_left {
     margin-right: 20px; 
@@ -361,8 +358,9 @@ p{
 
 @media (max-width: 768px) { 
     #my_piechart_left {
-        width: 100%; 
-        height: auto; 
+        margin: 0;
+        width: auto; 
+        height: 100%; 
     }
 }
 
@@ -376,10 +374,41 @@ p{
 
 @media (max-width: 768px) { 
     #my_piechart_right {
+        margin: 0;
         width: 100%; 
-        height: auto; 
+        height: 100%; 
     }
 }
+
+/* This styles the parent container of container_left and container_right */
+.flex-container {
+    display: flex;
+    flex-direction: row; /* Default is row, so they are side by side */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Styles for the individual containers */
+#container_left, #container_right {
+    width: 700px;
+    height: 450px;
+    border: 1px solid black;
+    margin: 10px; /* Adjust margin as needed */
+}
+
+/* Media Query for screens smaller than 768px wide */
+@media (max-width: 768px) {
+    .flex-container {
+        flex-direction: column; /* Stack containers on smaller screens */
+    }
+
+    /* Optional: Adjust the width or other properties for smaller screens */
+    #container_left, #container_right {
+        width: 90%; /* Adjust width to fit smaller screens */
+        margin: 10px auto; /* Center the containers on smaller screens */
+    }
+}
+
 
 
 /* ----- Bubblemap ----- */
