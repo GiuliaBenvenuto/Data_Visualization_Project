@@ -356,7 +356,7 @@ p{
     height: 450px;
 }
 
-@media screen and (max-width: 768px) { 
+@media (max-width: 768px) { 
     #my_piechart_left {
         margin: 0;
         width: auto; 
@@ -372,7 +372,7 @@ p{
     height: 450px;
 }
 
-@media screen and (max-width: 768px) { 
+@media (max-width: 768px) { 
     #my_piechart_right {
         margin: 0;
         width: 100%; 
@@ -392,7 +392,6 @@ p{
 #container_left, #container_right {
     width: 700px;
     height: 450px;
-    border: 1px solid black;
     margin: 10px; /* Adjust margin as needed */
 }
 

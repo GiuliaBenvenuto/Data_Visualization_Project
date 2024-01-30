@@ -876,19 +876,19 @@
 
     
     <div class="flex-container justify-center items-center">
-        <div id="container_left" style="margin-right: 20px;  border: 1px solid black;">
+        <div id="container_left" style="margin-right: 20px;">
             <h2 id="plot_title_piechart_left" class="text-2xl text-center">
                 2013 in Austria
             </h2>
-            <div id="my_piechart_left" style="border: 1px solid black">
+            <div id="my_piechart_left">
                 <script type="module" src="./js/piechart_left.js"></script>
             </div>
         </div>
-        <div id="container_right" style="margin-left: 20px; border: 1px solid black;">
+        <div id="container_right" style="margin-left: 20px;">
             <h2 id="plot_title_piechart_right" class="text-2xl text-center">
                 2023 in Austria
             </h2>
-            <div id="my_piechart_right" style="border: 1px solid black">
+            <div id="my_piechart_right">
                 <script type="module" src="./js/piechart_right.js"></script>
             </div>
         </div>
@@ -906,7 +906,7 @@
     -->
     
 
-    <!-- Wordcloud / Bubblemap -->
+    <!-- Bubblemap -->
     <h2 id="plot_title_bubblemap" class="text-2xl text-center mt-12 mb-4">
         Internet used for Health Information in Europe 
     </h2>
@@ -947,9 +947,8 @@
             var bubblemapDropdown = document.getElementById('dropdown_bubblemap');
             var checkedValue_bubblemap = 'I_IHIF';
 
-            // Set 2015 as the checked value on page load
             document.getElementById('year2013_bubblemap').checked = true;
-            // Initially call updateMap to set the map to the year 2015
+
             updateBubbleMap(checkedValue_bubblemap, selectedYear_bubblemap);
 
             yearSelectors_bubblemap.forEach(function(radio) {
@@ -957,12 +956,8 @@
                     // Update selectedYear_map based on the value of the checked radio button
                     selectedYear_bubblemap = this.value;
 
-                    // console.log("SELECTED YEAR:", selectedYear_map);
-
-                    // Call the function to update the map with the selected year
                     updateBubbleMap(checkedValue_bubblemap, selectedYear_bubblemap);
-                    // Optionally, update the map title to reflect the selected year
-                    // updateTitleBubbleMap(selectedYear_bubblemap);
+
                 });
             });
 
@@ -1005,8 +1000,6 @@
 
     <div class="flex justify-center items-center ">
         <div id="my_bubblemap">
-            <!-- Load d3-cloud -->
-            <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
             <script type="module" src="./js/bubblemap.js"></script>
         </div>
     </div>
