@@ -425,43 +425,5 @@ export function updateLinechart(checkedValues) {
         .style("opacity", 0.9);  // Opacity 
 
 
-
-        // Add the average line after the Y axis
-        svg.append("line")
-        .attr("x1", 0)
-        .attr("x2", width)
-        .attr("y1", y(average))
-        .attr("y2", y(average))
-        .attr("stroke", "red") // Color of the average line
-        .attr("stroke-width", "2") // Thickness of the average line
-        .attr("stroke-dasharray", "5,5") 
-        .attr("shape-rendering", "crispEdges")
-        .style("z-index", "10"); 
-
-        // Add a label for the average value at the end of the line
-        svg.append("text")
-        .attr("class", "average-label")
-        .attr("x", width) 
-        .attr("y", y(average)) 
-        .attr("dy", "-0.5em") 
-        .attr("text-anchor", "end") 
-        .style("fill", "red") 
-        .style("font-size", "14px") 
-        .style("font-family", "Montserrat")
-        .style("font-weight", 700)
-        .text(`${average.toFixed(2)} %`); 
-
-        svg.append("text")
-        .attr("class", "average-label")
-        .attr("x", width) 
-        .attr("y", y(average) - 16) 
-        .attr("dy", "-0.5em") 
-        .attr("text-anchor", "end") 
-        .style("fill", "red") 
-        .style("font-size", "14px") 
-        .style("font-family", "Montserrat")
-        .style("font-weight", 700)
-        .text(`average:`); 
-
     })
 }

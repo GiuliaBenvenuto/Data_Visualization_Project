@@ -35,6 +35,7 @@ d3.csv('./csv/ridgeline_processed.csv', function(data) {
         allMeans.push(mean);
         roundedMeans.push(+mean.toFixed(2)); // Push the rounded value to the new array
     }
+    console.log("rounded:", roundedMeans);
 
 
     var startColor = "#0074ff"; // Blue
@@ -112,11 +113,23 @@ d3.csv('./csv/ridgeline_processed.csv', function(data) {
         density = kde( data.map(function(d){  return d[key]; }) )
         allDensity.push({key: key, density: density})
     }
-    //console.log("allDensity:", allDensity);
+    console.log("allDensity:", allDensity);
 
-    var grp
-    var index
-    var value
+
+    var yearMeanData = []; // This will hold the new data structure
+
+    for (var i = 0; i < categories.length; i++) {
+        var year = categories[i]; // Get the year from the categories array
+        var meanValue = allMeans[i]; // Get the corresponding mean value from allMeans
+
+        // Construct an object with year and meanValue
+        var yearMeanObject = {
+            year: year,
+            mean: meanValue
+        };
+        yearMeanData.push(yearMeanObject);
+    }
+
 
     // Add areas
     svg.selectAll("areas")
@@ -124,24 +137,26 @@ d3.csv('./csv/ridgeline_processed.csv', function(data) {
         .enter()
         .append("path")
         .attr("class", "area")
-        .attr("transform", function(d){return("translate(0," + (yName(d.key)-height) +")" )})
-        .attr("fill", function(d){
-            grp = d.key ;
-            index = categories.indexOf(grp)
-            value = allMeans[index]
-            // return myColor(value)
-            return myColor(value / 80)
+        .attr("transform", function(d){ return "translate(0," + (yName(d.key)-height) + ")" })
+        .attr("fill", function(d) {
+            var value = yearMeanData.find(function(yearData) { return yearData.year === d.key; }).mean;
+            return myColor(value / 80); // Assuming myColor is a function you've defined earlier
         })
-        .datum(function(d){return(d.density)})
+        .datum(function(d) { return d.density; })
         .attr("opacity", 0.8)
         .attr("stroke", "#000")
         .attr("stroke-width", 0.1)
-        .attr("d",  d3.line()
+        .attr("d", d3.line()
             .curve(d3.curveBasis)
             .x(function(d) { return x(d[0]); })
             .y(function(d) { return y(d[1]); })
         )
+        .data(allDensity)
         .on("mouseover", function(d) {
+            var yearData = yearMeanData.find(function(yearData) { return yearData.year === d.key; });
+            var year = yearData.year;
+            var meanValue = yearData.mean;
+
             d3.select(this)
             .raise() // This brings the hovered area to the front
             .transition()
@@ -156,16 +171,14 @@ d3.csv('./csv/ridgeline_processed.csv', function(data) {
                 .attr("opacity", function(otherD) {
                     return otherD === d ? 0.8 : 0.3;
                 });
-
             tooltip.transition()
                 .duration(100)
                 .style("opacity", 0.9);
             tooltip.html(
-                    `
-                    <strong>Year:</strong> ${categories[index]}<br> 
-                    <strong>Mean:</strong> ${roundedMeans[index]} % 
-                    `
-                ) // Corrected to indic_is
+                 "<strong>Year: </strong>" + year + "<br>" + 
+                 "<strong>Mean: </strong>" + meanValue.toFixed(2) + "%<br>" 
+               
+                )
                 .style("visibility", "visible")
                 .style("font", "15px Montserrat")
                 .style("color", "#333")

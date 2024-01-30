@@ -331,33 +331,23 @@ p{
     }
 }
 
-
 /* ----- Heatmap ----- */
 #my_heatmap {
     width: 1300px;
     height: 500px;
-    margin-right: 30vh;
+    margin-right: 20vh;
 }
 
-/* Phone 
+/* Phone */
 @media (max-width: 768px) { 
-    
-}*/
-@media only screen and (max-width: 767px) {
-    #my_heatmap {
-        width: 85%; 
+
+     #my_heatmap {
+        width: 95%; 
         height: auto; 
         margin-right: 5vh
-    }
+    } 
 }
 
-@media only screen and (min-width: 768px) {
-    #my_heatmap {
-        width: 85%; 
-        height: auto; 
-        margin-right: 5vh
-    }
-}
 
 
 
