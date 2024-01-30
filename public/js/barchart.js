@@ -1,9 +1,10 @@
-export function updateBarchart(year) {
+export function updateBarchart(year, selection) {
+    console.log("Updating barchart for year " + year + " and selection " + selection);
 
     const countryMapping = {
         "AL": "Albania",
         "AT": "Austria",
-        "BA": "Bosnia and Herzegovina",
+        "BA": "Bosnia / Herzegovina",
         "BE": "Belgium",
         "BG": "Bulgaria",
         "CH": "Switzerland",
@@ -44,13 +45,12 @@ export function updateBarchart(year) {
     
     // Year basing on which i want to update the barchart
     let yearColumn = year;
-    // console.log("Year: " + yearColumn);
 
     // Select the chart container and clear its content
     var chartContainer = d3.select("#my_barchart");
     chartContainer.selectAll("*").remove(); 
 
-    var margin = {top: 30, right: 60, bottom: 150, left: 60},
+    var margin = {top: 30, right: 95, bottom: 150, left: 97},
         width = 1300 - margin.left - margin.right,
         height = 600 - margin.top - margin.bottom;
 
@@ -69,11 +69,28 @@ export function updateBarchart(year) {
 
 
     // load the data
-    // d3.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRH4eOpVXSGv8yQFKn3wm5a6yZX8H1uafXM0VjCDKiObj--4cGOnayvqd3aO25kB2DPHZklTK8Gtl2t/pub?gid=1229357561&single=true&output=csv", function(data) {
     d3.csv('./csv/barchart_processed.csv', function(data) {
 
-        // console.log("Col" + yearColumn);
+        // PROVA
+        // Pre-process data: Convert values to numbers and handle missing values
+        data.forEach(function(d) {
+            d[year] = d[year] === ":" ? null : +d[year]; // Convert to null if value is ":", else convert to number
+        });
 
+        // Sort data based on selection
+        if (selection === "alphabet") {
+            data.sort(function(a, b) {
+                return (countryMapping[a.geo] || a.geo).localeCompare(countryMapping[b.geo] || b.geo);
+            });
+        } else if (selection === "value") {
+            data.sort(function(a, b) {
+                // Move null values to the end
+                if (a[year] === null) return 1;
+                if (b[year] === null) return -1;
+                return b[year] - a[year]; // Descending order
+            });
+        }
+        // ------------------------------
         
         // X axis
         var x = d3.scaleBand()
@@ -175,7 +192,7 @@ export function updateBarchart(year) {
                 // d3.selectAll(".bar").style("opacity", o => (o === d ? 1.0 : 0.6));
                 d3.selectAll(".bar")
                 .transition()
-                .duration(300)
+                .duration(200)
                 .attr("fill", function(o) {
                     return (o === d) ? colorScale(+d[yearColumn]) : "#ccc"; // #ccc is the color for non-hovered bars
                 })
@@ -203,7 +220,7 @@ export function updateBarchart(year) {
                 // d3.selectAll(".bIar").style("opacity", 1.0);
                 d3.selectAll(".bar")
                 .transition()
-                .duration(300)
+                .duration(200)
                 .attr("fill", function(d) { return colorScale(+d[yearColumn]); });
                 
 

@@ -94,7 +94,7 @@ export function updateHeatmap(checkedValue) {
                 }
             }
         });
-        console.log("HEATMAP DATA:", heatmapData);
+        // console.log("HEATMAP DATA:", heatmapData);
 
 
         // Build X scales and axis:

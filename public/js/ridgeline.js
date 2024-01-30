@@ -35,7 +35,6 @@ d3.csv('./csv/ridgeline_processed.csv', function(data) {
         allMeans.push(mean);
         roundedMeans.push(+mean.toFixed(2)); // Push the rounded value to the new array
     }
-    console.log("rounded:", roundedMeans);
 
 
     var startColor = "#0074ff"; // Blue
@@ -113,7 +112,6 @@ d3.csv('./csv/ridgeline_processed.csv', function(data) {
         density = kde( data.map(function(d){  return d[key]; }) )
         allDensity.push({key: key, density: density})
     }
-    console.log("allDensity:", allDensity);
 
 
     var yearMeanData = []; // This will hold the new data structure

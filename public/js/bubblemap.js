@@ -1,7 +1,5 @@
 
 export function updateBubbleMap(use, selectedYear) {
-    console.log("SELECTED USE js:", use);
-    // console.log("SELECTED YEAR js:", year);
 
     /*
     const internetUseMapping = {

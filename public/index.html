@@ -220,8 +220,18 @@
         <input type="radio" id="year2023" name="year" value="2023">
         <label for="year2023" class="year-label">Last year</label>
     </div>
+
+    <!-- Order Selector -->
+    <div class="order-selector">
+        <input type="radio" id="valueOrder" name="order" value="value" checked>
+        <label for="valueOrder" class="order-label">Value Order</label>
+
+        <input type="radio" id="alphabetOrder" name="order" value="alphabet">
+        <label for="alphabetOrder" class="order-label">Alpha Order</label>    
+    </div>
+
     
-    
+    <!--
     <script type="module">
         import { updateBarchart } from './js/barchart.js';
 
@@ -249,7 +259,56 @@
                 });
             });
         });
+    </script> -->
+    <script type="module">
+        import { updateBarchart } from './js/barchart.js';
+    
+        function updateTitle(year) {
+            const titleBase = "Individuals that never used Internet in";
+            document.getElementById('plot_title_barchart').textContent = titleBase + " " + year;
+        }
+    
+        function updateOrder(order) {
+            // You can modify this function if you need to do something specific when the order changes
+            updateBarchart(selectedYear, order); // Now also passing the order to updateBarchart
+        }
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            var yearSelectors = document.querySelectorAll('.year-label');
+            var orderSelectors = document.querySelectorAll('.order-label');
+            var selectedYear = 2012;
+            var selectedOrder = 'value'; // Default order
+    
+            updateBarchart(selectedYear, selectedOrder); // Initialize with default year and order
+            // Set 2012 and Alphabet Order as the checked values on page load
+            document.getElementById('year2012').checked = true;
+            document.getElementById('alphabetOrder').checked = true;
+    
+            yearSelectors.forEach(function(label) {
+                label.addEventListener('click', function() {
+                    // Handle the click event for year selection
+                    selectedYear = this.previousElementSibling.value;
+    
+                    // Call the function to update the chart with the selected year and current order
+                    updateBarchart(selectedYear, selectedOrder);
+                    // Update title with the new year
+                    updateTitle(selectedYear);
+                });
+            });
+    
+            orderSelectors.forEach(function(label) {
+                label.addEventListener('click', function() {
+                    // Handle the click event for order selection
+                    selectedOrder = this.previousElementSibling.value;
+    
+                    // Call the function to update the chart with the current year and new order
+                    updateBarchart(selectedYear, selectedOrder);
+                    // If you need to update something on the page when the order changes, call updateOrder or similar function
+                });
+            });
+        });
     </script>
+    
 
 
 

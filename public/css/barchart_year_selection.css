@@ -1,4 +1,5 @@
 .year-selector, 
+.order-selector,
 .year-selector-map,
 .year-selector-bubblemap
 {
@@ -9,6 +10,7 @@
 }
   
 .year-label,
+.order-label,
 .year-label-map,
 .year-label-bubblemap
 {
@@ -28,6 +30,7 @@
 }
   
 .year-label:hover, 
+.order-label:hover,
 .year-label-map:hover,
 .year-label-bubblemap:hover
 {
@@ -53,3 +56,7 @@ input[type="radio"]:checked + .year-label-bubblemap {
     color: #fff;
 }
 
+input[type="radio"]:checked + .order-label {
+    background-color: #5092B8; /* Your selected color */
+    color: #fff;
+}

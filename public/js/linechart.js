@@ -292,7 +292,7 @@ export function updateLinechart(checkedValues) {
 
         // Function to add a dots to the chart
         function addDotsToChart(processedData, country) {
-            console.log("Processed Data:", processedData);
+            // console.log("Processed Data:", processedData);
             svg.append("g")
             .selectAll("dot")
             .attr("class", "chart-dot")
@@ -394,7 +394,7 @@ export function updateLinechart(checkedValues) {
         // Iterate over each country and add a line for each
         countries.forEach(function(country, index) {
             var countryDataProcessed = processDataForCountry(country);
-            console.log("Country Data Processed:", countryDataProcessed);
+            // console.log("Country Data Processed:", countryDataProcessed);
 
             // Assign a unique color for each line
             // var color = d3.schemeCategory10[index % 10]; // Change or expand this for more than 10 countries
