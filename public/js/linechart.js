@@ -126,6 +126,110 @@ export function updateLinechart(checkedValues) {
             .style("font", "15px Montserrat");
 
 
+        // Function to draw the EU28 average line
+        function drawEU28AverageLine() {
+            // Extract the data for EU28
+            const eu28Data = data.find(d => d.geo === 'EU28');
+            if (!eu28Data) return; // Exit if EU28 data is not found
+
+            // Process the EU28 data similar to other countries
+            const processedEU28Data = yearColumns.map(year => ({
+                date: year,
+                value: eu28Data[year] === ":" || isNaN(eu28Data[year]) ? 0 : +eu28Data[year]
+            }));
+
+            // Add the EU28 line to the chart
+            svg.append("path")
+                .datum(processedEU28Data)
+                .attr("class", "eu28-average-line") // Class for styling and identification
+                .attr("fill", "none")
+                .attr("stroke", "red") // Red color for the EU28 average line
+                .attr("stroke-width", 2)
+                .attr("stroke-dasharray", "5,5")
+                .attr("d", d3.line()
+                    .x(d => x(d.date))
+                    .y(d => y(d.value))
+                );
+
+                // Add dots for each year on the EU28 line
+                svg.selectAll(".eu28-dot")
+                .data(processedEU28Data)
+                .enter()
+                .append("circle")
+                .attr("class", "eu28-dot")
+                .attr("cx", d => x(d.date))
+                .attr("cy", d => y(d.value))
+                .attr("r", 5) // Radius of the dots
+                .attr("fill", "red")
+                .attr("stroke", "#fff")
+                .on("mouseover", function (d) {
+                    //d3.selectAll("path:not(.eu28-average-line)").attr("stroke", "#ccc");
+                    //d3.selectAll("circle:not(.eu28-dot)").attr("fill", "#ccc");
+                    d3.selectAll("path").attr("stroke", "#ccc");
+                    d3.selectAll("circle").attr("fill", "#ccc");
+    
+                    // Highlight the current dot
+                    d3.select(d3.event.currentTarget).attr("fill", "red");
+                    d3.select(d3.event.currentTarget).attr("r", 6);
+    
+                    tooltip.transition()
+                        .duration(100)
+                        .style("opacity", 0.9);
+                        tooltip.html(
+                            "<span style='color: #333;'> <strong>State: </strong> " + "European Union" + "<br>" +
+                            "<span style='color: #333;'> <strong>Year: </strong> " + d.date + " </span><br>" +
+                            "<span style='color: #333;'> <strong>Average percentage: </strong> " + d.value + "%</span>"
+                        )
+                        
+                        .style("left", (d3.event.pageX > window.innerWidth / 2) ? (d3.event.pageX - 120) + "px" : (d3.event.pageX + 5) + "px")
+                        .style("top", (d3.event.pageY > window.innerHeight / 2) ? (d3.event.pageY - 90) + "px" : (d3.event.pageY + 5) + "px");
+    
+                })
+                .on("mouseout", function (d) {
+                    svg.selectAll(".chart-line").remove();
+                    svg.selectAll(".chart-dot").remove();
+                    svg.selectAll(".eu28-dot").remove();
+
+                    drawEU28AverageLine();
+                    svg.selectAll(".eu28-dot").attr("fill", "red");
+    
+                    countries.forEach(function(country, index) {
+                        var countryDataProcessed = processDataForCountry(country);
+                        // console.log("Country Data Processed:", countryDataProcessed);
+            
+                        // Assign a unique color for each line
+                        // var color = d3.schemeCategory10[index % 10]; // Change or expand this for more than 10 countries
+            
+                        addLineToChart(countryDataProcessed, country);
+                        addDotsToChart(countryDataProcessed, country);
+            
+                        // Add the processed data to the allCountriesData array
+                        allCountriesData.push({ country: country, data: countryDataProcessed });
+                        
+                    });
+        
+    
+                    tooltip.transition()
+                        .duration(200)
+                        .style("opacity", 0);
+                });
+
+                // Find the last data point for positioning the label
+                const lastDataPoint = processedEU28Data[0];
+            
+                // Add the label "avg" at the end of the line
+                svg.append("text")
+                    .attr("x", x(lastDataPoint.date) - 33) // Position slightly to the right of the last data point
+                    .attr("y", y(lastDataPoint.value)) // Align with the last data point's value on the y-axis
+                    .attr("dy", ".35em") // Center vertically
+                    .attr("text-anchor", "start") // Ensure the text grows to the right
+                    .style("fill", "red") // Match the line color
+                    .style("font", "15px Montserrat")
+                    .text("avg"); // The label text
+        }
+        drawEU28AverageLine();
+
+
         // Tooltip
         var tooltip = d3.select('body')
             .append("div")
@@ -188,7 +292,7 @@ export function updateLinechart(checkedValues) {
 
         // Function to add a dots to the chart
         function addDotsToChart(processedData, country) {
-            // console.log("Processed Data:", processedData);
+            console.log("Processed Data:", processedData);
             svg.append("g")
             .selectAll("dot")
             .attr("class", "chart-dot")
@@ -203,12 +307,13 @@ export function updateLinechart(checkedValues) {
 
             .on("mouseover", function (d) {
                 // Set all dots and lines to #333
-                d3.selectAll("path").attr("stroke", "#ccc");
-                d3.selectAll("circle").attr("fill", "#ccc");
+                // d3.selectAll("path").attr("stroke", "#ccc");
+                //d3.selectAll("circle").attr("fill", "#ccc");
+                d3.selectAll("path:not(.eu28-average-line)").attr("stroke", "#ccc");
+                d3.selectAll("circle:not(.eu28-dot)").attr("fill", "#ccc");
 
                 // Highlight the current dot
-                d3.select(this)
-                .attr("fill", countryMapping[country]["color"]);
+                d3.select(this).attr("fill", countryMapping[country]["color"]);
 
                 tooltip.transition()
                     .duration(100)
@@ -289,7 +394,7 @@ export function updateLinechart(checkedValues) {
         // Iterate over each country and add a line for each
         countries.forEach(function(country, index) {
             var countryDataProcessed = processDataForCountry(country);
-            // console.log("Country Data Processed:", countryDataProcessed);
+            console.log("Country Data Processed:", countryDataProcessed);
 
             // Assign a unique color for each line
             // var color = d3.schemeCategory10[index % 10]; // Change or expand this for more than 10 countries
@@ -318,6 +423,45 @@ export function updateLinechart(checkedValues) {
         .style("stroke", "#aaaaaa")  // Grey color
         .style("stroke-dasharray", "3 6")  // Dashed line
         .style("opacity", 0.9);  // Opacity 
+
+
+
+        // Add the average line after the Y axis
+        svg.append("line")
+        .attr("x1", 0)
+        .attr("x2", width)
+        .attr("y1", y(average))
+        .attr("y2", y(average))
+        .attr("stroke", "red") // Color of the average line
+        .attr("stroke-width", "2") // Thickness of the average line
+        .attr("stroke-dasharray", "5,5") 
+        .attr("shape-rendering", "crispEdges")
+        .style("z-index", "10"); 
+
+        // Add a label for the average value at the end of the line
+        svg.append("text")
+        .attr("class", "average-label")
+        .attr("x", width) 
+        .attr("y", y(average)) 
+        .attr("dy", "-0.5em") 
+        .attr("text-anchor", "end") 
+        .style("fill", "red") 
+        .style("font-size", "14px") 
+        .style("font-family", "Montserrat")
+        .style("font-weight", 700)
+        .text(`${average.toFixed(2)} %`); 
+
+        svg.append("text")
+        .attr("class", "average-label")
+        .attr("x", width) 
+        .attr("y", y(average) - 16) 
+        .attr("dy", "-0.5em") 
+        .attr("text-anchor", "end") 
+        .style("fill", "red") 
+        .style("font-size", "14px") 
+        .style("font-family", "Montserrat")
+        .style("font-weight", 700)
+        .text(`average:`); 
 
     })
 }
