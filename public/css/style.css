@@ -267,10 +267,11 @@ p{
 
 
 /*---- RESPONSIVE ------*/
+/* ----- Barchart ----- */
 #my_barchart {
     width: 1300px;
     height: 600px;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
 }
 
 /* Styles for smaller screens, like smartphones */
@@ -282,11 +283,11 @@ p{
     }
 }
 
-
+/* ----- Linechart ----- */
 #my_linechart {
     width: 1800px;
     height: 600px;
-    border: 1px solid black;
+    /* border: 1px solid black;*/
 }
 
 /* Styles for smaller screens, like smartphones */

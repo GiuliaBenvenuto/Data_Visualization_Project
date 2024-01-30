@@ -52,8 +52,12 @@ export function updateLinechart(checkedValues) {
     // append the svg object to the body of the page
     var svg = d3.select("#my_linechart")
         .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
+        //.attr("width", width + margin.left + margin.right)
+        //.attr("height", height + margin.top + margin.bottom)
+        .attr("width", "100%")
+        .attr("height", "100%")
+        .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`) // This makes the chart responsive
+        .attr("preserveAspectRatio", "xMidYMid meet")
     .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -203,7 +207,8 @@ export function updateLinechart(checkedValues) {
                 d3.selectAll("circle").attr("fill", "#ccc");
 
                 // Highlight the current dot
-                d3.select(this).attr("fill", countryMapping[country]["color"]);
+                d3.select(this)
+                .attr("fill", countryMapping[country]["color"]);
 
                 tooltip.transition()
                     .duration(100)

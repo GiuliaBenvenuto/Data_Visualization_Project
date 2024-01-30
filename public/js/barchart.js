@@ -173,9 +173,12 @@ export function updateBarchart(year) {
 
                 // Reduce opacity of all bars except the hovered one
                 // d3.selectAll(".bar").style("opacity", o => (o === d ? 1.0 : 0.6));
-                d3.selectAll(".bar").attr("fill", function(o) {
+                d3.selectAll(".bar")
+                .transition()
+                .duration(300)
+                .attr("fill", function(o) {
                     return (o === d) ? colorScale(+d[yearColumn]) : "#ccc"; // #ccc is the color for non-hovered bars
-                });
+                })
                 
 
                 tooltip.transition()        
@@ -198,7 +201,10 @@ export function updateBarchart(year) {
             .on("mouseout", function(d) {  
                 // Reset opacity of all bars
                 // d3.selectAll(".bIar").style("opacity", 1.0);
-                d3.selectAll(".bar").attr("fill", function(d) { return colorScale(+d[yearColumn]); });
+                d3.selectAll(".bar")
+                .transition()
+                .duration(300)
+                .attr("fill", function(d) { return colorScale(+d[yearColumn]); });
                 
 
                 tooltip.transition()        
