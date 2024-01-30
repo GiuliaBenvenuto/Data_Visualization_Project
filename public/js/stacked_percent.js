@@ -50,14 +50,15 @@ export function updateStacked(checkedValue) {
     // append the svg object to the body of the page
     var svg = d3.select("#my_stacked_barchart")
     .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
+        .attr("width", "100%")
+        .attr("height", "100%")
+        .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`) // This makes the chart responsive
+        .attr("preserveAspectRatio", "xMidYMid meet")
     .append("g")
         .attr("transform",
             "translate(" + margin.left + "," + margin.top + ")");
 
     // Parse the Data
-    // d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/data_stacked.csv", function(data) {
     d3.csv('./csv/stacked_percent_processed.csv', function(data) {
 
 

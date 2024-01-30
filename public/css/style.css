@@ -74,6 +74,7 @@ p{
 #plot_title_piechart_right, 
 #plot_title_piechart_left,
 #plot_title_piechart,
+#plot_title_ridgeline,
 #plot_title_bubblemap
 {
     font-family: 'Montserrat', sans-serif;
@@ -290,14 +291,154 @@ p{
     /* border: 1px solid black;*/
 }
 
-/* Styles for smaller screens, like smartphones */
-@media (max-width: 768px) { /* Adjust this value based on your needs */
+@media (max-width: 768px) { 
     #my_linechart {
-        width: 100%; /* Take the full width of the screen */
-        height: auto; /* Adjust the height automatically */
-        /* You can specify a fixed height if you prefer, e.g., height: 300px; */
+        width: 100%; 
+        height: auto; 
     }
 }
+
+
+/* ----- Treemap ----- */
+#my_treemap {
+    width: 950px;
+    height: 500px;
+}
+
+@media (max-width: 768px) { 
+    #my_treemap {
+        width: 100%; 
+        height: auto; 
+        margin-left: 5vh;
+        margin-right: 5vh;
+    }
+}
+
+
+/* ----- Percent Stacked Barchart ----- */
+#my_stacked_barchart {
+    width: 1100px;
+    height: 500px;
+}
+
+@media (max-width: 768px) { 
+    #my_stacked_barchart {
+        width: 100%; 
+        height: auto; 
+        margin-left: 5vh;
+        margin-right: 5vh;
+    }
+}
+
+
+/* ----- Heatmap ----- */
+#my_heatmap {
+    width: 1300px;
+    height: 500px;
+    margin-right: 30vh;
+}
+
+@media (max-width: 768px) { 
+    #my_heatmap {
+        width: 100%; 
+        height: auto; 
+        margin-right: 5vh
+    }
+}
+
+
+/* ----- Piechart Left ----- */
+#my_piechart_left {
+    margin-right: 20px; 
+    width: 700px; 
+    height: 450px;
+}
+
+@media (max-width: 768px) { 
+    #my_piechart_left {
+        width: 100%; 
+        height: auto; 
+    }
+}
+
+
+/* ----- Piechart Right ----- */
+#my_piechart_right {
+    margin-right: 20px; 
+    width: 700px; 
+    height: 450px;
+}
+
+@media (max-width: 768px) { 
+    #my_piechart_right {
+        width: 100%; 
+        height: auto; 
+    }
+}
+
+
+/* ----- Bubblemap ----- */
+#my_bubblemap {
+    width: 1000px; 
+    height: 800px;
+}
+
+@media (max-width: 768px) { 
+    #my_bubblemap{
+        width: 100%; 
+        height: auto; 
+    }
+}
+
+
+/* ----- Small multiple ----- */
+#my_multiple_barchart {
+    margin-top: 50px; 
+    width: 1400px; 
+    height: 350px;
+}
+
+@media (max-width: 768px) { 
+    #my_multiple_barchart{
+        width: 100%; 
+        height: auto; 
+        margin-left: 7vh;
+    }
+    #labels_div{
+        display: none;
+    }   
+}
+
+
+/* ----- Ridgeline ----- */
+#my_ridgeline {
+    width: 1200px; 
+    height: 600px;
+}
+
+@media (max-width: 768px) { 
+    #my_ridgeline{
+        width: 100%; 
+        height: auto; 
+    }
+}
+
+
+/* ----- Choropleth ----- */
+#my_map {
+    width: 1000px; 
+    height: 800px;
+}
+
+@media (max-width: 768px) { 
+    #my_map{
+        width: 100%; 
+        height: auto; 
+    }
+}
+
+
+
 
 
 /* ----- LINECHART ALERT ------ */

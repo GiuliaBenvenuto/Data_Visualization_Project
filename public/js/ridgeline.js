@@ -6,14 +6,17 @@ var margin = {top: 100, right: 30, bottom: 50, left:80},
 // append the svg object to the body of the page
 var svg = d3.select("#my_ridgeline")
   .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
+    //.attr("width", width + margin.left + margin.right)
+    //.attr("height", height + margin.top + margin.bottom)
+    .attr("width", "100%")
+    .attr("height", "100%")
+    .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`) // This makes the chart responsive
+    .attr("preserveAspectRatio", "xMidYMid meet")
   .append("g")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
 
 //read data
-// d3.csv("https://raw.githubusercontent.com/zonination/perceptions/master/probly.csv", function(data) {
 d3.csv('./csv/ridgeline_processed.csv', function(data) {
     //console.log("DATA:", data);
 
@@ -32,17 +35,7 @@ d3.csv('./csv/ridgeline_processed.csv', function(data) {
         allMeans.push(mean);
         roundedMeans.push(+mean.toFixed(2)); // Push the rounded value to the new array
     }
-    //console.log("allMeans:", allMeans);
-    //console.log("roundedMeans:", roundedMeans);
 
-
-
-    // Create a color scale using these means.
-    /*
-    var myColor = d3.scaleSequential()
-        .domain([0,100])
-        .interpolator(d3.interpolatePlasma);
-        */
 
     var startColor = "#0074ff"; // Blue
     var endColor = "#ff372c";   // Red

@@ -64,30 +64,24 @@ export function updateHeatmap(checkedValue) {
     // append the svg object to the body of the page
     var svg = d3.select("#my_heatmap")
     .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
+    //.attr("width", width + margin.left + margin.right)
+    //.attr("height", height + margin.top + margin.bottom)
+    .attr("width", "100%")
+    .attr("height", "100%")
+    .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`) // This makes the chart responsive
+    .attr("preserveAspectRatio", "xMidYMid meet")
     .append("g")
     .attr("transform",
             "translate(" + margin.left + "," + margin.top + ")");
 
     //Read the data
-    // d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/heatmap_data.csv", function(data) {
     d3.csv('./csv/heatmap_processed.csv', function(data) {
-        //console.log("DATA:", data);
 
         var myYears = ["2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"]
-        //console.log("myYears:", myYears); 
-
-        // var internetUse = ["I_IUEM", "I_IUSELL", "I_IUSNET", "I_IUOLC", "I_IUVOTE", "I_IUJOB", "I_IUBK", "I_IUIF", "I_IHIF"]
         var internetUse = ["I_IHIF", "I_IUIF", "I_IUBK", "I_IUJOB", "I_IUVOTE", "I_IUOLC", "I_IUSNET", "I_IUSELL", "I_IUEM"]
-        //console.log("internetUse:", internetUse);
 
 
-        // const filteredData = data.filter(d => d.geo === "AT");
         const filteredData = data.filter(d => d.geo === checkedValue);
-        //console.log("filteredData:", filteredData);
-
-
         var heatmapData = [];
         filteredData.forEach((obj, index) => {
             for (let year in obj) {
@@ -105,7 +99,7 @@ export function updateHeatmap(checkedValue) {
 
         // Build X scales and axis:
         var x = d3.scaleBand()
-            .range([0, width])  // width of your SVG
+            .range([0, width]) 
             .domain(heatmapData.map(function(d) { return d.year; }))
             .padding(0.01);
 

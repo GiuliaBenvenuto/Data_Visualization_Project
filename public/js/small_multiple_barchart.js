@@ -111,9 +111,13 @@ export function updateSmallMultiple(checkedValue) {
 
             const svg = svgContainer
                 .append("svg")
-                .attr("width", width + padding.left + padding.right) // Increase the width to account for padding
-                .attr("height", height + padding.top + padding.bottom) // Increase the height to account for padding
+                //.attr("width", width + padding.left + padding.right) // Increase the width to account for padding
+                //.attr("height", height + padding.top + padding.bottom) // Increase the height to account for padding
                 //.style("border", "1px solid red")
+                .attr("width", "100%")
+                .attr("height", "100%")
+                .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`) // This makes the chart responsive
+                .attr("preserveAspectRatio", "xMidYMid meet")
                 .append("g")
                 .attr("transform", `translate(${margin.left},${margin.top})`);
 

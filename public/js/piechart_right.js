@@ -68,8 +68,12 @@ export function updatePiechartRight(selectedState){
     // append the svg object to the div called 'my_dataviz'
     var svg = d3.select("#my_piechart_right")
     .append("svg")
-        .attr("width", width)
-        .attr("height", height)
+        //.attr("width", width)
+        //.attr("height", height)
+        .attr("width", "100%")
+        .attr("height", "100%")
+        .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`) // This makes the chart responsive
+        .attr("preserveAspectRatio", "xMidYMid meet")
     .append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 

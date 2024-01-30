@@ -526,7 +526,7 @@
     </script>
 
     <div class="flex justify-center items-center ">
-        <div id="my_treemap"  style="margin-top: 5px; width: 950px; height: 500px;">
+        <div id="my_treemap"  style="margin-top: 5px;">
             <script type="module" src="./js/treemap.js"></script>
         </div>
     </div>
@@ -639,7 +639,7 @@
     </script>
 
     <div class="flex justify-center items-center ">
-        <div id="my_stacked_barchart"  style="width: 1100px; height: 500px;">
+        <div id="my_stacked_barchart">
             <script type="module" src="./js/stacked_percent.js"></script>
         </div>
     </div>
@@ -761,7 +761,7 @@
     </script>
 
     <div class="flex justify-center items-center ">
-        <div id="my_heatmap"  style="margin-right: 200px; width: 1300px; height: 500px;">
+        <div id="my_heatmap">
             <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
             <script type="module" src="./js/heatmap.js"></script>
         </div>
@@ -889,10 +889,10 @@
     </div>
 
     <div class="flex justify-center items-center">
-        <div id="my_piechart_left" style="margin-right: 20px; width: 700px; height: 450px;">
+        <div id="my_piechart_left">
             <script type="module" src="./js/piechart_left.js"></script>
         </div>
-        <div id="my_piechart_right" style="margin-left: 20px; width: 700px; height: 450px;">
+        <div id="my_piechart_right">
             <script type="module" src="./js/piechart_right.js"></script>
         </div>
     </div>
@@ -996,7 +996,7 @@
     </script>
 
     <div class="flex justify-center items-center ">
-        <div id="my_bubblemap"  style="width: 1000px; height: 800px;">
+        <div id="my_bubblemap">
             <!-- Load d3-cloud -->
             <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
             <script type="module" src="./js/bubblemap.js"></script>
@@ -1091,7 +1091,7 @@
                 // Update the title with the selected country name in the middle of the sentence
                 var plotTitle = document.getElementById('plot_title_small_multiple');
                 if (plotTitle) {
-                    var selectedCountryName = countryMapping[checkedValue_barchart] || 'Austria'; // Default to 'Austria' if the mapping fails
+                    var selectedCountryName = countryMapping[checkedValue_barchart] || 'Austria'; 
                     plotTitle.textContent = 'Device used in ' + selectedCountryName + ' to access Internet';
                 }
         
@@ -1100,12 +1100,8 @@
                 chartContainer.selectAll("*").remove(); 
         
                 updateSmallMultiple(checkedValue_barchart);
-
             }
     
-            // Attach change event listeners to radio buttons within the specific dropdown
-            // var radioButtons = smallMultipleDropdown.querySelectorAll('.dropdown-content input[type="radio"]');
-            // For dropdown_small_multiple
             var radioButtons = smallMultipleDropdown.querySelectorAll('.dropdown-content input[type="radio"][name="state"]');
 
 
@@ -1122,7 +1118,6 @@
     
             // Draw the chart for the initially checked value 'AT'
             updateSmallMultiple(checkedValue_barchart);
-    
         });
     </script>
     
@@ -1137,7 +1132,7 @@
                 <li style="text-align: right; margin-right: 8px;">Smart TV</li>
             </ul>
         </div>
-        <div id="my_multiple_barchart" style="margin-top: 50px; width: 1400px; height: 350px;">
+        <div id="my_multiple_barchart">
             <script type="module" src="./js/small_multiple_barchart.js"></script>
         </div>
     </div>
@@ -1146,20 +1141,20 @@
 
     <!-- Ridgeline -->
     <div class="mt-20 md:mt-20"> <!-- Adjust the margin-top (mt) values as needed -->
-        <h2 id="plot_title_small_multiple" class="text-2xl text-center mb-8">
+        <h2 id="plot_title_ridgeline" class="text-2xl text-center mb-8">
             Percentage of individuals using the mobile phone to access Internet
         </h2>
     </div>
 
     <div class="flex justify-center items-center mt-8">
-        <div id="my_ridgeline"  style="width: 1200px; height: 600px;">
+        <div id="my_ridgeline">
             <script type="module" src="./js/ridgeline.js"></script>
         </div>
     </div>
 
 
 
-    <!-- Map -->
+    <!-- Choropleth Map -->
     <div class="mt-20 md:mt-20"> <!-- Adjust the margin-top (mt) values as needed -->
         <h2 id="plot_title_map" class="text-2xl text-center mb-8">
             Percentage of individuals with above basic digital skills in 2015
@@ -1217,7 +1212,7 @@
     </script>
 
     <div class="flex justify-center items-center ">
-        <div id="my_map"  style="width: 1000px; height: 800px;">
+        <div id="my_map">
             <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
             <script type="module" src="./js/map.js"></script>
         </div>

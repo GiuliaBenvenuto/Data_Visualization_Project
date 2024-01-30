@@ -45,7 +45,7 @@ export function updateLinechart(checkedValues) {
     // console.log("Checked Countries: " + countries);
 
     // set the dimensions and margins of the graph
-    var margin = {top: 80, right: 400, bottom: 80, left: 400},
+    var margin = {top: 80, right: 280, bottom: 80, left: 280},
         width = 1800 - margin.left - margin.right,
         height = 600 - margin.top - margin.bottom;
 
