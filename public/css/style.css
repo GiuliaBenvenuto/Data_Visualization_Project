@@ -12,6 +12,22 @@ p{
     font-family: 'Montserrat', sans-serif;
     font-weight: 500;
     color: #293241;
+    text-align: center;
+}
+
+#description{
+    margin-left: 300px;
+    margin-right: 300px;
+    margin-top: 10px;
+}
+
+/* Make the paragraph responsive */
+@media (max-width: 768px) {
+    #description {
+        margin-left: 50px;
+        margin-right: 50px;
+        margin-top: 10px;
+    }
 }
 
 /* Fade In Keyframes */
