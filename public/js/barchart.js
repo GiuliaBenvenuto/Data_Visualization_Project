@@ -51,7 +51,7 @@ export function updateBarchart(year, selection) {
     chartContainer.selectAll("*").remove(); 
 
     var margin = {top: 30, right: 95, bottom: 150, left: 97},
-        width = 1300 - margin.left - margin.right,
+        width = 1400 - margin.left - margin.right,
         height = 600 - margin.top - margin.bottom;
 
     // append the svg object to the body of the page
