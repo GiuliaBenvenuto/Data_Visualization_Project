@@ -26,7 +26,7 @@
     justify-content: center;
     border: 1px solid #ccc;
     border-radius: 10px;
-    background-color: #ea5d55; /* Your selected color */
+    background-color: #ee6c4d; /* Your selected color */
     color: #fff;
     padding: 10px;
     text-align: center;
@@ -38,7 +38,7 @@
   }
 
   .data_prep:hover, .data_prep:active {
-    background-color: #c94c47; /* Darker red for hover and active states */
+    background-color: #e35431; /* Darker red for hover and active states */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0); /* Optional: add a shadow for some depth */
   }
   
@@ -46,5 +46,6 @@
   This typically requires JavaScript to toggle a class. Here's an example: */
   
   .data_prep.active {
-    background-color: #c94c47; /* Same darker red for the active class */
+    background-color: rgb(227, 84, 49); /* Same darker red for the active class */
   }
+  

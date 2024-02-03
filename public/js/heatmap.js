@@ -57,7 +57,7 @@ export function updateHeatmap(checkedValue) {
 
 
     // set the dimensions and margins of the graph
-    var margin = {top: 30, right: 30, bottom: 30, left: 320},
+    var margin = {top: 30, right: 30, bottom: 150, left: 320},
     width = 1300 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
@@ -77,9 +77,7 @@ export function updateHeatmap(checkedValue) {
     //Read the data
     d3.csv('./csv/heatmap_processed.csv', function(data) {
 
-        var myYears = ["2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"]
         var internetUse = ["I_IHIF", "I_IUIF", "I_IUBK", "I_IUJOB", "I_IUVOTE", "I_IUOLC", "I_IUSNET", "I_IUSELL", "I_IUEM"]
-
 
         const filteredData = data.filter(d => d.geo === checkedValue);
         var heatmapData = [];
@@ -94,8 +92,6 @@ export function updateHeatmap(checkedValue) {
                 }
             }
         });
-        // console.log("HEATMAP DATA:", heatmapData);
-
 
         // Build X scales and axis:
         var x = d3.scaleBand()
@@ -212,5 +208,38 @@ export function updateHeatmap(checkedValue) {
                 .duration(200)
                 .style("opacity", 0);
         })
-    })
+
+        // Append the definitions to the SVG
+        var defs = svg.append("defs");
+
+        // Create a linear gradient for the legend
+        var linearGradient = defs.append("linearGradient")
+            .attr("id", "linear-gradient");
+
+        // Set the gradient color for various percentages
+        linearGradient.selectAll("stop")
+            .data(myColor.ticks().map((t, i, n) => ({ offset: `${100*i/n.length}%`, color: myColor(t) })))
+            .enter().append("stop")
+            .attr("offset", d => d.offset)
+            .attr("stop-color", d => d.color);
+
+        // Append the legend
+        var legendWidth = 600, legendHeight = 25;
+        var legend = svg.append("g")
+            .attr("transform", `translate(${(width - legendWidth) / 2 - 50}, ${height + margin.bottom - legendHeight - 60})`);
+
+        legend.append("rect")
+            .attr("width", legendWidth)
+            .attr("height", legendHeight)
+            .style("fill", "url(#linear-gradient)");
+
+        // Add legend text for 0%, 25%, 50%, 75%, and 100%
+        const legendScale = d3.scaleLinear().domain([0, 100]).range([0, legendWidth]);
+        const legendAxis = d3.axisBottom(legendScale).tickValues([0, 25, 50, 75, 100]).tickFormat(d => `${d}%`);
+
+        legend.append("g")
+            .attr("transform", `translate(0, ${legendHeight})`)
+            .call(legendAxis);
+
+            })
 }
