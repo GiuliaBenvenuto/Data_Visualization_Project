@@ -201,7 +201,10 @@ export function updateSmallMultiple(checkedValue) {
                     
                     var hoveredIndex = d3.selectAll(".category-bar").nodes().indexOf(this);
 
-                    d3.selectAll(".category-bar").attr("fill", function(o, i) {
+                    d3.selectAll(".category-bar")
+                    .transition()
+                    .duration(300)
+                    .attr("fill", function(o, i) {
                         var groupIndex = Math.floor(i / 6);
                         if (hoveredIndex === i) {
                             if (groupIndex === 0) return "#ea3a30";
@@ -227,7 +230,10 @@ export function updateSmallMultiple(checkedValue) {
                     // Reset the color of all bars with the class "category-bar"
                     // d3.selectAll(".category-bar").attr("fill", d => colorScale(category))
                     // Extract the index from the bar's ID
-                    d3.selectAll(".category-bar").each(function(d, i) {
+                    d3.selectAll(".category-bar")
+                    .transition()
+                      .duration(300)
+                      .each(function(d, i) {
                         // Calculate the group index (0 for the first 6 bars, 1 for the next 6, and so on)
                         var groupIndex = Math.floor(i / 6);
                 
@@ -244,7 +250,10 @@ export function updateSmallMultiple(checkedValue) {
                         }
                 
                         // Set the fill color
-                        d3.select(this).attr("fill", color);
+                        d3.select(this)
+                        .transition()
+                        .duration(200)
+                        .attr("fill", color);
                     });
         
                 })
