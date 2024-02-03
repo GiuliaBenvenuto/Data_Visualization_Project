@@ -59,7 +59,7 @@ export function updateHeatmap(checkedValue) {
     // set the dimensions and margins of the graph
     var margin = {top: 30, right: 30, bottom: 150, left: 320},
     width = 1300 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    height = 600 - margin.top - margin.bottom;
 
     // append the svg object to the body of the page
     var svg = d3.select("#my_heatmap")
@@ -209,8 +209,13 @@ export function updateHeatmap(checkedValue) {
                 .style("opacity", 0);
         })
 
+
         // Append the definitions to the SVG
         var defs = svg.append("defs");
+
+        // Define the font settings
+        var legendFontFamily = "Montserrat, sans-serif";  // Specify your desired font family
+        var legendFontSize = "15px"; 
 
         // Create a linear gradient for the legend
         var linearGradient = defs.append("linearGradient")
@@ -239,7 +244,13 @@ export function updateHeatmap(checkedValue) {
 
         legend.append("g")
             .attr("transform", `translate(0, ${legendHeight})`)
-            .call(legendAxis);
+            .call(legendAxis)
+            .selectAll("text")
+            .style("font-family", legendFontFamily)  // Set the font family for legend text
+            .style("font-size", legendFontSize); 
 
-            })
+        legend.selectAll(".tick line, .domain")
+            .remove();
+
+    })
 }
