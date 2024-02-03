@@ -1,19 +1,6 @@
 
 export function updateBubbleMap(use, selectedYear) {
 
-    /*
-    const internetUseMapping = {
-      "I_IHIF": "Health information",
-      "I_IUIF": "Information for goods and services",
-      "I_IUBK": "Internet banking",
-      "I_IUJOB": "Looking for job / job application",
-      "I_IUVOTE": "Voting or online consultation",
-      "I_IUOLC": "Online course",
-      "I_IUSNET": "Social networks",
-      "I_IUSELL": "Selling goods or services",
-      "I_IUEM": "Sending or receiving emails" 
-    };*/
-
     const internetUseMapping = {
       "I_IHIF": { text: "Health information", color: "#53b5ce" }, // Azzurro
       "I_IUIF": { text: "Information for goods and services", color: "#75c359" }, //green
@@ -86,8 +73,6 @@ export function updateBubbleMap(use, selectedYear) {
     // The svg
     var svg = d3.select("#my_bubblemap")
       .append("svg")
-      //.attr("width", width + margin.left + margin.right)
-      //.attr("height", height + margin.top + margin.bottom)
       .attr("width", "100%")
       .attr("height", "100%")
       .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`) // This makes the chart responsive
@@ -157,7 +142,6 @@ export function updateBubbleMap(use, selectedYear) {
     .defer(d3.csv, csvUrl)
     .await(ready);
 
-    // console.log("DATA MAP", populationData)
 
     function ready(error, topo, data) {
         if (error) throw error;
@@ -176,7 +160,6 @@ export function updateBubbleMap(use, selectedYear) {
                 state: countryMapping[d["geo"]]
             };
         });
-        //console.log("Filtered Data:", filteredData);
 
 
         // Tooltip
@@ -230,8 +213,6 @@ export function updateBubbleMap(use, selectedYear) {
             .range([5, 50]);
 
 
-        //console.log("SIZE", size)
-
         // Process GeoJSON data to calculate centroids
         var centroids = topo.features.map(function(feature) {
           var centroid = d3.geoPath().centroid(feature);
@@ -249,7 +230,6 @@ export function updateBubbleMap(use, selectedYear) {
           };
         });
       
-        //console.log("CENTROIDS", centroids, centroids.name)
 
         // Create a map from `filteredData` for quick lookup based on 'code'
         var dataMap = filteredData.reduce(function(map, obj) {
@@ -325,10 +305,63 @@ export function updateBubbleMap(use, selectedYear) {
                           .duration(500)
                           .style("opacity", 0);
                     });
-            }
+                  }
+              });
 
 
-  });
+              // Define the data for the new legend items (e.g., 0%, 25%, 50%, 75%, 100%)
+              var legendDataNew = [
+                { percentage: 0 },
+                { percentage: 25 },
+                { percentage: 50 },
+                { percentage: 75 },
+                { percentage: 100 }
+              ];
 
+              // Create a group for the new legend
+              var legendGroupNew = svg.append("g")
+                .attr("class", "legend")
+                .attr("transform", "translate(" + (width + 30) + "," + (height - 600) + ")"); // Adjust the position as needed
+
+              // Calculate the radius for each percentage circle based on the 'size' scale
+              var circleRadii = legendDataNew.map(function(item) {
+                return size(item.percentage);
+              });
+
+              // Add circles to the legend
+              legendGroupNew.selectAll(".legend-circle")
+                .data(legendDataNew)
+                .enter()
+                .append("circle")
+                .attr("class", "legend-circle")
+                .attr("cx", 10) // Adjust the x-position as needed
+                .attr("cy", function(d, i) {
+                  return i * 25; // Adjust vertical spacing between circles
+                })
+                .attr("r", function(d, i) {
+                  return circleRadii[i];
+                })
+                .style("fill", "none")
+                .style("stroke", "black");
+
+              // Add labels to the legend
+              legendGroupNew.selectAll(".legend-label")
+                .data(legendDataNew)
+                .enter()
+                .append("text")
+                .attr("class", "legend-label")
+                .attr("x", 30) // Adjust the x-position as needed
+                .attr("y", function(d, i) {
+                  return i * 25; // Adjust vertical spacing between labels
+                })
+                .attr("dy", "0.35em")
+                .style("text-anchor", "start")
+                .style("font", "15px Montserrat")
+                .text(function(d) {
+                  return d.percentage + "%";
+                });
+
+
+    
     }
 }

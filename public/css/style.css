@@ -392,6 +392,7 @@ p{
 #my_bubblemap {
     width: 1000px; 
     height: 800px;
+    /*border: 1px solid black;*/
 }
 
 @media (max-width: 768px) { 
