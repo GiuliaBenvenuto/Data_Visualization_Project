@@ -9,7 +9,6 @@
     <!-- Load d3.js -->
     <script src="https://d3js.org/d3.v4.js"></script>
 
-
     <!-- Font-awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
@@ -19,6 +18,7 @@
     <!-- Style -->
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/barchart_year_selection.css">
+    <link rel="stylesheet" href="./css/collpasible.css">
 
     <!-- Fonts -->
     <!-- Montserrat -->
@@ -163,13 +163,11 @@
     <!-- Barchart -->
     <div class="mt-20 md:mt-20"> <!-- Adjust the margin-top (mt) values as needed -->
         <h2 id="plot_title_barchart" class="text-3xl text-center">
-            Individuals that never used Internet in 2012 
+            Individuals that never used Internet in <span style="color: #5092b8;">2012</span>
         </h2>
         <p id="description" class="text-lg">
             In the early days of the internet's introduction to households, the majority of people were not connected digitally. <br>
-            Our visualization captures this shift over time, allowing users to explore the percentage of individuals who never used the internet. <br> <br>
-            This chart helps us see how internet became an integral part to our everyday life. <br>
-            By adjusting the year, a clear pattern emerges, allowing us to see that the percentage of people that nerver used internet decrese drammaticaly. Going from an average of 23% of people in Europe that never used internet in 2012, to the more recent years where we can see that the same average oscillates from 8% to 6%.
+            Our visualization captures this shift over time, allowing users to explore the percentage of individuals who never used the internet.
         </p>
     </div>
     <div class="flex justify-center items-center ">
@@ -236,42 +234,14 @@
         <label for="alphabetOrder" class="order-label">Alpha Order</label>    
     </div>
 
-    
-    <!--
-    <script type="module">
-        import { updateBarchart } from './js/barchart.js';
 
-        function updateTitle(year) {
-            const titleBase = "Individuals that never used Internet in";
-            document.getElementById('plot_title_barchart').textContent = titleBase + " " + year;
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            var yearSelectors = document.querySelectorAll('.year-label');
-            var selectedYear = 2012;
-            updateBarchart(selectedYear);
-            // Set 2012 as the checked value on page load
-            document.getElementById('year2012').checked = true;
-
-            yearSelectors.forEach(function(label) {
-                label.addEventListener('click', function() {
-                    // Handle the click event if needed
-                    selectedYear = this.previousElementSibling.value;
-
-                    // Call the function to update the chart
-                    updateBarchart(selectedYear);
-                    // Update title
-                    updateTitle(selectedYear);
-                });
-            });
-        });
-    </script> -->
     <script type="module">
         import { updateBarchart } from './js/barchart.js';
     
         function updateTitle(year) {
             const titleBase = "Individuals that never used Internet in";
-            document.getElementById('plot_title_barchart').textContent = titleBase + " " + year;
+            // document.getElementById('plot_title_barchart').textContent = titleBase + " " + year;
+            document.getElementById('plot_title_barchart').innerHTML = titleBase + " <span style='color: #5092b8;'>" + year + "</span>";
         }
     
         function updateOrder(order) {
@@ -314,7 +284,44 @@
             });
         });
     </script>
-    
+
+    <div class="mt-6 mb-6 md:mt-6"> 
+        <p id="description" class="text-lg">
+            This chart helps us see how internet became an integral part to our everyday life. <br>
+            By adjusting the year, a clear pattern emerges, allowing us to see that the percentage of people that nerver used internet decrese drammaticaly. Going from an average of 23% of people in Europe that never used internet in 2012, to the more recent years where we can see that the same average oscillates from 8% to 6%.
+        </p>
+    </div>
+
+    <!-- Collapsible Content -->
+    <div class="text-center">
+        <div class="my-4">
+          <!-- Button that controls the collapsible content -->
+          <button class="data_prep" id="toggleButton_1">
+            <i class="fa fa-info-circle"></i>  Data preparation
+          </button>
+        </div>
+        
+        <!-- Collapsible content -->
+        <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_1">
+          <p  class="text-lg">Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+        </div>
+    </div>
+      
+    <script>
+        // JavaScript to toggle the collapsible content
+        document.getElementById('toggleButton_1').addEventListener('click', function() {
+            var content = document.getElementById('collapsibleContent_1');
+            content.classList.toggle('hidden');
+        });
+
+        var prepButton = document.querySelector('.data_prep');
+
+        // Add click event listener
+        prepButton.addEventListener('click', function() {
+            // Toggle the 'active' class on click
+            this.classList.toggle('active');
+        });
+    </script>
 
 
 
@@ -325,12 +332,8 @@
             <!-- Availability of computers in households -->
         </h2>
 
-        <p id="description" class="text-lg">
-            Following the previous trend in individuals who never used the internet, our second visualization focuses on gradual integration of computers into households. <br>
-            This line chart illustrates the steady increase in the percentage of households with at least a computer across different years. When expanding the selection to include more countries, it becomes apparent that this trend is consistent across all European countries. 
-            Interestingly, we also observe that countries initially with a lower overall percentage eventually converge to a nearly equal percentage as other countries. <br>
-            To enhance the clarity of the visualization, we opted to limit the simultaneous selection of countries. However, we maintained the always-visible average to provide a reference point, allowing users to gauge whether the selected country falls above or below the European average for that specific year. <br>
-            Just like the previous visualization, it’s clear to see how also technology became an integral part of our everyday life.
+        <p id="description" class="text-lg mb-6">
+            Following the previous trend in individuals who never used the internet, <br> our second visualization focuses on gradual integration of computers into households. 
         </p>
     </div>
 
@@ -374,66 +377,6 @@
             <label><input type="checkbox" name="UK" value="UK">United Kingdom</label>
         </div>
     </div>
-
-    <!-- WITHOUT ALERT
-    <script type="module">
-        import { updateLinechart } from './js/linechart.js';
-    
-        document.addEventListener('DOMContentLoaded', function() {
-            // Get the specific dropdown by its ID
-            var linechartDropdown = document.getElementById('dropdown_linechart');
-    
-            // Initialize an array to store the values of checked checkboxes
-            var checkedValues = ['AT'];
-    
-            // Function to update the array of checked values
-            function updateCheckedValues() {
-                checkedValues = []; // Reset the array
-                var checkboxes = linechartDropdown.querySelectorAll('.dropdown-content input[type="checkbox"]:checked');
-                checkboxes.forEach(function(checkbox) {
-                    checkedValues.push(checkbox.value);
-                });
-    
-                // Call the function to update the chart
-                var chartContainer = d3.select("#my_linechart");
-                chartContainer.selectAll("*").remove(); 
-    
-                updateLinechart(checkedValues);
-            }
-    
-            // Attach change event listeners to checkboxes within the specific dropdown
-            var checkboxes = linechartDropdown.querySelectorAll('.dropdown-content input[type="checkbox"]');
-            checkboxes.forEach(function(checkbox) {
-                // To clear everything but AT on reload of the page
-                if (checkbox.value !== 'AT') {
-                    checkbox.checked = false; // Uncheck all checkboxes except 'AT'
-                }
-                checkbox.addEventListener('change', updateCheckedValues);
-            });
-    
-            // Explicitly set the checkbox for Austria to checked 
-            // Done for the reload of the page
-            var checkboxAT = linechartDropdown.querySelector('.dropdown-content input[type="checkbox"][value="AT"]');
-            if (checkboxAT) {
-                checkboxAT.checked = true;
-            }
-    
-            // Draw the chart for the initially checked value 'AT'
-            updateLinechart(checkedValues);
-    
-            // Attach click event listener to the "Clear All" button within the specific dropdown
-            linechartDropdown.querySelector('#clearAll').addEventListener('click', function() {
-                checkboxes.forEach(function(checkbox) {
-                    checkbox.checked = false; // Uncheck all checkboxes
-                });
-                updateCheckedValues(); // Update the chart with no selected countries
-            });
-    
-            // Initially call updateCheckedValues to draw the chart with default values
-            updateCheckedValues();
-            
-        });
-    </script> -->
 
     <!-- Custom Alert -->
     <div id="customAlert" class="custom-alert" style="display:none;">
@@ -525,6 +468,47 @@
         </div>
     </div>
 
+    <div class="mt-6 md:mt-6"> 
+        <p id="description" class="text-lg">
+            This line chart illustrates the steady increase in the percentage of households with at least a computer across different years. When expanding the selection to include more countries, it becomes apparent that this trend is consistent across all European countries. 
+            Interestingly, we also observe that countries initially with a lower overall percentage eventually converge to a nearly equal percentage as other countries. <br>
+            To enhance the clarity of the visualization, we opted to limit the simultaneous selection of countries. However, we maintained the always-visible average to provide a reference point, allowing users to gauge whether the selected country falls above or below the European average for that specific year. <br>
+            Just like the previous visualization, it’s clear to see how also technology became an integral part of our everyday life.
+        </p>
+    </div>
+
+    <!-- Collapsible Content -->
+    <div class="text-center">
+        <div class="my-4">
+          <!-- Button that controls the collapsible content -->
+          <button class="data_prep" id="toggleButton_2">
+            <i class="fa fa-info-circle"></i>  Data preparation
+          </button>
+        </div>
+        
+        <!-- Collapsible content -->
+        <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_2">
+          <p  class="text-lg">Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+        </div>
+    </div>
+      
+    <script>
+        // JavaScript to toggle the collapsible content
+        document.getElementById('toggleButton_2').addEventListener('click', function() {
+            var content = document.getElementById('collapsibleContent_2');
+            content.classList.toggle('hidden');
+        });
+
+        var prepButton = document.querySelector('.data_prep');
+
+        // Add click event listener
+        prepButton.addEventListener('click', function() {
+            // Toggle the 'active' class on click
+            this.classList.toggle('active');
+        });
+    </script>
+    
+
 
     <!-- Treemap -->
     <div class="mt-20 md:mt-20"> <!-- Adjust the margin-top (mt) values as needed -->
@@ -604,6 +588,37 @@
         </div>
     </div>
 
+    <!-- Collapsible Content -->
+    <div class="text-center">
+        <div class="my-4">
+          <!-- Button that controls the collapsible content -->
+          <button class="data_prep" id="toggleButton_3">
+            <i class="fa fa-info-circle"></i>  Data preparation
+          </button>
+        </div>
+        
+        <!-- Collapsible content -->
+        <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_3">
+          <p  class="text-lg">Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+        </div>
+    </div>
+      
+    <script>
+        // JavaScript to toggle the collapsible content
+        document.getElementById('toggleButton_3').addEventListener('click', function() {
+            var content = document.getElementById('collapsibleContent_3');
+            content.classList.toggle('hidden');
+        });
+
+        var prepButton = document.querySelector('.data_prep');
+
+        // Add click event listener
+        prepButton.addEventListener('click', function() {
+            // Toggle the 'active' class on click
+            this.classList.toggle('active');
+        });
+    </script>
+
 
 
 
@@ -630,7 +645,6 @@
             <label><input type="radio" name="stacked_state" value="EE">Estonia</label>
             <label><input type="radio" name="stacked_state" value="EL">Greece</label>
             <label><input type="radio" name="stacked_state" value="ES">Spain</label>
-            <label><input type="radio" name="stacked_state" value="EU28">European Union</label>
             <label><input type="radio" name="stacked_state" value="FI">Finland</label>
             <label><input type="radio" name="stacked_state" value="FR">France</label>
             <label><input type="radio" name="stacked_state" value="HR">Croatia</label>
@@ -716,6 +730,37 @@
             <script type="module" src="./js/stacked_percent.js"></script>
         </div>
     </div>
+
+    <!-- Collapsible Content -->
+    <div class="text-center">
+        <div class="my-4">
+          <!-- Button that controls the collapsible content -->
+          <button class="data_prep" id="toggleButton_4">
+            <i class="fa fa-info-circle"></i>  Data preparation
+          </button>
+        </div>
+        
+        <!-- Collapsible content -->
+        <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_4">
+          <p  class="text-lg">Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+        </div>
+    </div>
+      
+    <script>
+        // JavaScript to toggle the collapsible content
+        document.getElementById('toggleButton_4').addEventListener('click', function() {
+            var content = document.getElementById('collapsibleContent_4');
+            content.classList.toggle('hidden');
+        });
+
+        var prepButton = document.querySelector('.data_prep');
+
+        // Add click event listener
+        prepButton.addEventListener('click', function() {
+            // Toggle the 'active' class on click
+            this.classList.toggle('active');
+        });
+    </script>
     
 
     <!-- Second Section -->
@@ -839,6 +884,39 @@
             <script type="module" src="./js/heatmap.js"></script>
         </div>
     </div>
+
+    <!-- Collapsible Content -->
+    <div class="text-center">
+        <div class="my-4">
+          <!-- Button that controls the collapsible content -->
+          <button class="data_prep" id="toggleButton_5">
+            <i class="fa fa-info-circle"></i>  Data preparation
+          </button>
+        </div>
+        
+        <!-- Collapsible content -->
+        <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_5">
+          <p  class="text-lg">Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+        </div>
+    </div>
+      
+    <script>
+        // JavaScript to toggle the collapsible content
+        document.getElementById('toggleButton_5').addEventListener('click', function() {
+            var content = document.getElementById('collapsibleContent_5');
+            content.classList.toggle('hidden');
+        });
+
+        var prepButton = document.querySelector('.data_prep');
+
+        // Add click event listener
+        prepButton.addEventListener('click', function() {
+            // Toggle the 'active' class on click
+            this.classList.toggle('active');
+        });
+    </script>
+
+
 
     <!-- Pie chart -->
     <h2 id="plot_title_piechart" class="text-3xl text-center mt-12 mb-4">
@@ -968,6 +1046,37 @@
         </div>
     </div>
 
+    <!-- Collapsible Content -->
+    <div class="text-center">
+        <div class="my-4">
+          <!-- Button that controls the collapsible content -->
+          <button class="data_prep" id="toggleButton_6">
+            <i class="fa fa-info-circle"></i>  Data preparation
+          </button>
+        </div>
+        
+        <!-- Collapsible content -->
+        <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_6">
+          <p  class="text-lg">Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+        </div>
+    </div>
+      
+    <script>
+        // JavaScript to toggle the collapsible content
+        document.getElementById('toggleButton_6').addEventListener('click', function() {
+            var content = document.getElementById('collapsibleContent_6');
+            content.classList.toggle('hidden');
+        });
+
+        var prepButton = document.querySelector('.data_prep');
+
+        // Add click event listener
+        prepButton.addEventListener('click', function() {
+            // Toggle the 'active' class on click
+            this.classList.toggle('active');
+        });
+    </script>
+
     <!--
     <div class="flex justify-center items-center">
         <div id="my_piechart_left">
@@ -1077,6 +1186,37 @@
             <script type="module" src="./js/bubblemap.js"></script>
         </div>
     </div>
+
+    <!-- Collapsible Content -->
+    <div class="text-center">
+        <div class="my-4">
+          <!-- Button that controls the collapsible content -->
+          <button class="data_prep" id="toggleButton_7">
+            <i class="fa fa-info-circle"></i>  Data preparation
+          </button>
+        </div>
+        
+        <!-- Collapsible content -->
+        <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_7">
+          <p  class="text-lg">Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+        </div>
+    </div>
+      
+    <script>
+        // JavaScript to toggle the collapsible content
+        document.getElementById('toggleButton_7').addEventListener('click', function() {
+            var content = document.getElementById('collapsibleContent_7');
+            content.classList.toggle('hidden');
+        });
+
+        var prepButton = document.querySelector('.data_prep');
+
+        // Add click event listener
+        prepButton.addEventListener('click', function() {
+            // Toggle the 'active' class on click
+            this.classList.toggle('active');
+        });
+    </script>
 
     
 
@@ -1212,6 +1352,37 @@
         </div>
     </div>
 
+    <!-- Collapsible Content -->
+    <div class="text-center">
+        <div class="my-4">
+          <!-- Button that controls the collapsible content -->
+          <button class="data_prep" id="toggleButton_8">
+            <i class="fa fa-info-circle"></i>  Data preparation
+          </button>
+        </div>
+        
+        <!-- Collapsible content -->
+        <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_8">
+          <p  class="text-lg">Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+        </div>
+    </div>
+      
+    <script>
+        // JavaScript to toggle the collapsible content
+        document.getElementById('toggleButton_8').addEventListener('click', function() {
+            var content = document.getElementById('collapsibleContent_8');
+            content.classList.toggle('hidden');
+        });
+
+        var prepButton = document.querySelector('.data_prep');
+
+        // Add click event listener
+        prepButton.addEventListener('click', function() {
+            // Toggle the 'active' class on click
+            this.classList.toggle('active');
+        });
+    </script>
+
 
 
     <!-- Ridgeline -->
@@ -1226,6 +1397,37 @@
             <script type="module" src="./js/ridgeline.js"></script>
         </div>
     </div>
+
+    <!-- Collapsible Content -->
+    <div class="text-center">
+        <div class="my-4">
+          <!-- Button that controls the collapsible content -->
+          <button class="data_prep" id="toggleButton_9">
+            <i class="fa fa-info-circle"></i>  Data preparation
+          </button>
+        </div>
+        
+        <!-- Collapsible content -->
+        <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_9">
+          <p  class="text-lg">Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+        </div>
+    </div>
+      
+    <script>
+        // JavaScript to toggle the collapsible content
+        document.getElementById('toggleButton_9').addEventListener('click', function() {
+            var content = document.getElementById('collapsibleContent_9');
+            content.classList.toggle('hidden');
+        });
+
+        var prepButton = document.querySelector('.data_prep');
+
+        // Add click event listener
+        prepButton.addEventListener('click', function() {
+            // Toggle the 'active' class on click
+            this.classList.toggle('active');
+        });
+    </script>
 
 
 
@@ -1292,6 +1494,37 @@
             <script type="module" src="./js/map.js"></script>
         </div>
     </div>
+
+    <!-- Collapsible Content -->
+    <div class="text-center">
+        <div class="my-4">
+          <!-- Button that controls the collapsible content -->
+          <button class="data_prep" id="toggleButton_10">
+            <i class="fa fa-info-circle"></i>  Data preparation
+          </button>
+        </div>
+        
+        <!-- Collapsible content -->
+        <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_10">
+          <p  class="text-lg">Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+        </div>
+    </div>
+      
+    <script>
+        // JavaScript to toggle the collapsible content
+        document.getElementById('toggleButton_10').addEventListener('click', function() {
+            var content = document.getElementById('collapsibleContent_10');
+            content.classList.toggle('hidden');
+        });
+
+        var prepButton = document.querySelector('.data_prep');
+
+        // Add click event listener
+        prepButton.addEventListener('click', function() {
+            // Toggle the 'active' class on click
+            this.classList.toggle('active');
+        });
+    </script>
     
     
     
