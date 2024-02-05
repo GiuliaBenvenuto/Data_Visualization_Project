@@ -43,7 +43,7 @@ export function updateStacked(checkedValue) {
 
 
     // set the dimensions and margins of the graph
-    var margin = {top: 10, right: 50, bottom: 40, left: 50},
+    var margin = {top: 60, right: 50, bottom: 40, left: 50},
         width = 1100 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
@@ -200,6 +200,37 @@ export function updateStacked(checkedValue) {
                 .style("opacity", 0);   
             });
             
+        // LEGEND
+        // Define legend colors and labels
+        var legendColors = ['#75c359', '#ea5d55']; // Green for "Frequently", Red for "Not Frequently"
+        var legendText = ['Frequently using internet', 'Not frequently using internet'];
+
+        // Create a legend group and position it
+        var legend = svg.append("g")
+        .attr("class", "legend")
+        .attr("transform", "translate(" + (width - 1000) + "," + (margin.top - 110) + ")") // Position at the top, adjust as needed
+        .selectAll("g")
+        .data(legendColors)
+        .enter().append("g")
+        .attr("transform", function(d, i) { return "translate(" + i * 300 + ",0)"; }); // Space out legend entries horizontally
+
+        // Append colored rectangles to the legend
+        legend.append("rect")
+        .attr("width", 20) // Width of the legend key
+        .attr("height", 20) // Height of the legend key
+        .attr("stroke", "black")
+        .attr("fill", function(d, i) { return legendColors[i]; });
+
+        // Append text labels to the legend
+        legend.append("text")
+        .attr("x", 25) // Position text right of the rectangle
+        .attr("y", 15) // Align text vertically center with the rectangle
+        // .attr("dy", ".15em") // Additional adjustment to align text
+        .style("text-anchor", "start")
+        .text(function(d, i) { return legendText[i]; })
+        .style("font", "15px Montserrat");
+
+
     
     })
 }
