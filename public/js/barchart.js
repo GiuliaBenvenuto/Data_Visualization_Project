@@ -173,7 +173,7 @@ export function updateBarchart(year, selection) {
             .style("color", "#333");
 
 
-        // Bars
+        /* Bars without animation
         svg.selectAll(".bar")
             .data(data)
             .enter()
@@ -185,7 +185,25 @@ export function updateBarchart(year, selection) {
             .attr("height", function(d) { return height - y(+d[yearColumn]); })
             //.attr("rx", 5) // rounded corners
             //.attr("ry", 5) // rounded corners
+            .attr("fill", function(d) { return colorScale(+d[yearColumn]); })*/
+            // Bars with animation
+
+            /* Bars with animation */ 
+            svg.selectAll(".bar")
+            .data(data)
+            .enter()
+            .append("rect")
+            .attr("class", "bar")
+            .attr("x", function(d) { return x(countryMapping[d.geo]); })
+            .attr("width", x.bandwidth())
+            .attr("y", height) // Start the bars at the bottom of the chart
+            .attr("height", 0) // Initial height of the bars is 0
             .attr("fill", function(d) { return colorScale(+d[yearColumn]); })
+            .transition() // Start the transition
+            .duration(500) // Transition duration in milliseconds
+            .delay(function(d, i) { return i * 50; }) // Delay for each bar's animation to achieve a staggered effect
+            .attr("y", function(d) { return y(+d[yearColumn]); }) // Final Y position
+            .attr("height", function(d) { return height - y(+d[yearColumn]); }) // Final height of the bars
             .on("mouseover", function(d) { 
 
                 // Reduce opacity of all bars except the hovered one
