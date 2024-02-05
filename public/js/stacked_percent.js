@@ -228,7 +228,7 @@ export function updateStacked(checkedValue) {
         // .attr("dy", ".15em") // Additional adjustment to align text
         .style("text-anchor", "start")
         .text(function(d, i) { return legendText[i]; })
-        .style("font", "15px Montserrat");
+        .style("font", "16px Montserrat");
 
 
     

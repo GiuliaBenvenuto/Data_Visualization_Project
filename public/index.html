@@ -170,7 +170,7 @@
             Individuals that never used Internet in <span style="color: #5092b8;">2012</span>
         </h2>
         <p id="description" class="text-xl">
-            In the early days of the internet's introduction to households, the majority of people were not connected digitally. <br>
+            In the early days of the internet's introduction to households, the majority of people <br> were not connected digitally. <br>
             Our visualization captures this shift over time, allowing users to explore the percentage of individuals who never used the internet.
         </p>
     </div>
@@ -289,9 +289,9 @@
         });
     </script>
 
-    <div class="mt-6 mb-6 md:mt-6"> 
+    <div class="mt-8 mb-8 md:mt-8"> 
         <p id="description" class="text-xl">
-            This chart helps us see how internet became an integral part to our everyday life. <br>
+            This chart helps us see how internet became an integral part to our everyday life. <br> <br>
             By adjusting the year, a clear pattern emerges, allowing us to see that the percentage of people that nerver used internet decrese drammaticaly. Going from an average of 23% of people in Europe that never used internet in 2012, to the more recent years where we can see that the same average oscillates from 8% to 6%.
         </p>
     </div>
@@ -330,13 +330,13 @@
 
 
     <!-- Linechart -->
-    <div class="mt-20 md:mt-20"> <!-- Adjust the margin-top (mt) values as needed -->
+    <div class="mt-40 md:mt-40"> <!-- Adjust the margin-top (mt) values as needed -->
         <h2 id="plot_title" class="text-3xl text-center">
             Increasing presence of computers over time
             <!-- Availability of computers in households -->
         </h2>
 
-        <p id="description" class="text-xl mb-6">
+        <p id="description" class="text-xl mb-8">
             Following the previous trend in individuals who never used the internet, <br> our second visualization focuses on gradual integration of computers into households. 
         </p>
     </div>
@@ -472,13 +472,13 @@
         </div>
     </div>
 
-    <div class="mt-6 mb-6 md:mt-6"> 
+    <div class="mt-8 mb-8 md:mt-8"> 
         <p id="description" class="text-xl">
-            This line chart illustrates the steady increase in the percentage of households with at least a computer across different years. <br>
+            This line chart illustrates the steady increase in the percentage of households with at least a computer across different years. <br> <br>
             When expanding the selection to include more countries, it becomes apparent that this trend is consistent across all European countries. 
             Interestingly, we also observe that countries initially with a lower overall percentage eventually converge to a nearly equal percentage as other countries. <br> <br>
             To enhance the clarity of the visualization, we opted to limit the simultaneous selection of countries. <br>
-            However, we maintained the always-visible average to provide a reference point, allowing users to gauge whether the selected country falls above or below the European average for that specific year. <br>
+            However, we maintained the always-visible average to provide a reference point, allowing users to gauge whether the selected country falls above or below the European average for that specific year. <br> <br>
             Just like the previous visualization, it’s clear to see how also technology became an integral part of our everyday life.
         </p>
     </div>
@@ -517,13 +517,13 @@
 
 
     <!-- Treemap -->
-    <div class="mt-20 md:mt-20"> <!-- Adjust the margin-top (mt) values as needed -->
+    <div class="mt-40 md:mt-40"> <!-- Adjust the margin-top (mt) values as needed -->
         <h2 id="plot_title_treemap" class="text-3xl text-center">
-            Reasons for not having internet access at home in 2010
+            Reasons for not having internet access at home in <span style="color: #5092b8;">2010</span>
         </h2>
 
-        <p id="description" class="text-xl mb-6">
-            As we observe the rise in household computer adoption, our third visualization delves into the evolving landscape of internet accessibility.
+        <p id="description" class="text-xl mb-8">
+            As we observe the rise in household computer adoption, our third visualization delves into the evolving landscape of internet accessibility. <br>
             The treemap illustrates the primary reasons people did not have access to the internet, offering a comprehensive understanding of the barriers faced or concerns around internet access at home during the past decade.
         </p>
     </div>
@@ -555,7 +555,8 @@
 
             function updateTitleTreemap(year_treemap) {
                 const titleBaseTreemap = "Reasons for not having Internet access at home in";
-                document.getElementById('plot_title_treemap').textContent = titleBaseTreemap + " " + year_treemap;
+                // document.getElementById('plot_title_barchart').textContent = titleBase + " " + year;
+                document.getElementById('plot_title_treemap').innerHTML = titleBaseTreemap + " <span style='color: #5092b8;'>" + year_treemap + "</span>";
             }
     
             // Function to update the value of the checked radio button
@@ -599,11 +600,11 @@
         </div>
     </div>
 
-    <div class="mt-6 mb-6 md:mt-6"> 
+    <div class="mt-8 mb-8 md:mt-8"> 
         <p id="description" class="text-xl">
             Notably, the data presented is an average of European statistics, providing a region-wide perspective. <br>
             The treemap format allows for a visually intuitive representation, with each segment depicting a specific reason, to delve into the real percentages, you can simply click on various sections of the chart. <br> <br>
-            Even with a notable decrease in the overall percentage of individuals without never used internet, upon adjusting the year, it becomes apparent that "Not needed" consistently stands out as one of the main reasons cited by people for not having internet access at home. 
+            Even with a notable decrease in the overall percentage of individuals without never used internet, upon adjusting the year, it becomes apparent that "Not needed" consistently stands out as one of the main reasons cited by people for not having internet access at home. <br> <br>
             Moreover, over the years, certain barriers, such as "Physical disability," gradually fade away, indicating a significant improvement in accessibility.
         </p>
     </div>
@@ -643,13 +644,13 @@
 
 
     <!-- Percent Stacked Barchart -->
-    <div class="mt-20 md:mt-20"> <!-- Adjust the margin-top (mt) values as needed -->
+    <div class="mt-40 md:mt-40"> <!-- Adjust the margin-top (mt) values as needed -->
         <h2 id="plot_title_stacked" class="text-3xl text-center">
             Individuals frequently using Internet in Austria
         </h2>
 
         <p id="description" class="text-xl mb-6">
-            As we witness the increasing adoption of household computers, the fourth visualization explores the evolving landscape of internet utilization habits. 
+            As we witness the increasing adoption of household computers, the fourth visualization explores the evolving landscape of internet utilization habits. <br>
             Using a percent stacked bar chart, it’s possible to delve into the incremental percentages of individuals who frequently use the internet across different years.
         </p>
     </div>
@@ -756,10 +757,10 @@
         </div>
     </div>
 
-    <div class="mt-6 mb-6 md:mt-6"> 
+    <div class="mt-8 mb-8 md:mt-8"> 
         <p id="description" class="text-xl">
             By selecting different countries, a noticeable trend emerges where all countries experience an increase in individuals who frequently use the internet. <br> <br>
-            Most countries surpass the 80% mark in the most recent years, and those initially with a lower overall percentage eventually converge to an almost equal percentage, exceeding 70%.
+            Most countries surpass the 80% mark in the most recent years, and those initially with a lower overall percentage eventually converge to an almost equal percentage, exceeding 70%. <br> <br>
             When considering previous percentages presented, it becomes clear that technology not only becomes a more integral part of our home spaces but also occupies an increasing amount of our time.
         </p>
     </div>
@@ -797,7 +798,7 @@
     
 
     <!-- Second Section -->
-    <div class="mt-20 md:mt-24"> <!-- Adjust the margin-top (mt) values as needed -->
+    <div class="mt-40 md:mt-40"> <!-- Adjust the margin-top (mt) values as needed -->
         <h2 id="section_title" class="text-5xl text-center">
             Evolving Patterns of Internet and Computer Use
         </h2>
@@ -810,8 +811,9 @@
             </p>
         </div> -->
 
-        <p id="description" class="text-xl mb-6">
-            Next, we delve into the dynamic changes in internet usage over time. This part focuses on revealing how the purposes and 
+        <p id="description" class="text-xl mb-8">
+            Next, we delve into the dynamic changes in internet usage over time. <br>
+            This part focuses on revealing how the purposes and 
             frequency of internet use have shifted dramatically. From basic browsing to complex cloud-based activities, see how the internet's role in our 
             lives has transformed.
         </p>
@@ -824,7 +826,7 @@
             Different use of Internet in Austria 
         </h2>
 
-        <p id="description" class="text-xl mb-6">
+        <p id="description" class="text-xl mb-8">
             Embarking on our journey into evolution of internet usage, the first visualization introduces an heatmap. <br>
             This graphical representation  enables us to examine the diverse actions performed by individuals on the internet, capturing the shifts in user behavior across different years in a selected country. <br>
             A more comprehensive overview is also available by choosing the European Union as the selected region.
@@ -932,11 +934,13 @@
         </div>
     </div>
 
-    <div class="mt-6 mb-6 md:mt-6"> 
+    <div class="mt-8 mb-8 md:mt-8"> 
         <p id="description" class="text-xl">
-            The x-axis illustrates the progression of years, while the y-axis is dedicated to a diverse array of internet actions. <br>
-            The heatmap employs a spectrum of color, with more vibrant hues indicating higher percentages. This design allows us to discern, at a glance, the actions that have experienced significant traction in a given year in the selected country. <br> <br>
-            By selecting different countries, a noticeable trend emerges where most countries exhibit an increase in individuals using the internet for activities such as "Sending or receiving emails," "Social networks," "Information for goods and services," and "Internet banking.” However, most activities show a gradual increment, highlighting the ever-increasing and diversified use of the internet.
+            The x-axis illustrates the progression of years, while the y-axis is dedicated to a diverse array of internet actions. <br> <br>
+            The heatmap employs a spectrum of color, with more vibrant hues indicating higher percentages. <br> <br>
+            This design allows us to discern, at a glance, the actions that have experienced significant traction in a given year in the selected country. <br> <br>
+            By selecting different countries, a noticeable trend emerges where most countries exhibit an increase in individuals using the internet for activities such as "Sending or receiving emails," "Social networks," "Information for goods and services," and "Internet banking.” <br>
+            However, most activities show a gradual increment, highlighting the ever-increasing and diversified use of the internet.
         </p>
     </div>
 
@@ -974,13 +978,13 @@
 
 
     <!-- Pie chart -->
-    <div class="mt-20 md:mt-20"> <!-- Adjust the margin-top (mt) values as needed -->
+    <div class="mt-40 md:mt-40"> <!-- Adjust the margin-top (mt) values as needed -->
         <h2 id="plot_title_piechart" class="text-3xl text-center mt-12 mb-4">
             How the use of Internet has changed over 10 years
         </h2>
 
-        <p id="description" class="text-xl mb-6">
-            Delving deeper into the evolution of internet usage, our second visualization offeres a focused comparison decade-long comparison of a selected country. 
+        <p id="description" class="text-xl mb-8">
+            Delving deeper into the evolution of internet usage, our second visualization offeres a focused comparison decade-long comparison of a selected country. <br>
             This interactive presentation showcases two pie charts, specifically representing the years 2013 and 2023, revealing the top 5 most used internet activities in the chosen country.
         </p>
     </div>
@@ -1105,10 +1109,10 @@
         </div>
     </div>
 
-    <div class="mt-6 mb-6 md:mt-6"> 
+    <div class="mt-8 mb-8 md:mt-8"> 
         <p id="description" class="text-xl">
-            The pie charts vividly illustrate the percentages of the internet activities, enabling a side-by-side analysis of the shifts in user behavior. 
-            Similarly to the previous visualization, there is also the option to choose a more comprehensive view by selecting the European Union.
+            The pie charts vividly illustrate the percentages of the internet activities, enabling a side-by-side analysis of the shifts in user behavior. <br> <br>
+            Similarly to the previous visualization, there is also the option to choose a more comprehensive view by selecting the European Union. <br> <br>
             This visualization provides a simpler comparison of user habits that have either faded away or increased over a significant span of time.
         </p>
     </div>
@@ -1157,20 +1161,20 @@
     
 
     <!-- Bubblemap -->
-    <div class="mt-20 md:mt-20"> <!-- Adjust the margin-top (mt) values as needed -->
+    <div class="mt-40 md:mt-40"> <!-- Adjust the margin-top (mt) values as needed -->
         <h2 id="plot_title_bubblemap" class="text-3xl text-center mt-12 mb-4">
             Internet used for Health Information in Europe 
         </h2>
 
         <p id="description" class="text-xl mb-6">
-            Continuing our exploration of internet habits, the third visualization takes the form of a Bubble Map. 
+            Continuing our exploration of internet habits, the third visualization takes the form of a Bubble Map. <br>
             This map provides an in-depth exploration of specific internet usage categories, allowing users to focus on a chosen category and a specific year, either 2013 or 2023, just like the previous visualization.
         </p>
     </div>
 
     
     <!-- Button -->
-    <div class="dropdown mb-4" id="dropdown_bubblemap">
+    <div class="dropdown mb-6" id="dropdown_bubblemap">
         <button class="dropbtn">Select Internet Use</button>
         <div class="dropdown-content">    
             <label><input type="radio" name="useBubblemap" value="I_IHIF" checked>Health information</label>
@@ -1263,11 +1267,11 @@
         </div>
     </div>
 
-    <div class="mt-6 mb-6 md:mt-6"> 
+    <div class="mt-8 mb-8 md:mt-8"> 
         <p id="description" class="text-xl">
-            With the available buttons, viewers can selectively choose both the internet category and the desired year. 
-            Each category is assigned a distinct color, and the size of the bubbles adjusts based on the percentage of internet usage within the chosen category and year for a specific country. 
-            Hovering over the bubbles provides users with the specific percentage of the selected category's usage in the specified year for the chosen country.
+            With the available buttons, viewers can selectively choose both the internet category and the desired year. <br> <br>
+            Each category is assigned a distinct color, and the size of the bubbles adjusts based on the percentage of internet usage within the chosen category and year for a specific country. <br> <br>
+            Hovering over the bubbles provides users with the specific percentage of the selected category's usage in the specified year for the chosen country. <br> <br>
             Similar to the previous visualization, this bubble map offers a more in-depth analysis, focusing on showing in which areas of the European Union certain actions gain more relevance over time and where they may vary.
         </p>
     </div>
@@ -1307,7 +1311,7 @@
 
     <!-- Third Section -->
     <!-- REMOVE MARGIN BOTTOM ADDED ONLY TO VISUALIZE WITHOUT CHARTS -->
-    <div class="mt-20 md:mt-20"> <!-- Adjust the margin-top (mt) values as needed -->
+    <div class="mt-40 md:mt-40"> <!-- Adjust the margin-top (mt) values as needed -->
         <h2 id="section_title" class="text-5xl text-center">
             The Rise of Digital Skills
         </h2>
@@ -1321,8 +1325,9 @@
         </div> -->
 
         <p id="description" class="text-xl">
-            The final segment is a comprehensive look at the progression of digital skills. It showcases statistics and insights on how many people are using digital tools, 
-            their proficiency levels, and the growth of digital literacy. This section emphasizes the importance of digital skills in today’s world and how they have become 
+            The final segment is a comprehensive look at the progression of digital skills. <br>
+            It showcases statistics and insights on how many people are using digital tools, their proficiency levels, and the growth of digital literacy. <br>
+            This section emphasizes the importance of digital skills in today’s world and how they have become 
             increasingly critical for participation in the digital economy.
         </p>
 
@@ -1332,9 +1337,15 @@
     <!-- Small multiple barchart -->
     <!-- Dynamic title -->
     <div class="mt-20 md:mt-20"> <!-- Adjust the margin-top (mt) values as needed -->
-        <h2 id="plot_title_small_multiple" class="text-3xl text-center mb-8">
+        <h2 id="plot_title_small_multiple" class="text-3xl text-center">
             Device used in Austria to access Internet 
         </h2>
+
+        <p id="description" class="text-xl mb-6">
+            As we shift our focus to the vital realm of digital skills, our first visualization takes the form of a comprehensive multiple barchart. <br>
+            This graphical representation provides an in-depth examination of how individuals access the internet through different devices, showcasing the nuanced changes over the years - specifically in 2016, 2018, 2021, and 2023. <br>
+            With a button for the selection of a country and  for each given year, the multiple barcharts provides a nuanced perspective on the changing landscape of internet access devices. Each bar within a chart represents a different device, showcasing the percentages of usage.
+        </p>
     </div>
 
     <div class="dropdown mb-8" id="dropdown_small_multiple">
@@ -1444,6 +1455,14 @@
         </div>
     </div>
 
+    <div class="mt-12 mb-8 md:mt-8"> 
+        <p id="description" class="text-xl">
+            For a focused analysis, viewers can select one country at a time enabling a deep dive into the specific preferences within that region, or for a more broad overview it’s possible to select the European union. <br> <br>
+            This visualization not only offers insights into the prevalent devices but also emphasizes the technological shifts that have occurred over the specified years. <br> <br>
+            A noticeable trend emerges as mobile phones gain substantial traction over the years, showcasing a remarkable surge in their usage. In addition, laptop computers also demonstrate growth, albeit at a slightly less dramatic pace. This trend sheds light on the evolving preferences, placing a greater emphasis on the portability of devices.
+        </p>
+    </div>
+
     <!-- Collapsible Content -->
     <div class="text-center">
         <div class="my-4">
@@ -1478,10 +1497,14 @@
 
 
     <!-- Ridgeline -->
-    <div class="mt-20 md:mt-20"> <!-- Adjust the margin-top (mt) values as needed -->
+    <div class="mt-40 md:mt-40"> <!-- Adjust the margin-top (mt) values as needed -->
         <h2 id="plot_title_ridgeline" class="text-3xl text-center mb-8">
             Percentage of individuals using the mobile phone to access Internet
         </h2>
+
+        <p id="description" class="text-xl mb-6">
+
+        </p>
     </div>
 
     <div class="flex justify-center items-center mt-8">
