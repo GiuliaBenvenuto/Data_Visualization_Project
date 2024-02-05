@@ -153,12 +153,7 @@
         <h2 id="section_title" class="text-5xl text-center">
             The Dawn of the Digital Era
         </h2>
-        <!--
-        <div class="mx-auto mt-4 w-4/5 sm:w-2/2 lg:w-2/3">
-            <p id="first_paragraph" class="text-xl text-center">
-                In this first section we would like to give you an historical overview of when and how computers and the internet started to become integral parts of our daily lives.
-            </p>
-        </div> -->
+
         <p id="description" class="text-xl">
             In this first section we would like to give you an historical overview of when and how computers and the internet started to become integral parts of our daily lives.
         </p>
@@ -169,6 +164,7 @@
         <h2 id="plot_title_barchart" class="text-3xl text-center">
             Individuals that never used Internet in <span style="color: #5092b8;">2012</span>
         </h2>
+
         <p id="description" class="text-xl">
             In the early days of the internet's introduction to households, the majority of people <br> were not connected digitally. <br>
             Our visualization captures this shift over time, allowing users to explore the percentage of individuals who never used the internet.
@@ -306,8 +302,17 @@
         </div>
         
         <!-- Collapsible content -->
-        <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_1">
-          <p  class="text-xl">Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+        <div style="display: flex; justify-content: center;">
+            <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_1">
+            <ul style="list-style-type: disc; margin-left: 20px;">
+                <li class="text-xl">
+                    The dataset used for this chart is based on the European Union Statistics and can be found here: <br> 
+                    <a id="link" href="https://ec.europa.eu/eurostat/databrowser/view/tin00028/default/table?lang=en" target="_blank">Internet use by individuals</a>
+                </li>
+                <li class="text-xl">Item 2</li>
+                <li class="text-xl">Item 3</li>
+            </ul>
+            </div>
         </div>
     </div>
       
@@ -493,8 +498,17 @@
         </div>
         
         <!-- Collapsible content -->
-        <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_2">
-          <p  class="text-xl">Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+        <div style="display: flex; justify-content: center;">
+            <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_2">
+            <ul style="list-style-type: disc; margin-left: 20px;">
+                <li class="text-xl">
+                    The dataset used for this chart is based on the European Union Statistics and can be found here: <br> 
+                    <a id="link" href="https://ec.europa.eu/eurostat/databrowser/view/isoc_ci_cm_h/default/table?lang=en" target="_blank">Households - availability of computers</a>
+                </li>
+                <li class="text-xl">Item 2</li>
+                <li class="text-xl">Item 3</li>
+            </ul>
+            </div>
         </div>
     </div>
       
@@ -555,7 +569,6 @@
 
             function updateTitleTreemap(year_treemap) {
                 const titleBaseTreemap = "Reasons for not having Internet access at home in";
-                // document.getElementById('plot_title_barchart').textContent = titleBase + " " + year;
                 document.getElementById('plot_title_treemap').innerHTML = titleBaseTreemap + " <span style='color: #5092b8;'>" + year_treemap + "</span>";
             }
     
@@ -619,8 +632,18 @@
         </div>
         
         <!-- Collapsible content -->
-        <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_3">
-          <p  class="text-xl">Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+        <!-- Collapsible content -->
+        <div style="display: flex; justify-content: center;">
+            <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_3">
+            <ul style="list-style-type: disc; margin-left: 20px;">
+                <li class="text-xl">
+                    The dataset used for this chart is based on the European Union Statistics and can be found here: <br> 
+                    <a id="link" href="https://ec.europa.eu/eurostat/databrowser/view/isoc_pibi_rni/default/table?lang=en" target="_blank">Households - reasons for not having internet access at home</a>
+                </li>
+                <li class="text-xl">Item 2</li>
+                <li class="text-xl">Item 3</li>
+            </ul>
+            </div>
         </div>
     </div>
       
@@ -646,7 +669,7 @@
     <!-- Percent Stacked Barchart -->
     <div class="mt-40 md:mt-40"> <!-- Adjust the margin-top (mt) values as needed -->
         <h2 id="plot_title_stacked" class="text-3xl text-center">
-            Individuals frequently using Internet in Austria
+            Individuals frequently using Internet in <span style="color: #5092b8;">Austria</span>
         </h2>
 
         <p id="description" class="text-xl mb-6">
@@ -720,7 +743,8 @@
                 var plotTitle = document.getElementById('plot_title_stacked');
                 if (plotTitle) {
                     var selectedCountryName = countryMapping[checkedValue_stacked] || 'Austria'; // Default to 'Austria' if the mapping fails
-                    plotTitle.textContent = 'Individuals frequently using Internet in ' + selectedCountryName;
+                    const titleBasePercent = "Individuals frequently using Internet in ";
+                    document.getElementById('plot_title_stacked').innerHTML = titleBasePercent + " <span style='color: #5092b8;'>" + selectedCountryName + "</span>";
                 }
         
                 // Call the function to update the chart
@@ -775,8 +799,18 @@
         </div>
         
         <!-- Collapsible content -->
-        <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_4">
-          <p  class="text-xl">Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+        <!-- Collapsible content -->
+        <div style="display: flex; justify-content: center;">
+            <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_4">
+            <ul style="list-style-type: disc; margin-left: 20px;">
+                <li class="text-xl">
+                    The dataset used for this chart is based on the European Union Statistics and can be found here: <br> 
+                    <a id="link" href="https://ec.europa.eu/eurostat/databrowser/view/tin00092/default/table?lang=en" target="_blank">Individuals frequently using the internet</a>
+                </li>
+                <li class="text-xl">Item 2</li>
+                <li class="text-xl">Item 3</li>
+            </ul>
+            </div>
         </div>
     </div>
       
@@ -823,7 +857,7 @@
     <!-- Heatmap -->
     <div class="mt-20 md:mt-20"> <!-- Adjust the margin-top (mt) values as needed -->
         <h2 id="plot_title_heatmap" class="text-3xl text-center">
-            Different use of Internet in Austria 
+            Different use of Internet in <span style="color: #5092b8;">Austria</span>
         </h2>
 
         <p id="description" class="text-xl mb-8">
@@ -897,7 +931,10 @@
                 var plotTitle = document.getElementById('plot_title_heatmap');
                 if (plotTitle) {
                     var selectedCountryName = countryMapping[checkedValue_heatmap] || 'Austria'; // Default to 'Austria' if the mapping fails
-                    plotTitle.textContent = 'Different use of Internet in ' + selectedCountryName;
+                    // plotTitle.textContent = 'Different use of Internet in ' + selectedCountryName;
+
+                    const titleBaseHeatmap = "Different use of Internet in ";
+                    document.getElementById('plot_title_heatmap').innerHTML = titleBaseHeatmap + " <span style='color: #5092b8;'>" + selectedCountryName + "</span>";
                 }
         
                 // Call the function to update the chart
@@ -954,8 +991,18 @@
         </div>
         
         <!-- Collapsible content -->
-        <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_5">
-          <p  class="text-xl">Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+        <div style="display: flex; justify-content: center;">
+            <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_5">
+            <ul style="list-style-type: disc; margin-left: 20px;">
+                <li class="text-xl">
+                    The dataset used for this chart is based on the European Union Statistics and can be found here: <br> 
+                    <a id="link" href="https://ec.europa.eu/eurostat/databrowser/explore/all/t_science?lang=en&subtheme=t_isoc.t_isoc_i&display=list&sort=category" target="_blank">ICT usage in households and by individuals </a>
+                    , in the "Internet use" folder from (tin00094) to (tin00103) links.
+                </li>
+                <li class="text-xl">Item 2</li>
+                <li class="text-xl">Item 3</li>
+            </ul>
+            </div>
         </div>
     </div>
       
@@ -1127,8 +1174,18 @@
         </div>
         
         <!-- Collapsible content -->
-        <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_6">
-          <p  class="text-xl">Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+        <div style="display: flex; justify-content: center;">
+            <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_6">
+            <ul style="list-style-type: disc; margin-left: 20px;">
+                <li class="text-xl">
+                    The dataset used for this chart is based on the European Union Statistics and can be found here: <br> 
+                    <a id="link" href="https://ec.europa.eu/eurostat/databrowser/explore/all/t_science?lang=en&subtheme=t_isoc.t_isoc_i&display=list&sort=category" target="_blank">ICT usage in households and by individuals </a>
+                    , in the "Internet use" folder from (tin00094) to (tin00103) links.
+                </li>
+                <li class="text-xl">Item 2</li>
+                <li class="text-xl">Item 3</li>
+            </ul>
+            </div>
         </div>
     </div>
       
@@ -1286,8 +1343,18 @@
         </div>
         
         <!-- Collapsible content -->
-        <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_7">
-          <p  class="text-xl">Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+        <div style="display: flex; justify-content: center;">
+            <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_7">
+            <ul style="list-style-type: disc; margin-left: 20px;">
+                <li class="text-xl">
+                    The dataset used for this chart is based on the European Union Statistics and can be found here: <br> 
+                    <a id="link" href="https://ec.europa.eu/eurostat/databrowser/explore/all/t_science?lang=en&subtheme=t_isoc.t_isoc_i&display=list&sort=category" target="_blank">ICT usage in households and by individuals </a>
+                    , in the "Internet use" folder from (tin00094) to (tin00103) links.
+                </li>
+                <li class="text-xl">Item 2</li>
+                <li class="text-xl">Item 3</li>
+            </ul>
+            </div>
         </div>
     </div>
       
@@ -1315,14 +1382,6 @@
         <h2 id="section_title" class="text-5xl text-center">
             The Rise of Digital Skills
         </h2>
-        <!--
-        <div class="mx-auto mt-4 w-4/5 sm:w-2/2 lg:w-2/3 mb-20">
-            <p id="first_paragraph" class="text-xl text-center">
-                The final segment is a comprehensive look at the progression of digital skills. It showcases statistics and insights on how many people are using digital tools, 
-                their proficiency levels, and the growth of digital literacy. This section emphasizes the importance of digital skills in today’s world and how they have become 
-                increasingly critical for participation in the digital economy.
-            </p>
-        </div> -->
 
         <p id="description" class="text-xl">
             The final segment is a comprehensive look at the progression of digital skills. <br>
@@ -1338,7 +1397,7 @@
     <!-- Dynamic title -->
     <div class="mt-20 md:mt-20"> <!-- Adjust the margin-top (mt) values as needed -->
         <h2 id="plot_title_small_multiple" class="text-3xl text-center">
-            Device used in Austria to access Internet 
+            Device used in <span style="color: #5092b8;">Austria</span> to access Internet 
         </h2>
 
         <p id="description" class="text-xl mb-6">
@@ -1411,7 +1470,7 @@
                 var plotTitle = document.getElementById('plot_title_small_multiple');
                 if (plotTitle) {
                     var selectedCountryName = countryMapping[checkedValue_barchart] || 'Austria'; 
-                    plotTitle.textContent = 'Device used in ' + selectedCountryName + ' to access Internet';
+                    document.getElementById('plot_title_small_multiple').innerHTML = "Device used in " + " <span style='color: #5092b8;'>" + selectedCountryName + "</span>" + " to access the Internet";
                 }
         
                 // Call the function to update the chart
@@ -1473,8 +1532,17 @@
         </div>
         
         <!-- Collapsible content -->
-        <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_8">
-          <p  class="text-xl">Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+        <div style="display: flex; justify-content: center;">
+            <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_8">
+            <ul style="list-style-type: disc; margin-left: 20px;">
+                <li class="text-xl">
+                    The dataset used for this chart is based on the European Union Statistics and can be found here: <br> 
+                    <a id="link" href="https://ec.europa.eu/eurostat/databrowser/view/isoc_ci_dev_i/default/table?lang=en" target="_blank">Individuals - devices used to access the internet</a>
+                </li>
+                <li class="text-xl">Item 2</li>
+                <li class="text-xl">Item 3</li>
+            </ul>
+            </div>
         </div>
     </div>
       
@@ -1498,12 +1566,12 @@
 
     <!-- Ridgeline -->
     <div class="mt-40 md:mt-40"> <!-- Adjust the margin-top (mt) values as needed -->
-        <h2 id="plot_title_ridgeline" class="text-3xl text-center mb-8">
+        <h2 id="plot_title_ridgeline" class="text-3xl text-center">
             Percentage of individuals using the mobile phone to access Internet
         </h2>
-
         <p id="description" class="text-xl mb-6">
-
+            Continuing our exploration of digital skills, the second visualization employs a ridgeline chart to highlight the remarkable growth in mobile phone usage for internet access. <br>
+            This chart illustrates the evolution of percentages from 2011 to 2019, mapping the escalating percentage of mobile device usage.
         </p>
     </div>
 
@@ -1511,6 +1579,13 @@
         <div id="my_ridgeline">
             <script type="module" src="./js/ridgeline.js"></script>
         </div>
+    </div>
+
+    <div class="mt-8 mb-8 md:mt-8"> 
+        <p id="description" class="text-xl">
+            A notable shift becomes apparent: from a modest 19% in 2011 to a considerable 74% in 2019, emphasizing the significant role of mobile phones in internet access. <br> <br>
+            When considering the previously presented percentages, this increase in mobile phone usage appears even more dramatic compared to the slower increase in the usage of other devices.
+        </p>
     </div>
 
     <!-- Collapsible Content -->
@@ -1523,8 +1598,17 @@
         </div>
         
         <!-- Collapsible content -->
-        <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_9">
-          <p  class="text-xl">Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+        <div style="display: flex; justify-content: center;">
+            <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_9">
+            <ul style="list-style-type: disc; margin-left: 20px;">
+                <li class="text-xl">
+                    The dataset used for this chart is based on the European Union Statistics and can be found here: <br> 
+                    <a id="link" href="https://ec.europa.eu/eurostat/databrowser/view/isoc_ci_im_i/default/table?lang=en" target="_blank">Individuals - mobile internet access</a>
+                </li>
+                <li class="text-xl">Item 2</li>
+                <li class="text-xl">Item 3</li>
+            </ul>
+            </div>
         </div>
     </div>
       
@@ -1547,10 +1631,15 @@
 
 
     <!-- Choropleth Map -->
-    <div class="mt-20 md:mt-20"> <!-- Adjust the margin-top (mt) values as needed -->
-        <h2 id="plot_title_map" class="text-3xl text-center mb-8">
-            Percentage of individuals with above basic digital skills in 2015
+    <div class="mt-40 md:mt-40"> <!-- Adjust the margin-top (mt) values as needed -->
+        <h2 id="plot_title_map" class="text-3xl text-center">
+            Percentage of individuals with above basic digital skills in <span style="color: #5092b8;">2015</span>
         </h2>
+
+        <p id="description" class="text-xl mb-8">
+            Our exploration of digital skills culminates in a Choropleth Map illustrating the geographic distribution of individuals with above-basic digital skills across Europe. <br>
+            This map employs a color gradient to highlight the percentages of individuals possessing above-basic digital skills in specific years: 2015, 2016, 2017, and 2019.
+        </p>
     </div>
 
     <div class="year-selector-map">
@@ -1572,8 +1661,8 @@
 
         
         function updateTitleMap(year) {
-            const titleBase = "Percentage of individuals with above basic digital skills in";
-            document.getElementById('plot_title_map').textContent = titleBase + " " + year;
+            const titleBaseMap = "Percentage of individuals with above basic digital skills in";
+            document.getElementById('plot_title_map').innerHTML = titleBaseMap + " <span style='color: #5092b8;'>" + year + "</span>";
         }
         
 
@@ -1610,8 +1699,16 @@
         </div>
     </div>
 
+    <div class="mt-8 mb-8 md:mt-8"> 
+        <p id="description" class="text-xl">
+            The map utilizes a color spectrum to convey information, with shades of red indicating lower percentages and shades of green representing higher percentages. <br> <br>
+            Notaby, the map not only showcases the growth in the number of greener areas, indicating a rise in digital ability, but also emphasizes the gradual fading of reddish areas. 
+            This shift signals a notable improvement in digital skills, emphasizing the collective progress made in digital literacy across Europe.
+        </p>
+    </div>
+
     <!-- Collapsible Content -->
-    <div class="text-center">
+    <div class="text-center mb-40">
         <div class="my-4">
           <!-- Button that controls the collapsible content -->
           <button class="data_prep" id="toggleButton_10">
@@ -1620,8 +1717,17 @@
         </div>
         
         <!-- Collapsible content -->
-        <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_10">
-          <p  class="text-xl">Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+        <div style="display: flex; justify-content: center;">
+            <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_10">
+            <ul style="list-style-type: disc; margin-left: 20px;">
+                <li class="text-xl">
+                    The dataset used for this chart is based on the European Union Statistics and can be found here: <br> 
+                    <a id="link" href="https://ec.europa.eu/eurostat/databrowser/view/isoc_sk_dskl_i__custom_9428665/default/table?lang=en" target="_blank">Individuals' level of digital skills</a>
+                </li>
+                <li class="text-xl">Item 2</li>
+                <li class="text-xl">Item 3</li>
+            </ul>
+            </div>
         </div>
     </div>
       
@@ -1640,6 +1746,21 @@
             this.classList.toggle('active');
         });
     </script>
+
+
+    <!-- CONCLUSIONS -->
+    <div class="mt-40 mb-60 md:mt-40 mb-60"> <!-- Adjust the margin-top (mt) values as needed -->
+        <h2 id="section_title" class="text-5xl text-center">
+            Conclusions
+        </h2>
+
+        <p id="description" class="text-xl">
+            In summary, the narrative unfolds a journey from the early days of limited internet access to the present, where digitalization has become normalized across various aspects of our lives. <br> <br> 
+            Mobile devices, particularly mobile phones, have played a pivotal role in this transformation, witnessing a significant surge in usage for internet access. <br> <br>
+            Technology is quickly evolving, and it appears that people are learning and adapting just as swiftly.
+        </p>
+
+    </div>
     
     
     

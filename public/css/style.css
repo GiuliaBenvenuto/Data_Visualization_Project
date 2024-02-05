@@ -118,6 +118,15 @@ p{
     color: #5092B8; /* Replace with the color you want on hover */
 }
 
+#link {
+    text-decoration: underline; /* Adds an underline to the link */
+    transition: color 0.3s;
+}
+
+#link:hover {
+    color: #5092B8; /* Change #007bff to the color you want on hover */
+}
+
 
 .arrow {
     color: #293241;
