@@ -159,6 +159,7 @@ export function updateStacked(checkedValue) {
         .selectAll("g")
         .data(stackedData)
         .enter().append("g")
+            .attr("class", "bar-group")
             .attr("fill", function(d) { return color(d.key); })
             .selectAll("rect")
             .data(function(d) { return d; })
@@ -169,11 +170,14 @@ export function updateStacked(checkedValue) {
             .attr("y", function(d) { return y(d[1]); })
             .attr("width", x.bandwidth() * 0.8) // Shrink the width of the bar by 20%
             .attr("height", function(d) { return y(d[0]) - y(d[1]); })
-            .attr("data-original-color", function(d) {console.log("original color", color(d.key)); return color(d.key); })
+
+            // .attr("data-original-color", function(d) { return color(d.key); })
+
             .on("mouseover", function(d) {
-            
+
                 var key = d3.select(this.parentNode).datum().key; // Get the key for the current stack part
                 var frequentlyUsingInternet, notFrequentlyUsingInternet;
+                console.log("Key:", key);
 
                 if (key === "value") { 
                     frequentlyUsingInternet = d[1] - d[0]; // This calculates the height of the bar, representing the percentage
@@ -182,6 +186,25 @@ export function updateStacked(checkedValue) {
                     notFrequentlyUsingInternet = d[1] - d[0]; // This calculates the height of the bar, representing the percentage
                     frequentlyUsingInternet = 100 - notFrequentlyUsingInternet;
                 }
+
+                d3.selectAll(".bar-group").selectAll("rect")
+                .transition()
+                .duration(200)
+                .filter(function() { return !this.isSameNode(d3.event.target); })
+                .attr("fill", "#ccc");
+
+                d3.select(this)
+                .transition()
+                .duration(200)
+                .attr("fill", function(d) {
+                    // You can set a specific color for highlighting or use the original color
+                    // For example, using a brighter version of the original color or just a specific color like 'gold'
+                    if (key === "value") {
+                        return "#75c359"; // Brighter green for "value"
+                    } else {
+                        return "#ea5d55"; // Brighter red for "remaining"
+                    }
+                });
 
                 tooltip.transition()        
                     .duration(100)      
@@ -197,11 +220,51 @@ export function updateStacked(checkedValue) {
                 .style("top", (d3.event.pageY > window.innerHeight / 2) ? (d3.event.pageY - 130) + "px" : (d3.event.pageY + 5) + "px"); 
             })
             .on("mousemove", function(d) {
+                d3.selectAll(".bar-group").selectAll("rect")
+                .transition()
+                .duration(200)
+                .filter(function() { return !this.isSameNode(d3.event.target); })
+                .attr("fill", "#ccc");
+
+                var key = d3.select(this.parentNode).datum().key; 
+                d3.select(this)
+                .transition()
+                .duration(200)
+                .attr("fill", function(d) {
+                    // You can set a specific color for highlighting or use the original color
+                    // For example, using a brighter version of the original color or just a specific color like 'gold'
+                    if (key === "value") {
+                        return "#75c359"; // Brighter green for "value"
+                    } else {
+                        return "#ea5d55"; // Brighter red for "remaining"
+                    }
+                });
+
                 tooltip
                 .style("left", (d3.event.pageX > window.innerWidth / 2) ? (d3.event.pageX - 180) + "px" : (d3.event.pageX + 5) + "px")
                 .style("top", (d3.event.pageY > window.innerHeight / 2) ? (d3.event.pageY - 130) + "px" : (d3.event.pageY + 5) + "px");
             })         
             .on("mouseout", function(d) {  
+
+                // d3.selectAll(".bar-group").remove();
+
+                // Now, bind your stackedData to new 'g' elements
+                d3.selectAll(".bar-group").selectAll("rect")
+                .transition()
+                .duration(200)
+                .attr("fill", function(d) {
+                    var key = d3.select(this.parentNode).datum().key; // Get the key for the current stack part
+                    // Explicitly set the color based on the key
+                    if (key === "value") {
+                        return "#75c359"; // Green color for "value"
+                    } else if (key === "remaining") {
+                        return "#ea5d55"; // Red color for "remaining"
+                    } else {
+                        return "#ccc"; // Default color or handle other keys appropriately
+                    }
+                });
+            
+                
                 tooltip.transition()        
                 .duration(100)      
                 .style("opacity", 0);   
