@@ -250,7 +250,7 @@ export function updateBubbleMap(use, selectedYear) {
                     .attr("r", size(value)) // Use 'size' function to determine the radius based on the 2013 value
                     // .style("fill", "rgba(0, 0, 255, 0.6)")
                     .style("fill", internetUseMapping[internetUseKey].color)
-                    .style("opacity", 0.7)
+                    .style("opacity", 0.6)
                     .attr("stroke", "rgba(0, 0, 0, 0.2)")
                     .attr("stroke-width", 1)
                     .attr("class", "bubble")
@@ -263,7 +263,7 @@ export function updateBubbleMap(use, selectedYear) {
                       d3.select(this)
                       .transition()
                       .duration(200)
-                      .style("opacity", 0.7);
+                      .style("opacity", 0.6);
 
                       tooltip.transition()
                           .duration(200)
@@ -288,7 +288,7 @@ export function updateBubbleMap(use, selectedYear) {
                       d3.select(this)
                       .transition()
                       .duration(200)
-                      .style("opacity", 0.7);
+                      .style("opacity", 0.6);
 
           
                       tooltip
@@ -300,7 +300,7 @@ export function updateBubbleMap(use, selectedYear) {
                       svg.selectAll(".bubble")
                       .transition()
                       .duration(200)
-                      .style("opacity", 0.7);
+                      .style("opacity", 0.6);
 
                       tooltip.transition()
                           .duration(500)
@@ -310,6 +310,7 @@ export function updateBubbleMap(use, selectedYear) {
               });
 
 
+              /*
               // Define the data for the new legend items (e.g., 0%, 25%, 50%, 75%, 100%)
               var legendDataNew = [
                 { percentage: 0 },
@@ -361,8 +362,50 @@ export function updateBubbleMap(use, selectedYear) {
                 .text(function(d) {
                   return d.percentage + "%";
                 });
+                */
+
+                // The position for the legend
+                var xCircle = 700; // Adjust based on your actual layout
+                var yCircle = height - 450; // Adjust based on your actual layout
+                var legendValues = [25, 75, 100]; // The percentages you want to show in the legend
+
+                // Add legend: circles
+                var legendCircles = svg.selectAll(".legend-circle")
+                    .data(legendValues)
+                    .enter()
+                    .append("circle")
+                      .attr("class", "legend-circle")
+                      .attr("cx", xCircle)
+                      .attr("cy", function(d){ return yCircle - size(d); })
+                      .attr("r", size)
+                      .style("fill", "none")
+                      .attr("stroke", "black")
+                      .attr("stroke-width", 1)
+
+                // Add legend: lines
+                svg.selectAll(".legend-line")
+                    .data(legendValues)
+                    .enter()
+                    .append("line")
+                      .attr('x1', function(d){ return xCircle + size(d); })
+                      .attr('x2', xCircle + 95) // Adjust this value to fit your layout
+                      .attr('y1', function(d){ return yCircle - size(d); })
+                      .attr('y2', function(d){ return yCircle - size(d); })
+                      .attr('stroke', 'black')
+                      .style('stroke-dasharray', ('2,2'));
+
+                // Add legend: labels
+                svg.selectAll(".legend-label")
+                    .data(legendValues)
+                    .enter()
+                    .append("text")
+                      .attr('x', xCircle + 100) // Adjust this value to fit your layout
+                      .attr('y', function(d){ return yCircle - size(d) + 5; })
+                      .text(function(d){ return d + "%"; }) // Add '%' to the label
+                      .style("font", "16px Montserrat")
+        .attr('alignment-baseline', 'middle');
 
 
-    
+      
     }
 }
