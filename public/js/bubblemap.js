@@ -86,6 +86,7 @@ export function updateBubbleMap(use, selectedYear) {
       .center([13, 52])
       .scale(600)
       .translate([width / 2, height / 2]);
+
   
 
       // LEGEND

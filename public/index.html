@@ -47,7 +47,7 @@
 
     <!-- Navigation Bar -->
     <nav id="nav" class="fixed top-0 left-0 w-full bg-white">
-        <ul class="flex justify-center p-4 text-lg md:mt-5">
+        <ul class="flex justify-center p-4 text-xl md:mt-5">
             <li class="mx-4 md:mx-16"><a href="./index.html">Home</a></li>
             <li class="mx-4 md:mx-16"><a href="./resources.html">Resources</a></li>
             <li class="mx-4 md:mx-16"><a href="./team.html">Team</a></li>
@@ -65,7 +65,7 @@
             </h1>
             <!-- Slightly larger width div for the paragraph -->
             <div class="mx-auto mt-4 w-4/5 sm:w-2/2 lg:w-2/3">
-                <p id="first_paragraph" class="text-xl md:text-2xl lg:text-3xl">
+                <p id="first_paragraph" class="text-xl md:text-3xl lg:text-4xl">
                     Exploring how digital trends reshape our daily lives and personal experiences in an ever-connected world.
                 </p>
             </div>
@@ -153,11 +153,15 @@
         <h2 id="section_title" class="text-5xl text-center">
             The Dawn of the Digital Era
         </h2>
+        <!--
         <div class="mx-auto mt-4 w-4/5 sm:w-2/2 lg:w-2/3">
-            <p id="description" class="text-lg">
+            <p id="first_paragraph" class="text-xl text-center">
                 In this first section we would like to give you an historical overview of when and how computers and the internet started to become integral parts of our daily lives.
             </p>
-        </div>  
+        </div> -->
+        <p id="description" class="text-xl">
+            In this first section we would like to give you an historical overview of when and how computers and the internet started to become integral parts of our daily lives.
+        </p>
     </div>
 
     <!-- Barchart -->
@@ -165,7 +169,7 @@
         <h2 id="plot_title_barchart" class="text-3xl text-center">
             Individuals that never used Internet in <span style="color: #5092b8;">2012</span>
         </h2>
-        <p id="description" class="text-lg">
+        <p id="description" class="text-xl">
             In the early days of the internet's introduction to households, the majority of people were not connected digitally. <br>
             Our visualization captures this shift over time, allowing users to explore the percentage of individuals who never used the internet.
         </p>
@@ -286,7 +290,7 @@
     </script>
 
     <div class="mt-6 mb-6 md:mt-6"> 
-        <p id="description" class="text-lg">
+        <p id="description" class="text-xl">
             This chart helps us see how internet became an integral part to our everyday life. <br>
             By adjusting the year, a clear pattern emerges, allowing us to see that the percentage of people that nerver used internet decrese drammaticaly. Going from an average of 23% of people in Europe that never used internet in 2012, to the more recent years where we can see that the same average oscillates from 8% to 6%.
         </p>
@@ -303,7 +307,7 @@
         
         <!-- Collapsible content -->
         <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_1">
-          <p  class="text-lg">Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+          <p  class="text-xl">Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
         </div>
     </div>
       
@@ -332,7 +336,7 @@
             <!-- Availability of computers in households -->
         </h2>
 
-        <p id="description" class="text-lg mb-6">
+        <p id="description" class="text-xl mb-6">
             Following the previous trend in individuals who never used the internet, <br> our second visualization focuses on gradual integration of computers into households. 
         </p>
     </div>
@@ -468,11 +472,13 @@
         </div>
     </div>
 
-    <div class="mt-6 md:mt-6"> 
-        <p id="description" class="text-lg">
-            This line chart illustrates the steady increase in the percentage of households with at least a computer across different years. When expanding the selection to include more countries, it becomes apparent that this trend is consistent across all European countries. 
-            Interestingly, we also observe that countries initially with a lower overall percentage eventually converge to a nearly equal percentage as other countries. <br>
-            To enhance the clarity of the visualization, we opted to limit the simultaneous selection of countries. However, we maintained the always-visible average to provide a reference point, allowing users to gauge whether the selected country falls above or below the European average for that specific year. <br>
+    <div class="mt-6 mb-6 md:mt-6"> 
+        <p id="description" class="text-xl">
+            This line chart illustrates the steady increase in the percentage of households with at least a computer across different years. <br>
+            When expanding the selection to include more countries, it becomes apparent that this trend is consistent across all European countries. 
+            Interestingly, we also observe that countries initially with a lower overall percentage eventually converge to a nearly equal percentage as other countries. <br> <br>
+            To enhance the clarity of the visualization, we opted to limit the simultaneous selection of countries. <br>
+            However, we maintained the always-visible average to provide a reference point, allowing users to gauge whether the selected country falls above or below the European average for that specific year. <br>
             Just like the previous visualization, it’s clear to see how also technology became an integral part of our everyday life.
         </p>
     </div>
@@ -488,7 +494,7 @@
         
         <!-- Collapsible content -->
         <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_2">
-          <p  class="text-lg">Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+          <p  class="text-xl">Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
         </div>
     </div>
       
@@ -512,9 +518,14 @@
 
     <!-- Treemap -->
     <div class="mt-20 md:mt-20"> <!-- Adjust the margin-top (mt) values as needed -->
-        <h2 id="plot_title_treemap" class="text-3xl text-center mb-8">
+        <h2 id="plot_title_treemap" class="text-3xl text-center">
             Reasons for not having internet access at home in 2010
         </h2>
+
+        <p id="description" class="text-xl mb-6">
+            As we observe the rise in household computer adoption, our third visualization delves into the evolving landscape of internet accessibility.
+            The treemap illustrates the primary reasons people did not have access to the internet, offering a comprehensive understanding of the barriers faced or concerns around internet access at home during the past decade.
+        </p>
     </div>
 
     <div class="dropdown mb-8" id="dropdown_treemap">
@@ -588,6 +599,15 @@
         </div>
     </div>
 
+    <div class="mt-6 mb-6 md:mt-6"> 
+        <p id="description" class="text-xl">
+            Notably, the data presented is an average of European statistics, providing a region-wide perspective. <br>
+            The treemap format allows for a visually intuitive representation, with each segment depicting a specific reason, to delve into the real percentages, you can simply click on various sections of the chart. <br> <br>
+            Even with a notable decrease in the overall percentage of individuals without never used internet, upon adjusting the year, it becomes apparent that "Not needed" consistently stands out as one of the main reasons cited by people for not having internet access at home. 
+            Moreover, over the years, certain barriers, such as "Physical disability," gradually fade away, indicating a significant improvement in accessibility.
+        </p>
+    </div>
+
     <!-- Collapsible Content -->
     <div class="text-center">
         <div class="my-4">
@@ -599,7 +619,7 @@
         
         <!-- Collapsible content -->
         <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_3">
-          <p  class="text-lg">Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+          <p  class="text-xl">Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
         </div>
     </div>
       
@@ -624,9 +644,14 @@
 
     <!-- Percent Stacked Barchart -->
     <div class="mt-20 md:mt-20"> <!-- Adjust the margin-top (mt) values as needed -->
-        <h2 id="plot_title_stacked" class="text-3xl text-center mb-8">
+        <h2 id="plot_title_stacked" class="text-3xl text-center">
             Individuals frequently using Internet in Austria
         </h2>
+
+        <p id="description" class="text-xl mb-6">
+            As we witness the increasing adoption of household computers, the fourth visualization explores the evolving landscape of internet utilization habits. 
+            Using a percent stacked bar chart, it’s possible to delve into the incremental percentages of individuals who frequently use the internet across different years.
+        </p>
     </div>
 
     <div class="dropdown mb-8" id="dropdown_stacked_percent">
@@ -731,6 +756,14 @@
         </div>
     </div>
 
+    <div class="mt-6 mb-6 md:mt-6"> 
+        <p id="description" class="text-xl">
+            By selecting different countries, a noticeable trend emerges where all countries experience an increase in individuals who frequently use the internet. <br> <br>
+            Most countries surpass the 80% mark in the most recent years, and those initially with a lower overall percentage eventually converge to an almost equal percentage, exceeding 70%.
+            When considering previous percentages presented, it becomes clear that technology not only becomes a more integral part of our home spaces but also occupies an increasing amount of our time.
+        </p>
+    </div>
+
     <!-- Collapsible Content -->
     <div class="text-center">
         <div class="my-4">
@@ -742,7 +775,7 @@
         
         <!-- Collapsible content -->
         <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_4">
-          <p  class="text-lg">Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+          <p  class="text-xl">Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
         </div>
     </div>
       
@@ -768,20 +801,34 @@
         <h2 id="section_title" class="text-5xl text-center">
             Evolving Patterns of Internet and Computer Use
         </h2>
+        <!--
         <div class="mx-auto mt-4 w-4/5 sm:w-2/2 lg:w-2/3">
-            <p id="first_paragraph" class="text-lg text-center">
-                Next, we delve into the dynamic changes in internet usage over time. This part focuses on various research findings, revealing how the purposes and 
+            <p id="first_paragraph" class="text-xl text-center">
+                Next, we delve into the dynamic changes in internet usage over time. This part focuses on revealing how the purposes and 
                 frequency of internet use have shifted dramatically. From basic browsing to complex cloud-based activities, see how the internet's role in our 
                 lives has transformed.
             </p>
-        </div> 
+        </div> -->
+
+        <p id="description" class="text-xl mb-6">
+            Next, we delve into the dynamic changes in internet usage over time. This part focuses on revealing how the purposes and 
+            frequency of internet use have shifted dramatically. From basic browsing to complex cloud-based activities, see how the internet's role in our 
+            lives has transformed.
+        </p>
+
     </div>
 
     <!-- Heatmap -->
     <div class="mt-20 md:mt-20"> <!-- Adjust the margin-top (mt) values as needed -->
-        <h2 id="plot_title_heatmap" class="text-3xl text-center mb-8">
+        <h2 id="plot_title_heatmap" class="text-3xl text-center">
             Different use of Internet in Austria 
         </h2>
+
+        <p id="description" class="text-xl mb-6">
+            Embarking on our journey into evolution of internet usage, the first visualization introduces an heatmap. <br>
+            This graphical representation  enables us to examine the diverse actions performed by individuals on the internet, capturing the shifts in user behavior across different years in a selected country. <br>
+            A more comprehensive overview is also available by choosing the European Union as the selected region.
+        </p>
     </div>
 
     <div class="dropdown mb-4" id="dropdown_heatmap">
@@ -885,6 +932,14 @@
         </div>
     </div>
 
+    <div class="mt-6 mb-6 md:mt-6"> 
+        <p id="description" class="text-xl">
+            The x-axis illustrates the progression of years, while the y-axis is dedicated to a diverse array of internet actions. <br>
+            The heatmap employs a spectrum of color, with more vibrant hues indicating higher percentages. This design allows us to discern, at a glance, the actions that have experienced significant traction in a given year in the selected country. <br> <br>
+            By selecting different countries, a noticeable trend emerges where most countries exhibit an increase in individuals using the internet for activities such as "Sending or receiving emails," "Social networks," "Information for goods and services," and "Internet banking.” However, most activities show a gradual increment, highlighting the ever-increasing and diversified use of the internet.
+        </p>
+    </div>
+
     <!-- Collapsible Content -->
     <div class="text-center">
         <div class="my-4">
@@ -896,7 +951,7 @@
         
         <!-- Collapsible content -->
         <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_5">
-          <p  class="text-lg">Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+          <p  class="text-xl">Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
         </div>
     </div>
       
@@ -922,7 +977,7 @@
     <h2 id="plot_title_piechart" class="text-3xl text-center mt-12 mb-4">
         How the use of Internet has changed over 10 years
     </h2>
-    <p class="text-center mb-6">
+    <p id="description" class="text-xl mb-6">
         Piechart showing the top 5 use of Internet in 2013 and 2023 only for States that have data for both years.
     </p>
 
@@ -1057,7 +1112,7 @@
         
         <!-- Collapsible content -->
         <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_6">
-          <p  class="text-lg">Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+          <p  class="text-xl">Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
         </div>
     </div>
       
@@ -1198,7 +1253,7 @@
         
         <!-- Collapsible content -->
         <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_7">
-          <p  class="text-lg">Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+          <p  class="text-xl">Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
         </div>
     </div>
       
@@ -1226,13 +1281,21 @@
         <h2 id="section_title" class="text-5xl text-center">
             The Rise of Digital Skills
         </h2>
+        <!--
         <div class="mx-auto mt-4 w-4/5 sm:w-2/2 lg:w-2/3 mb-20">
-            <p id="first_paragraph" class="text-lg text-center">
+            <p id="first_paragraph" class="text-xl text-center">
                 The final segment is a comprehensive look at the progression of digital skills. It showcases statistics and insights on how many people are using digital tools, 
                 their proficiency levels, and the growth of digital literacy. This section emphasizes the importance of digital skills in today’s world and how they have become 
                 increasingly critical for participation in the digital economy.
             </p>
-        </div> 
+        </div> -->
+
+        <p id="description" class="text-xl">
+            The final segment is a comprehensive look at the progression of digital skills. It showcases statistics and insights on how many people are using digital tools, 
+            their proficiency levels, and the growth of digital literacy. This section emphasizes the importance of digital skills in today’s world and how they have become 
+            increasingly critical for participation in the digital economy.
+        </p>
+
     </div>
 
     
@@ -1363,7 +1426,7 @@
         
         <!-- Collapsible content -->
         <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_8">
-          <p  class="text-lg">Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+          <p  class="text-xl">Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
         </div>
     </div>
       
@@ -1409,7 +1472,7 @@
         
         <!-- Collapsible content -->
         <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_9">
-          <p  class="text-lg">Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+          <p  class="text-xl">Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
         </div>
     </div>
       
@@ -1506,7 +1569,7 @@
         
         <!-- Collapsible content -->
         <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_10">
-          <p  class="text-lg">Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
+          <p  class="text-xl">Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.</p>
         </div>
     </div>
       
