@@ -169,13 +169,20 @@ export function updateStacked(checkedValue) {
             .attr("y", function(d) { return y(d[1]); })
             .attr("width", x.bandwidth() * 0.8) // Shrink the width of the bar by 20%
             .attr("height", function(d) { return y(d[0]) - y(d[1]); })
-
+            .attr("data-original-color", function(d) {console.log("original color", color(d.key)); return color(d.key); })
             .on("mouseover", function(d) {
-                
-
-                var frequentlyUsingInternet = d[1] - d[0]; // This calculates the height of the bar, which represents the percentage
-                var notFrequentlyUsingInternet = 100 - frequentlyUsingInternet; // Subtracting from 100 to get the complementary percentage
             
+                var key = d3.select(this.parentNode).datum().key; // Get the key for the current stack part
+                var frequentlyUsingInternet, notFrequentlyUsingInternet;
+
+                if (key === "value") { 
+                    frequentlyUsingInternet = d[1] - d[0]; // This calculates the height of the bar, representing the percentage
+                    notFrequentlyUsingInternet = 100 - frequentlyUsingInternet;
+                } else { // Assuming the other part is "not frequently using internet"
+                    notFrequentlyUsingInternet = d[1] - d[0]; // This calculates the height of the bar, representing the percentage
+                    frequentlyUsingInternet = 100 - notFrequentlyUsingInternet;
+                }
+
                 tooltip.transition()        
                     .duration(100)      
                     .style("opacity", .9); 
@@ -199,6 +206,8 @@ export function updateStacked(checkedValue) {
                 .duration(100)      
                 .style("opacity", 0);   
             });
+
+            
             
         // LEGEND
         // Define legend colors and labels
