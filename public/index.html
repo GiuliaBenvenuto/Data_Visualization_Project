@@ -974,13 +974,17 @@
 
 
     <!-- Pie chart -->
-    <h2 id="plot_title_piechart" class="text-3xl text-center mt-12 mb-4">
-        How the use of Internet has changed over 10 years
-    </h2>
-    <p id="description" class="text-xl mb-6">
-        Piechart showing the top 5 use of Internet in 2013 and 2023 only for States that have data for both years.
-    </p>
+    <div class="mt-20 md:mt-20"> <!-- Adjust the margin-top (mt) values as needed -->
+        <h2 id="plot_title_piechart" class="text-3xl text-center mt-12 mb-4">
+            How the use of Internet has changed over 10 years
+        </h2>
 
+        <p id="description" class="text-xl mb-6">
+            Delving deeper into the evolution of internet usage, our second visualization offeres a focused comparison decade-long comparison of a selected country. 
+            This interactive presentation showcases two pie charts, specifically representing the years 2013 and 2023, revealing the top 5 most used internet activities in the chosen country.
+        </p>
+    </div>
+    
     <div class="dropdown mb-4" id="dropdown_pie">
         <button class="dropbtn">Select State</button>
         <div class="dropdown-content">    
@@ -1101,6 +1105,14 @@
         </div>
     </div>
 
+    <div class="mt-6 mb-6 md:mt-6"> 
+        <p id="description" class="text-xl">
+            The pie charts vividly illustrate the percentages of the internet activities, enabling a side-by-side analysis of the shifts in user behavior. 
+            Similarly to the previous visualization, there is also the option to choose a more comprehensive view by selecting the European Union.
+            This visualization provides a simpler comparison of user habits that have either faded away or increased over a significant span of time.
+        </p>
+    </div>
+
     <!-- Collapsible Content -->
     <div class="text-center">
         <div class="my-4">
@@ -1145,9 +1157,18 @@
     
 
     <!-- Bubblemap -->
-    <h2 id="plot_title_bubblemap" class="text-3xl text-center mt-12 mb-4">
-        Internet used for Health Information in Europe 
-    </h2>
+    <div class="mt-20 md:mt-20"> <!-- Adjust the margin-top (mt) values as needed -->
+        <h2 id="plot_title_bubblemap" class="text-3xl text-center mt-12 mb-4">
+            Internet used for Health Information in Europe 
+        </h2>
+
+        <p id="description" class="text-xl mb-6">
+            Continuing our exploration of internet habits, the third visualization takes the form of a Bubble Map. 
+            This map provides an in-depth exploration of specific internet usage categories, allowing users to focus on a chosen category and a specific year, either 2013 or 2023, just like the previous visualization.
+        </p>
+    </div>
+
+    
     <!-- Button -->
     <div class="dropdown mb-4" id="dropdown_bubblemap">
         <button class="dropbtn">Select Internet Use</button>
@@ -1240,6 +1261,15 @@
         <div id="my_bubblemap">
             <script type="module" src="./js/bubblemap.js"></script>
         </div>
+    </div>
+
+    <div class="mt-6 mb-6 md:mt-6"> 
+        <p id="description" class="text-xl">
+            With the available buttons, viewers can selectively choose both the internet category and the desired year. 
+            Each category is assigned a distinct color, and the size of the bubbles adjusts based on the percentage of internet usage within the chosen category and year for a specific country. 
+            Hovering over the bubbles provides users with the specific percentage of the selected category's usage in the specified year for the chosen country.
+            Similar to the previous visualization, this bubble map offers a more in-depth analysis, focusing on showing in which areas of the European Union certain actions gain more relevance over time and where they may vary.
+        </p>
     </div>
 
     <!-- Collapsible Content -->
@@ -1402,12 +1432,11 @@
     <div class="flex-container">
         <div id="labels_div" style="margin-top: 50px; width: 200px; height: 350px;">
             <ul style="list-style: none; padding: 0; margin: 0; width: 100%; height: 100%;">
-                <li style="text-align: right; margin-bottom: 25px; margin-top: 65px; margin-right: 8px;">Desktop computer</li>
-                <li style="text-align: right; margin-bottom: 25px; margin-right: 8px;">Laptop computer</li>
-                <li style="text-align: right; margin-bottom: 25px; margin-right: 8px;">Mobile phone</li>
-                <li style="text-align: right; margin-bottom: 25px; margin-right: 8px;">Other</li>
-                <li style="text-align: right; margin-bottom: 25px; margin-right: 8px;">Tablet</li>
-                <li style="text-align: right; margin-right: 8px;">Smart TV</li>
+                <li style="text-align: right; margin-bottom: 30px; margin-top: 70px; margin-right: 10px;">Desktop computer</li>
+                <li style="text-align: right; margin-bottom: 35px; margin-right: 10px;">Laptop computer</li>
+                <li style="text-align: right; margin-bottom: 35px; margin-right: 10px;">Mobile phone</li>
+                <li style="text-align: right; margin-bottom: 35px; margin-right: 10px;">Other</li>
+                <li style="text-align: right; margin-bottom: 35px; margin-right: 10px;">Tablet</li>
             </ul>
         </div>
         <div id="my_multiple_barchart">

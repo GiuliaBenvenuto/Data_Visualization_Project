@@ -47,8 +47,7 @@ export function updateSmallMultiple(checkedValue) {
         "I_IUG_LPC": "Laptop computer",
         "I_IUG_MP": "Mobile phone",
         "I_IUG_OTH1": "Other",
-        "I_IUG_TPC": "Tablet",
-        "I_IUG_TV": "Smart TV",
+        "I_IUG_TPC": "Tablet"
     }
 
     // Chart dimensions
@@ -68,7 +67,7 @@ export function updateSmallMultiple(checkedValue) {
         }
 
         // Define the categories to be used in the chart (the columns in the CSV)
-        const usedDevice = [ "I_IUG_DKPC", "I_IUG_LPC", "I_IUG_MP", "I_IUG_OTH1", "I_IUG_TPC", "I_IUG_TV" ];
+        const usedDevice = [ "I_IUG_DKPC", "I_IUG_LPC", "I_IUG_MP", "I_IUG_OTH1", "I_IUG_TPC"];
 
         // Define years as categories
         const categories = ['2016', '2018', '2021', '2023'];
@@ -205,7 +204,7 @@ export function updateSmallMultiple(checkedValue) {
                     .transition()
                     .duration(300)
                     .attr("fill", function(o, i) {
-                        var groupIndex = Math.floor(i / 6);
+                        var groupIndex = Math.floor(i / 5);
                         if (hoveredIndex === i) {
                             if (groupIndex === 0) return "#ea3a30";
                             else if (groupIndex === 1) return "#ff9908";
@@ -235,7 +234,7 @@ export function updateSmallMultiple(checkedValue) {
                       .duration(300)
                       .each(function(d, i) {
                         // Calculate the group index (0 for the first 6 bars, 1 for the next 6, and so on)
-                        var groupIndex = Math.floor(i / 6);
+                        var groupIndex = Math.floor(i / 5);
                 
                         // Assign color based on the group index
                         var color;
