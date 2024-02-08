@@ -78,7 +78,7 @@ export function updatePiechartRight(selectedState){
         var year = "2023";
         var filteredYearData = data.map(function(row) {
             return {
-                '2023': row[year], // Keep only the 2013 data
+                '2023': row[year], // Keep only the 2023 data
                 'indic_is': row['indic_is'], // Assuming you want to keep this as well
                 'geo': row['geo'] // Assuming you want to keep this as well
             };
@@ -94,12 +94,12 @@ export function updatePiechartRight(selectedState){
 
         // Set the color scale
         var color = d3.scaleOrdinal()
-            .domain(top5Data.map(function(d) { return d.indic_is; })) // Use 'indic_is' for the domain
+            .domain(top5Data.map(function(d) { return d.indic_is; })) 
             .range(d3.schemeSet2);
 
         // Compute the position of each group on the pie:
         var pie = d3.pie()
-            .value(function(d) { return d['2023']; }); // Use the '2013' property for values
+            .value(function(d) { return d['2023']; }); 
 
         var data_ready = pie(top5Data); // Use top5Data here
 
@@ -112,9 +112,9 @@ export function updatePiechartRight(selectedState){
         var tooltip = d3.select('body')
             .append("div")
             .style("position", "absolute")
-            .style("background", "#f0f0f0") // Use a light grey color for the background
+            .style("background", "#f0f0f0") 
             .style("padding", "10px")
-            .style("border", "1px solid #ccc") // Use a darker grey for the border
+            .style("border", "1px solid #ccc") 
             .style("border-radius", "8px")
             .style("pointer-events", "none")
             .style("opacity", 0)
@@ -128,7 +128,6 @@ export function updatePiechartRight(selectedState){
         .append('path')
         .attr('d', arcGenerator)
         .attr("class", "slice")
-        // .attr('fill', function(d){ return color(d.data.indic_is); }) // Use 'indic_is' to set fill color
         .attr('fill', function(d){ return internetUseMapping[d.data.indic_is].color; }) 
         .attr("stroke", "black")
         .style("stroke-width", "2px")
@@ -146,7 +145,6 @@ export function updatePiechartRight(selectedState){
 
             var value = (d.data['2023'] / totalValue * 100).toFixed(2); // One decimal place
 
-            // Ensure d.data exists
                 tooltip.transition()
                     .duration(200)
                     .style("opacity", 1);
@@ -190,7 +188,6 @@ export function updatePiechartRight(selectedState){
         });
 
         if (window.innerWidth >= 768) {
-            // Add lines connecting the labels to the slices
             svg.selectAll('mySlices')
             .data(data_ready)
             .enter()

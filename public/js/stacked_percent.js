@@ -1,5 +1,4 @@
 export function updateStacked(checkedValue) {
-    // console.log("Checked value:", checkedValue);
 
     const countryMapping = {
         "AL": "Albania",
@@ -66,16 +65,10 @@ export function updateStacked(checkedValue) {
         var subgroups = ['value', 'remaining'];
         var groups = d3.range(2012, 2024); // years from 2012 to 2023
 
-        // Filtering data where 'geo' is 'AT'
-        // Filtering data where 'geo' is 'AT'
         var filteredData = data.filter(function(row) {
             // return row['geo'] === 'AT';
             return row['geo'] === checkedValue;
         })[0];
-        //console.log("Filtered data for checked value:", filteredData);
-
-        // List of groups = species here = value of the first column called group -> I show them on the X axis
-        // var groups = d3.map(data, function(d){return(d.group)}).keys()
 
         // Add X axis
         var x = d3.scaleBand()
@@ -121,9 +114,9 @@ export function updateStacked(checkedValue) {
         var years = d3.range(2012, 2024);
 
         years.forEach(function(year) {
-            var valueStr = filteredData[year]; // Get the value as string
-            var value = parseFloat(valueStr); // Attempt to parse it as a float
-            if (!isNaN(value)) { // Check if the parsed value is not NaN
+            var valueStr = filteredData[year]; 
+            var value = parseFloat(valueStr); 
+            if (!isNaN(value)) { 
                 transformedData.push({
                     year: year,
                     value: value,
@@ -132,14 +125,11 @@ export function updateStacked(checkedValue) {
             }
         });
 
-        // console.log("Transformed Data:", transformedData);
-
 
         var stackedData = d3.stack()
         .keys(subgroups)
         (transformedData);
 
-        // console.log("Stacked Data:", stackedData);
 
         // Tooltip
         var tooltip = d3.select('body')
@@ -171,13 +161,10 @@ export function updateStacked(checkedValue) {
             .attr("width", x.bandwidth() * 0.8) // Shrink the width of the bar by 20%
             .attr("height", function(d) { return y(d[0]) - y(d[1]); })
 
-            // .attr("data-original-color", function(d) { return color(d.key); })
-
             .on("mouseover", function(d) {
 
                 var key = d3.select(this.parentNode).datum().key; // Get the key for the current stack part
                 var frequentlyUsingInternet, notFrequentlyUsingInternet;
-                console.log("Key:", key);
 
                 if (key === "value") { 
                     frequentlyUsingInternet = d[1] - d[0]; // This calculates the height of the bar, representing the percentage
@@ -197,8 +184,6 @@ export function updateStacked(checkedValue) {
                 .transition()
                 .duration(200)
                 .attr("fill", function(d) {
-                    // You can set a specific color for highlighting or use the original color
-                    // For example, using a brighter version of the original color or just a specific color like 'gold'
                     if (key === "value") {
                         return "#75c359"; // Brighter green for "value"
                     } else {
@@ -231,8 +216,6 @@ export function updateStacked(checkedValue) {
                 .transition()
                 .duration(200)
                 .attr("fill", function(d) {
-                    // You can set a specific color for highlighting or use the original color
-                    // For example, using a brighter version of the original color or just a specific color like 'gold'
                     if (key === "value") {
                         return "#75c359"; // Brighter green for "value"
                     } else {
@@ -245,8 +228,6 @@ export function updateStacked(checkedValue) {
                 .style("top", (d3.event.pageY > window.innerHeight / 2) ? (d3.event.pageY - 130) + "px" : (d3.event.pageY + 5) + "px");
             })         
             .on("mouseout", function(d) {  
-
-                // d3.selectAll(".bar-group").remove();
 
                 // Now, bind your stackedData to new 'g' elements
                 d3.selectAll(".bar-group").selectAll("rect")

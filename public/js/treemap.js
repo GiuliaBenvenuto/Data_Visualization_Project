@@ -53,7 +53,6 @@ export function updateTreemap(year) {
 
 
 
-    
   // set the dimensions and margins of the graph
   var margin = {top: 10, right: 10, bottom: 10, left: 10},
     width = 950 - margin.left - margin.right,
@@ -62,8 +61,6 @@ export function updateTreemap(year) {
   // append the svg object to the body of the page
   var svg = d3.select("#my_treemap")
   .append("svg")
-    //.attr("width", width + margin.left + margin.right)
-    //.attr("height", height + margin.top + margin.bottom)
     .attr("width", "100%")
     .attr("height", "100%")
     .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`) // This makes the chart responsive
@@ -108,8 +105,6 @@ export function updateTreemap(year) {
 
 
       var format = d3.format(".2f");
-      //console.log(root.leaves())
-      // use this information to add rectangles:
       svg
       .selectAll("rect")
       .data(root.leaves())
@@ -166,7 +161,6 @@ export function updateTreemap(year) {
               .duration(100)      
               .style("opacity", 0)
 
-
               svg.selectAll("rect")
               .transition()
               .duration(200)
@@ -175,78 +169,46 @@ export function updateTreemap(year) {
         })
 
 
-      // Function to split text into lines and append tspans
-      function wrapText(selection) {
-        selection.each(function(d) {
+      svg.selectAll("text")
+      .data(root.leaves())
+      .enter()
+      .append("text")
+        // Position the text in the center of the rectangle horizontally
+        .attr("x", function(d) { return d.x0 + (d.x1 - d.x0) / 2; })
+        // Position the text in the center of the rectangle vertically
+        .attr("y", function(d) { return d.y0; }) 
+        .attr("text-anchor", "middle")  // Center the text horizontally
+        //.attr("dominant-baseline", "central")  // Center the text vertically
+        .text(function(d) {
+          return customTextMapping[d.data.name] || d.data.name; // Use custom text or fallback to name
+        })
+        .each(function(d) {
+          console.log("VAL", d.value)
           var text = d3.select(this),
-              words = text.text().split(/\s+/).reverse(),
-              word,
-              line = [],
-              lineNumber = 0,
+              words = text.text().split(/\s+/),
+              wordCount = words.length,
               lineHeight = 1.1, // ems
-              x = text.attr("x"),
-              y = text.attr("y"),
-              dy = parseFloat(text.attr("dy") || 0),
-              tspan = text.text(null).append("tspan").attr("x", x).attr("y", y).attr("dy", dy + "em");
+              rectHeight = d.y1 - d.y0,
+              fontSize = d.value < 1.4 ? 14 : 16,
+              textHeight = wordCount * lineHeight * fontSize,
+              y = d.y0 + (rectHeight / 2) - (textHeight / 2); // 16px is the font size
+    
+          text.text(null); // Clear the initial text
 
-          while (word = words.pop()) {
-            line.push(word);
-            tspan.text(line.join(" "));
-            console.log("text length:", tspan.node().getComputedTextLength(), "x1:", d.x1, "x0:", d.x0, "x1-x0:", d.x1 - d.x0);
-            if (tspan.node().getComputedTextLength() + 30 > d.x1 - d.x0) {
-              line.pop();
-              tspan.text(line.join(" "));
-              line = [word];
-              tspan = text.append("tspan").attr("x", x).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
-            }
-          }
-        });
-      }
+          words.forEach(function(word, index) {
+          text.append("tspan")
+              .attr("x", function() { return d.x0 + (d.x1 - d.x0) / 2; })
+              .attr("y", function() { return y + (index * lineHeight * fontSize); }) // Adjusted for dynamic font size
+              .attr("dy", "0.8em") // Adjust the dy based on your specific font and design
+              .text(word)
+              .attr("font-family", "Montserrat")
+              .attr("font-size", fontSize)
+              .attr("fill", "white");
 
-
-
-        svg.selectAll("text")
-        .data(root.leaves())
-        .enter()
-        .append("text")
-          // Position the text in the center of the rectangle horizontally
-          .attr("x", function(d) { return d.x0 + (d.x1 - d.x0) / 2; })
-          // Position the text in the center of the rectangle vertically
-          .attr("y", function(d) { return d.y0; }) 
-          .attr("text-anchor", "middle")  // Center the text horizontally
-          //.attr("dominant-baseline", "central")  // Center the text vertically
-          .text(function(d) {
-            return customTextMapping[d.data.name] || d.data.name; // Use custom text or fallback to name
-          })
-          .each(function(d) {
-            console.log("VAL", d.value)
-            var text = d3.select(this),
-                words = text.text().split(/\s+/),
-                wordCount = words.length,
-                lineHeight = 1.1, // ems
-                rectHeight = d.y1 - d.y0,
-                fontSize = d.value < 1.4 ? 14 : 16,
-                textHeight = wordCount * lineHeight * fontSize,
-                y = d.y0 + (rectHeight / 2) - (textHeight / 2); // 16px is the font size
-      
-                console.log("Font size", fontSize)
-            text.text(null); // Clear the initial text
-
-            words.forEach(function(word, index) {
-            text.append("tspan")
-                .attr("x", function() { return d.x0 + (d.x1 - d.x0) / 2; })
-                .attr("y", function() { return y + (index * lineHeight * fontSize); }) // Adjusted for dynamic font size
-                .attr("dy", "0.8em") // Adjust the dy based on your specific font and design
-                .text(word)
-                .attr("font-family", "Montserrat")
-                .attr("font-size", fontSize)
-                .attr("fill", "white");
-
-            });
-          })
-          // Additional text attributes
+          });
+        })
           
             
-        })
+    })
   
 }

@@ -6,8 +6,6 @@ var margin = {top: 70, right: 30, bottom: 50, left:80},
 // append the svg object to the body of the page
 var svg = d3.select("#my_ridgeline")
   .append("svg")
-    //.attr("width", width + margin.left + margin.right)
-    //.attr("height", height + margin.top + margin.bottom)
     .attr("width", "100%")
     .attr("height", "100%")
     .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`) // This makes the chart responsive
@@ -18,7 +16,6 @@ var svg = d3.select("#my_ridgeline")
 
 //read data
 d3.csv('./csv/ridgeline_processed.csv', function(data) {
-    //console.log("DATA:", data);
 
     // Get the different categories and count them
     var categories = ["2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019"]
@@ -52,9 +49,9 @@ d3.csv('./csv/ridgeline_processed.csv', function(data) {
     var tooltip = d3.select('body')
     .append("div")
         .style("position", "absolute")
-        .style("background", "#f0f0f0") // Use a light grey color for the background
+        .style("background", "#f0f0f0") 
         .style("padding", "10px")
-        .style("border", "1px solid #ccc") // Use a darker grey for the border
+        .style("border", "1px solid #ccc") 
         .style("border-radius", "8px")
         .style("pointer-events", "none")
         .style("opacity", 0)
@@ -70,7 +67,7 @@ d3.csv('./csv/ridgeline_processed.csv', function(data) {
     svg.append("g")
         .attr("class", "xAxis")
         .style("font", "15px Montserrat")
-        .attr("transform", "translate(0," + (height) + ")") // Add 10 units of margin
+        .attr("transform", "translate(0," + (height) + ")") 
         .call(d3.axisBottom(x).tickValues([0,25, 50, 75, 100]).tickSize(-height) )
         .select(".domain").remove()
     
@@ -102,7 +99,6 @@ d3.csv('./csv/ridgeline_processed.csv', function(data) {
         .select(".domain").remove()
 
     // Compute kernel density estimation for each column:
-    // var kde = kernelDensityEstimator(kernelEpanechnikov(7), x.ticks(40)) // increase this 40 for more accurate density.
     var kde = kernelDensityEstimatorWithMissing(kernelEpanechnikov(7), x.ticks(40));
     var allDensity = []
     var key 
@@ -138,7 +134,7 @@ d3.csv('./csv/ridgeline_processed.csv', function(data) {
         .attr("transform", function(d){ return "translate(0," + (yName(d.key)-height) + ")" })
         .attr("fill", function(d) {
             var value = yearMeanData.find(function(yearData) { return yearData.year === d.key; }).mean;
-            return myColor(value / 80); // Assuming myColor is a function you've defined earlier
+            return myColor(value / 80);
         })
         .datum(function(d) { return d.density; })
         .attr("opacity", 0.8)
@@ -193,7 +189,7 @@ d3.csv('./csv/ridgeline_processed.csv', function(data) {
             .transition()
             .duration(200)
             .attr("opacity", 0.7)
-            .attr("stroke-width", 0.1); // Reset stroke width
+            .attr("stroke-width", 0.1);
 
             tooltip.transition()
                 .duration(200)
@@ -206,7 +202,6 @@ d3.csv('./csv/ridgeline_processed.csv', function(data) {
     function kernelDensityEstimatorWithMissing(kernel, X) {
         return function(V) {
         return X.map(function(x) {
-            // Filter out missing values (":") from V
             var validValues = V.filter(function(v) {
             return v !== ":" && !isNaN(v); // Check for missing values and NaNs
             });

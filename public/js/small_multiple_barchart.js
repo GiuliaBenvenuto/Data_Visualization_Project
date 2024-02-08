@@ -56,13 +56,11 @@ export function updateSmallMultiple(checkedValue) {
     const margin = { top: 50, right:0, bottom: 0, left: 5 };
     
     
-    // d3.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQWan1dg4-fZLQ-gM9V8AR6cBW1DumszVHmQOu51s4vWOuRdLUoB5TzdX_pgO_Kf_1dlsVoU9waEkO5/pub?output=csv", function(data) {
     d3.csv('./csv/smallmultiple_processed.csv', function(data) {
 
         const filteredData = data.filter(d => d.geo === checkedValue);
 
         if (!filteredData.length) {
-            // console.error("No data found for " + checkedValue);
             return; // Exit the function if no data found to avoid further errors
         }
 
@@ -84,9 +82,9 @@ export function updateSmallMultiple(checkedValue) {
         var tooltip = d3.select('body')
             .append("div")
             .style("position", "absolute")
-            .style("background", "#f0f0f0") // Use a light grey color for the background
+            .style("background", "#f0f0f0") 
             .style("padding", "10px")
-            .style("border", "1px solid #ccc") // Use a darker grey for the border
+            .style("border", "1px solid #ccc") 
             .style("border-radius", "8px")
             .style("pointer-events", "none")
             .style("opacity", 0)
@@ -96,13 +94,6 @@ export function updateSmallMultiple(checkedValue) {
         
         categories.forEach((category, index) => {
 
-            const padding = {
-                top: 10,
-                right: 10,
-                bottom: 10,
-                left: 10
-            };
-
             const svgContainer = d3.select("#my_multiple_barchart")
             .append("div") // Wrap the SVG in a div for easier margin handling
             .style("display", "inline-block") // Display divs side by side
@@ -110,9 +101,6 @@ export function updateSmallMultiple(checkedValue) {
 
             const svg = svgContainer
                 .append("svg")
-                //.attr("width", width + padding.left + padding.right) // Increase the width to account for padding
-                //.attr("height", height + padding.top + padding.bottom) // Increase the height to account for padding
-                //.style("border", "1px solid red")
                 .attr("width", "100%")
                 .attr("height", "100%")
                 .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`) // This makes the chart responsive
@@ -131,7 +119,6 @@ export function updateSmallMultiple(checkedValue) {
                 }
                 return { indic_is: usedDeviceMapping[indicIs] || indicIs, value: value };
             });
-            // console.log("CATEGORY DATA inside:", categoryData);
             
 
             // Scales
@@ -147,7 +134,7 @@ export function updateSmallMultiple(checkedValue) {
             
             // Xgrid
             svg.selectAll("xGrid")
-                .data(xScale.ticks(12)) // You can change the number of ticks as per your preference
+                .data(xScale.ticks(12)) 
                 .enter()
                 .append("line")
                 .attr("x1", function (d) { return xScale(d); })
@@ -270,24 +257,21 @@ export function updateSmallMultiple(checkedValue) {
                 .attr("class", "bar-text")
                 .text(d => d.value === 0 ? "No data" : `${d.value}%`)  // Conditionally set the text based on the value
                 .attr("x", d => {
-                    // Adjust the x position based on whether the label is "No data" or a percentage
                     if (d.value === 0) {
                         return xScale(0) + 5; // Position "No data" labels slightly right of the y-axis
                     } else if (d.value < 15) {
-                        // For small non-zero values, position the label outside the bar to ensure readability
                         return xScale(normalizeValue(d.value)) + 5;
                     } else {
-                        // For larger values, position the label inside the bar
                         return xScale(normalizeValue(d.value)) - 48; // Adjust as needed for your chart's aesthetics
                     }
                 })
                 .attr("y", d => yScale(d.indic_is) + yScale.bandwidth() / 2 + 4) // Center vertically in bar
-                .attr("fill", d => d.value === 0 ? "#333" : "#333") // Change text color for "No data" labels if needed
+                .attr("fill", d => d.value === 0 ? "#333" : "#333") 
                 .style("font", "12px Montserrat")
-                .style("visibility", "hidden") // Initially hide the labels
-                .transition() // Add a transition for the text
+                .style("visibility", "hidden") 
+                .transition() 
                 .duration(800)
-                .style("visibility", "visible"); // Make the labels visible after the transition
+                .style("visibility", "visible"); 
 
             
 
