@@ -59,6 +59,7 @@ export function updatePiechartLeft(selectedState){
     var height = Math.min(width, 400); 
     var margin = 30;
 
+
     // Calculate the radius dynamically
     var radius = Math.min(width, height) / 2 - margin;
 
@@ -70,7 +71,7 @@ export function updatePiechartLeft(selectedState){
     .append("svg")
         .attr("width", "100%")
         .attr("height", "100%")
-        .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`) // This makes the chart responsive
+        .attr("viewBox", `0 0 ${width} ${height}`) // This makes the chart responsive
         .attr("preserveAspectRatio", "xMidYMid meet")
     .append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");

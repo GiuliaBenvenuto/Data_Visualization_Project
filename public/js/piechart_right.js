@@ -68,7 +68,7 @@ export function updatePiechartRight(selectedState){
     .append("svg")
         .attr("width", "100%")
         .attr("height", "100%")
-        .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`) // This makes the chart responsive
+        .attr("viewBox", `0 0 ${width} ${height}`) // This makes the chart responsive
         .attr("preserveAspectRatio", "xMidYMid meet")
     .append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
