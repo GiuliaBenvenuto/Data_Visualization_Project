@@ -56,7 +56,8 @@ p{
     margin-left: 20px;
     font-family: 'Source Code Pro', monospace;
     font-weight: 900;
-    color: #EE6C4D;
+    /*color: #EE6C4D;*/
+    color: #5092b8;
     /* Include animations if needed, or specific styles for 'digitalize' */
 }
 
