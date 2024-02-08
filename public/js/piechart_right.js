@@ -12,7 +12,6 @@ export function updatePiechartRight(selectedState){
         "I_IUEM": { text: "Sending or receiving emails", color: "#ff0000" } // Red
     };
     
-    
 
     const countryMapping = {
         "AL": "Albania",
@@ -58,22 +57,15 @@ export function updatePiechartRight(selectedState){
 
 
     // set the dimensions and margins of the graph
-    // var width = 700
-    // var height = 400
-    // var margin = 30
     var container = d3.select("#my_piechart_left").node();
     var width = container.getBoundingClientRect().width;
     var height = Math.min(width, 400); // Set a maximum height or make it dynamic as well
     var margin = 30;
 
-    // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
     var radius = Math.min(width, height) / 2 - margin
 
-    // append the svg object to the div called 'my_dataviz'
     var svg = d3.select("#my_piechart_right")
     .append("svg")
-        //.attr("width", width)
-        //.attr("height", height)
         .attr("width", "100%")
         .attr("height", "100%")
         .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`) // This makes the chart responsive
@@ -84,9 +76,6 @@ export function updatePiechartRight(selectedState){
     d3.csv('./csv/heatmap_processed.csv', function(data) {
 
         var year = "2023";
-        // console.log("Original DATA:", data);
-
-        // Filter data to keep only the 2013 column
         var filteredYearData = data.map(function(row) {
             return {
                 '2023': row[year], // Keep only the 2013 data
@@ -95,21 +84,13 @@ export function updatePiechartRight(selectedState){
             };
         });
 
-        //console.log("Filtered DATA for 2023:", filteredYearData);
-
         var state = selectedState;
         var filteredStateData = filteredYearData.filter(d => d.geo === state);
-        //console.log("Filtered DATA for 2023 and AT:", filteredStateData);
-
-
-        // Assuming 'filteredStateData' is your filtered dataset for 2013 and AT
         var data = filteredStateData;
 
-        // Sort the data by the '2013' values in descending order and take the top 5
         var top5Data = data.sort(function(a, b) {
             return b['2023'] - a['2023']; // Sort in descending order
         }).slice(0, 5); // Take the top 5
-        //console.log("Top 5 DATA for 2023 and AT:", top5Data);
 
         // Set the color scale
         var color = d3.scaleOrdinal()

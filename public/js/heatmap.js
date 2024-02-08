@@ -1,5 +1,4 @@
 export function updateHeatmap(checkedValue) {
-    // console.log("SELECTED COUNTRY js:", checkedValue);
 
     const internetUseMapping = {
         "I_IHIF": "Health information",
@@ -64,8 +63,6 @@ export function updateHeatmap(checkedValue) {
     // append the svg object to the body of the page
     var svg = d3.select("#my_heatmap")
     .append("svg")
-    //.attr("width", width + margin.left + margin.right)
-    //.attr("height", height + margin.top + margin.bottom)
     .attr("width", "100%")
     .attr("height", "100%")
     .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`) // This makes the chart responsive
@@ -128,9 +125,9 @@ export function updateHeatmap(checkedValue) {
         var tooltip = d3.select('body')
         .append("div")
         .style("position", "absolute")
-        .style("background", "#f0f0f0") // Use a light grey color for the background
+        .style("background", "#f0f0f0") 
         .style("padding", "10px")
-        .style("border", "1px solid #ccc") // Use a darker grey for the border
+        .style("border", "1px solid #ccc") 
         .style("border-radius", "8px")
         .style("pointer-events", "none")
         .style("opacity", 0)
@@ -149,7 +146,7 @@ export function updateHeatmap(checkedValue) {
             .attr("width", 2)
             .attr("height", 4)
             .attr("transform", "translate(0,0)")
-            .attr("fill", "#ccc"); // Color of the stripes
+            .attr("fill", "#ccc"); 
 
         svg.selectAll()
         .data(heatmapData)
@@ -162,7 +159,6 @@ export function updateHeatmap(checkedValue) {
         .attr("width", x.bandwidth())
         .attr("height", y.bandwidth())
         .style("fill", function(d) {
-            // Check if the value is 0 and apply the stripes pattern
             if (d.value === 0) {
                 return "url(#stripes)";
             } else {
@@ -186,7 +182,7 @@ export function updateHeatmap(checkedValue) {
                     <strong>Percentage:</strong> ${d.value ? `${d.value}%` : "No data available"} <br>
                     <strong>Use:</strong> ${d.category}
                     `
-                ) // Corrected to indic_is
+                ) 
                 .style("visibility", "visible")
                 .style("font", "15px Montserrat")
                 .style("color", "#333")
@@ -194,8 +190,8 @@ export function updateHeatmap(checkedValue) {
                 .style("top", (d3.event.pageY > window.innerHeight / 2) ? (d3.event.pageY - 110) + "px" : (d3.event.pageY + 5) + "px");
         })
         .on("mousemove", function(d) {
-            d3.selectAll("rect").style("stroke", "none"); // First remove all borders
-            d3.select(this).style("stroke", "#0e284e"); // Then add border to the current rect
+            d3.selectAll("rect").style("stroke", "none"); 
+            d3.select(this).style("stroke", "#0e284e"); 
 
             tooltip
             .style("left", (d3.event.pageX > window.innerWidth / 2) ? (d3.event.pageX - 90) + "px" : (d3.event.pageX + 5) + "px")
@@ -214,7 +210,7 @@ export function updateHeatmap(checkedValue) {
         var defs = svg.append("defs");
 
         // Define the font settings
-        var legendFontFamily = "Montserrat, sans-serif";  // Specify your desired font family
+        var legendFontFamily = "Montserrat, sans-serif";  
         var legendFontSize = "15px"; 
 
         // Create a linear gradient for the legend
@@ -246,7 +242,7 @@ export function updateHeatmap(checkedValue) {
             .attr("transform", `translate(0, ${legendHeight})`)
             .call(legendAxis)
             .selectAll("text")
-            .style("font-family", legendFontFamily)  // Set the font family for legend text
+            .style("font-family", legendFontFamily)  
             .style("font-size", legendFontSize); 
 
         legend.selectAll(".tick line, .domain")

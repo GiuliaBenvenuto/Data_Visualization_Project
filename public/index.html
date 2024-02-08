@@ -76,7 +76,6 @@
     <div class="arrow bounce">
         <!-- <a class="fa fa-arrow-down fa-2x" href="#section_title"></a> -->
         <a href="javascript:void(0);" onclick="scrollToSection()" class="fa fa-arrow-down fa-2x"></a>
-
     </div>
 
     <script>
@@ -155,7 +154,7 @@
         </h2>
 
         <p id="description" class="text-xl">
-            In this first section we would like to give you an historical overview of when and how computers and the internet started to become integral parts of our daily lives.
+            In this first section we would like to give you an historical of the emergence of computers and the internet as integral parts of our daily lives.
         </p>
     </div>
 
@@ -240,13 +239,11 @@
     
         function updateTitle(year) {
             const titleBase = "Individuals that never used Internet in";
-            // document.getElementById('plot_title_barchart').textContent = titleBase + " " + year;
             document.getElementById('plot_title_barchart').innerHTML = titleBase + " <span style='color: #5092b8;'>" + year + "</span>";
         }
     
         function updateOrder(order) {
-            // You can modify this function if you need to do something specific when the order changes
-            updateBarchart(selectedYear, order); // Now also passing the order to updateBarchart
+            updateBarchart(selectedYear, order); 
         }
     
         document.addEventListener('DOMContentLoaded', function() {
@@ -265,21 +262,15 @@
                     // Handle the click event for year selection
                     selectedYear = this.previousElementSibling.value;
     
-                    // Call the function to update the chart with the selected year and current order
                     updateBarchart(selectedYear, selectedOrder);
-                    // Update title with the new year
                     updateTitle(selectedYear);
                 });
             });
     
             orderSelectors.forEach(function(label) {
                 label.addEventListener('click', function() {
-                    // Handle the click event for order selection
                     selectedOrder = this.previousElementSibling.value;
-    
-                    // Call the function to update the chart with the current year and new order
                     updateBarchart(selectedYear, selectedOrder);
-                    // If you need to update something on the page when the order changes, call updateOrder or similar function
                 });
             });
         });
@@ -402,7 +393,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             var linechartDropdown = document.getElementById('dropdown_linechart');
             var checkedValues = ['AT'];
-            var maxCheckboxes = 5; // Maximum number of checkboxes that can be checked
+            var maxCheckboxes = 5; 
 
             function showCustomAlert() {
                 document.querySelector('.custom-alert-close-btn').addEventListener('click', function() {
@@ -429,8 +420,8 @@
                 var checkboxes = linechartDropdown.querySelectorAll('.dropdown-content input[type="checkbox"]:checked');
 
                 if (checkboxes.length > maxCheckboxes) {
-                    this.checked = false; // Uncheck the newly checked box
-                    showCustomAlert(); // Show custom alert
+                    this.checked = false; 
+                    showCustomAlert(); 
                     return;
                 }
 
@@ -523,9 +514,7 @@
 
         var prepButton = document.querySelector('.data_prep');
 
-        // Add click event listener
         prepButton.addEventListener('click', function() {
-            // Toggle the 'active' class on click
             this.classList.toggle('active');
         });
     </script>
@@ -563,10 +552,7 @@
         import { updateTreemap } from './js/treemap.js';
     
         document.addEventListener('DOMContentLoaded', function() {
-            // Get the specific dropdown by its ID
             var treemapDropdown = document.getElementById('dropdown_treemap');
-        
-            // Initialize a variable to store the value of the checked radio button
             var checkedValue_treemap = '2010';
 
             function updateTitleTreemap(year_treemap) {
@@ -618,7 +604,7 @@
     <div class="mt-8 mb-8 md:mt-8"> 
         <p id="description" class="text-xl">
             Notably, the data presented is an average of European statistics, providing a region-wide perspective. <br>
-            The treemap format allows for a visually intuitive representation, with each segment depicting a specific reason, to delve into the real percentages, you can simply click on various sections of the chart. <br> <br>
+            The treemap format allows for a visually intuitive representation, with each segment depicting a specific reason, to delve into the real percentages, you can simply hover on various sections of the chart. <br> <br>
             Even with a notable decrease in the overall percentage of individuals without never used internet, upon adjusting the year, it becomes apparent that "Not needed" consistently stands out as one of the main reasons cited by people for not having internet access at home. <br> <br>
             Moreover, over the years, certain barriers, such as "Physical disability," gradually fade away, indicating a significant improvement in accessibility.
         </p>
@@ -634,7 +620,6 @@
         </div>
         
         <!-- Collapsible content -->
-        <!-- Collapsible content -->
         <div style="display: flex; justify-content: center;">
             <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_3">
             <ul style="list-style-type: disc; margin-left: 20px;">
@@ -642,8 +627,18 @@
                     The dataset used for this chart is based on the European Union Statistics and can be found here: <br> 
                     <a id="link" href="https://ec.europa.eu/eurostat/databrowser/view/isoc_pibi_rni/default/table?lang=en" target="_blank">Households - reasons for not having internet access at home</a>
                 </li>
-                <li class="text-xl">Item 2</li>
-                <li class="text-xl">Item 3</li>
+                <li class="text-xl">
+                    Simirlarly to the previous datasets, at first we converted the dataset from tsv to csv, then we just polished the dataset by renaming columns and removing specific letters from certain columns names.
+                </li>
+                <li class="text-xl">
+                    Once we had the cleaned dataset, we dropped some columns that were not necessary.
+                </li>
+                <li class="text-xl">
+                    We normalized the percetanges to add up to 100%.
+                </li>
+                <li class="text-xl">
+                    For each year column we had a new DataFrame based on the Eurostat Treemap structure, and the result is saved to a new CSV file (treemap_average"year".csv).
+                </li>
             </ul>
             </div>
         </div>
@@ -664,8 +659,6 @@
             this.classList.toggle('active');
         });
     </script>
-
-
 
 
     <!-- Percent Stacked Barchart -->
@@ -726,19 +719,14 @@
         import { updateStacked } from './js/stacked_percent.js';
     
         document.addEventListener('DOMContentLoaded', function() {
-            // Get the specific dropdown by its ID
             var stackedDropdown = document.getElementById('dropdown_stacked_percent');
-        
-            // Initialize a variable to store the value of the checked radio button
             var checkedValue_stacked = 'AT';
-            // console.log("CHECKED:", checkedValue_stacked);
     
             // Function to update the value of the checked radio button
             function updateCheckedValue_stacked() {
                 var checkedRadio_stacked = stackedDropdown.querySelector('.dropdown-content input[type="radio"][name="stacked_state"]:checked');
                 if (checkedRadio_stacked) {
                     checkedValue_stacked = checkedRadio_stacked.value;
-                    // console.log("Checked value updated:", checkedValue_stacked); // Log the updated value
                 }
 
                 // Update the title with the selected country name
@@ -801,7 +789,6 @@
         </div>
         
         <!-- Collapsible content -->
-        <!-- Collapsible content -->
         <div style="display: flex; justify-content: center;">
             <div class="bg-gray-800 p-4 hidden" id="collapsibleContent_4">
             <ul style="list-style-type: disc; margin-left: 20px;">
@@ -809,8 +796,9 @@
                     The dataset used for this chart is based on the European Union Statistics and can be found here: <br> 
                     <a id="link" href="https://ec.europa.eu/eurostat/databrowser/view/tin00092/default/table?lang=en" target="_blank">Individuals frequently using the internet</a>
                 </li>
-                <li class="text-xl">Item 2</li>
-                <li class="text-xl">Item 3</li>
+                <li class="text-xl">
+                    Simirlarly to the previous datasets, at first we converted the dataset from tsv to csv, then we just polished the dataset by renaming columns and removing specific letters from certain columns names.
+                </li>
             </ul>
             </div>
         </div>
@@ -827,25 +815,16 @@
 
         // Add click event listener
         prepButton.addEventListener('click', function() {
-            // Toggle the 'active' class on click
             this.classList.toggle('active');
         });
     </script>
     
 
     <!-- Second Section -->
-    <div class="mt-40 md:mt-40"> <!-- Adjust the margin-top (mt) values as needed -->
+    <div class="mt-40 md:mt-40">
         <h2 id="section_title" class="text-5xl text-center">
             Evolving Patterns of Internet and Computer Use
         </h2>
-        <!--
-        <div class="mx-auto mt-4 w-4/5 sm:w-2/2 lg:w-2/3">
-            <p id="first_paragraph" class="text-xl text-center">
-                Next, we delve into the dynamic changes in internet usage over time. This part focuses on revealing how the purposes and 
-                frequency of internet use have shifted dramatically. From basic browsing to complex cloud-based activities, see how the internet's role in our 
-                lives has transformed.
-            </p>
-        </div> -->
 
         <p id="description" class="text-xl mb-8">
             Next, we delve into the dynamic changes in internet usage over time. <br>
@@ -857,7 +836,7 @@
     </div>
 
     <!-- Heatmap -->
-    <div class="mt-20 md:mt-20"> <!-- Adjust the margin-top (mt) values as needed -->
+    <div class="mt-20 md:mt-20"> 
         <h2 id="plot_title_heatmap" class="text-3xl text-center">
             Different use of Internet in <span style="color: #5092b8;">Austria</span>
         </h2>
@@ -916,13 +895,9 @@
         import { updateHeatmap } from './js/heatmap.js';
     
         document.addEventListener('DOMContentLoaded', function() {
-            // Get the specific dropdown by its ID
             var heatmapDropdown = document.getElementById('dropdown_heatmap');
-        
-            // Initialize a variable to store the value of the checked radio button
             var checkedValue_heatmap = 'AT';
     
-            // Function to update the value of the checked radio button
             function updateCheckedValue_heatmap() {
                 var checkedRadio_heatmap = heatmapDropdown.querySelector('.dropdown-content input[type="radio"][name="heatmap_state"]:checked');
                 if (checkedRadio_heatmap) {
@@ -933,7 +908,6 @@
                 var plotTitle = document.getElementById('plot_title_heatmap');
                 if (plotTitle) {
                     var selectedCountryName = countryMapping[checkedValue_heatmap] || 'Austria'; // Default to 'Austria' if the mapping fails
-                    // plotTitle.textContent = 'Different use of Internet in ' + selectedCountryName;
 
                     const titleBaseHeatmap = "Different use of Internet in ";
                     document.getElementById('plot_title_heatmap').innerHTML = titleBaseHeatmap + " <span style='color: #5092b8;'>" + selectedCountryName + "</span>";
@@ -961,8 +935,6 @@
     
             // Draw the chart for the initially checked value 'AT'
             updateHeatmap(checkedValue_heatmap);
-            
-    
         });
     </script>
 
@@ -1001,8 +973,12 @@
                     <a id="link" href="https://ec.europa.eu/eurostat/databrowser/explore/all/t_science?lang=en&subtheme=t_isoc.t_isoc_i&display=list&sort=category" target="_blank">ICT usage in households and by individuals </a>
                     , in the "Internet use" folder from (tin00094) to (tin00103) links.
                 </li>
-                <li class="text-xl">Item 2</li>
-                <li class="text-xl">Item 3</li>
+                <li class="text-xl">
+                    Simirlarly to the previous datasets, at first we converted the dataset from tsv to csv, then we just polished the dataset by renaming columns and removing specific letters from certain columns names.
+                </li>
+                <li class="text-xl">
+                    Once we had the cleaned dataset, we finalized it by dropping columns that were not necessary.
+                </li>
             </ul>
             </div>
         </div>
@@ -1023,7 +999,6 @@
             this.classList.toggle('active');
         });
     </script>
-
 
 
     <!-- Pie chart -->
@@ -1078,13 +1053,9 @@
         import { updatePiechartLeft } from './js/piechart_left.js';
     
         document.addEventListener('DOMContentLoaded', function() {
-            // Get the specific dropdown by its ID
             var pieDropdown = document.getElementById('dropdown_pie');
-        
-            // Initialize a variable to store the value of the checked radio button
             var checkedValue_pie = 'AT';
     
-            // Function to update the value of the checked radio button
             function updateCheckedValue_pie() {
                 var checkedRadio_pie = pieDropdown.querySelector('.dropdown-content input[type="radio"][name="pie_state"]:checked');
                 if (checkedRadio_pie) {
@@ -1133,7 +1104,6 @@
             // Draw the chart for the initially checked value 'AT'
             updatePiechartLeft(checkedValue_pie);
             updatePiechartRight(checkedValue_pie);
-            
     
         });
     </script>
@@ -1184,8 +1154,12 @@
                     <a id="link" href="https://ec.europa.eu/eurostat/databrowser/explore/all/t_science?lang=en&subtheme=t_isoc.t_isoc_i&display=list&sort=category" target="_blank">ICT usage in households and by individuals </a>
                     , in the "Internet use" folder from (tin00094) to (tin00103) links.
                 </li>
-                <li class="text-xl">Item 2</li>
-                <li class="text-xl">Item 3</li>
+                <li class="text-xl">
+                    Simirlarly to the previous datasets, at first we converted the dataset from tsv to csv, then we just polished the dataset by renaming columns and removing specific letters from certain columns names.
+                </li>
+                <li class="text-xl">
+                    Then we grouped by countries and we kept only data from 2013 and 2023.
+                </li>
             </ul>
             </div>
         </div>
@@ -1202,21 +1176,9 @@
 
         // Add click event listener
         prepButton.addEventListener('click', function() {
-            // Toggle the 'active' class on click
             this.classList.toggle('active');
         });
     </script>
-
-    <!--
-    <div class="flex justify-center items-center">
-        <div id="my_piechart_left">
-            <script type="module" src="./js/piechart_left.js"></script>
-        </div>
-        <div id="my_piechart_right">
-            <script type="module" src="./js/piechart_right.js"></script>
-        </div>
-    </div>
-    -->
     
 
     <!-- Bubblemap -->
@@ -1260,10 +1222,8 @@
         import { updateBubbleMap } from './js/bubblemap.js';
 
         document.addEventListener('DOMContentLoaded', function() {
-            // ------- YEAR SELECTION BUBBLEMAP -------
-            // Use querySelectorAll to select the radio buttons directly within the 'year-selector-map' class
             var yearSelectors_bubblemap = document.querySelectorAll('.year-selector-bubblemap input[type="radio"]');
-            var selectedYear_bubblemap = '2013'; // Initialize selectedYear_map as a string to match the value of the radio buttons
+            var selectedYear_bubblemap = '2013'; 
 
 
             var bubblemapDropdown = document.getElementById('dropdown_bubblemap');
@@ -1275,9 +1235,7 @@
 
             yearSelectors_bubblemap.forEach(function(radio) {
                 radio.addEventListener('change', function() {
-                    // Update selectedYear_map based on the value of the checked radio button
                     selectedYear_bubblemap = this.value;
-
                     updateBubbleMap(checkedValue_bubblemap, selectedYear_bubblemap);
 
                 });
@@ -1315,7 +1273,6 @@
                 radioHealth.checked = true;
             }
     
-            // Draw the chart for the initially checked value 'AT'
             updateBubbleMap(checkedValue_bubblemap, selectedYear_bubblemap);
         });
     </script>
@@ -1353,8 +1310,12 @@
                     <a id="link" href="https://ec.europa.eu/eurostat/databrowser/explore/all/t_science?lang=en&subtheme=t_isoc.t_isoc_i&display=list&sort=category" target="_blank">ICT usage in households and by individuals </a>
                     , in the "Internet use" folder from (tin00094) to (tin00103) links.
                 </li>
-                <li class="text-xl">Item 2</li>
-                <li class="text-xl">Item 3</li>
+                <li class="text-xl">
+                    We started with the already preprossesed dataset of the heatmap. 
+                </li>
+                <li class="text-xl">
+                    Then we mapped the two-letter "geo" codes to three-letter codes from the geojson europe file.
+                </li>
             </ul>
             </div>
         </div>
@@ -1371,7 +1332,6 @@
 
         // Add click event listener
         prepButton.addEventListener('click', function() {
-            // Toggle the 'active' class on click
             this.classList.toggle('active');
         });
     </script>
@@ -1379,8 +1339,7 @@
     
 
     <!-- Third Section -->
-    <!-- REMOVE MARGIN BOTTOM ADDED ONLY TO VISUALIZE WITHOUT CHARTS -->
-    <div class="mt-40 md:mt-40"> <!-- Adjust the margin-top (mt) values as needed -->
+    <div class="mt-40 md:mt-40"> 
         <h2 id="section_title" class="text-5xl text-center">
             The Rise of Digital Skills
         </h2>
@@ -1396,8 +1355,7 @@
 
     
     <!-- Small multiple barchart -->
-    <!-- Dynamic title -->
-    <div class="mt-20 md:mt-20"> <!-- Adjust the margin-top (mt) values as needed -->
+    <div class="mt-20 md:mt-20"> 
         <h2 id="plot_title_small_multiple" class="text-3xl text-center">
             Device used in <span style="color: #5092b8;">Austria</span> to access Internet 
         </h2>
@@ -1454,11 +1412,7 @@
         import { updateSmallMultiple } from './js/small_multiple_barchart.js';
     
         document.addEventListener('DOMContentLoaded', function() {
-
-            // Get the specific dropdown by its ID
             var smallMultipleDropdown = document.getElementById('dropdown_small_multiple');
-        
-            // Initialize a variable to store the value of the checked radio button
             var checkedValue_barchart = 'AT';
     
             // Function to update the value of the checked radio button
@@ -1541,8 +1495,9 @@
                     The dataset used for this chart is based on the European Union Statistics and can be found here: <br> 
                     <a id="link" href="https://ec.europa.eu/eurostat/databrowser/view/isoc_ci_dev_i/default/table?lang=en" target="_blank">Individuals - devices used to access the internet</a>
                 </li>
-                <li class="text-xl">Item 2</li>
-                <li class="text-xl">Item 3</li>
+                <li class="text-xl">
+                    Simirlarly to the first datasets, as first step we converted the dataset from tsv to csv, then we just polished the dataset by renaming columns and removing specific letters from certain columns names.
+                </li>
             </ul>
             </div>
         </div>
@@ -1567,7 +1522,7 @@
 
 
     <!-- Ridgeline -->
-    <div class="mt-40 md:mt-40"> <!-- Adjust the margin-top (mt) values as needed -->
+    <div class="mt-40 md:mt-40"> 
         <h2 id="plot_title_ridgeline" class="text-3xl text-center">
             Percentage of individuals using the mobile phone to access Internet
         </h2>
@@ -1607,8 +1562,12 @@
                     The dataset used for this chart is based on the European Union Statistics and can be found here: <br> 
                     <a id="link" href="https://ec.europa.eu/eurostat/databrowser/view/isoc_ci_im_i/default/table?lang=en" target="_blank">Individuals - mobile internet access</a>
                 </li>
-                <li class="text-xl">Item 2</li>
-                <li class="text-xl">Item 3</li>
+                <li class="text-xl">
+                    Simirlarly to the first datasets, as first step we converted the dataset from tsv to csv, then we just polished the dataset by renaming columns and removing specific letters from certain columns names.
+                </li>
+                <li class="text-xl">
+                    Then we filtered to include only rows where the 'unit' column is equal to 'PC_IND', meaning that we keep the total percentages of individuals.
+                </li>
             </ul>
             </div>
         </div>
@@ -1671,23 +1630,16 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Use querySelectorAll to select the radio buttons directly within the 'year-selector-map' class
             var yearSelectors_map = document.querySelectorAll('.year-selector-map input[type="radio"]');
-            var selectedYear_map = '2015'; // Initialize selectedYear_map as a string to match the value of the radio buttons
+            var selectedYear_map = '2015'; 
 
             // Set 2015 as the checked value on page load
             document.getElementById('year2015_map').checked = true;
-            // Initially call updateMap to set the map to the year 2015
             updateMap(selectedYear_map);
 
             yearSelectors_map.forEach(function(radio) {
                 radio.addEventListener('change', function() {
-                    // Update selectedYear_map based on the value of the checked radio button
                     selectedYear_map = this.value;
-
-                    // console.log("SELECTED YEAR:", selectedYear_map);
-
-                    // Call the function to update the map with the selected year
                     updateMap(selectedYear_map);
-                    // Optionally, update the map title to reflect the selected year
                     updateTitleMap(selectedYear_map);
                 });
             });
@@ -1726,8 +1678,9 @@
                     The dataset used for this chart is based on the European Union Statistics and can be found here: <br> 
                     <a id="link" href="https://ec.europa.eu/eurostat/databrowser/view/isoc_sk_dskl_i__custom_9428665/default/table?lang=en" target="_blank">Individuals' level of digital skills</a>
                 </li>
-                <li class="text-xl">Item 2</li>
-                <li class="text-xl">Item 3</li>
+                <li class="text-xl">
+                    Simirlarly to the first datasets, as first step we converted the dataset from tsv to csv, then we just polished the dataset by renaming columns and removing specific letters from certain columns names.
+                </li>
             </ul>
             </div>
         </div>
@@ -1765,7 +1718,5 @@
     </div>
     
     
-    
-
 </body>
 </html>

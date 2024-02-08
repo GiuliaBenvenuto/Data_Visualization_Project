@@ -12,7 +12,6 @@ export function updatePiechartLeft(selectedState){
         "I_IUEM": { text: "Sending or receiving emails", color: "#ff0000" } // Red
     };
     
-    
 
     const countryMapping = {
         "AL": "Albania",
@@ -55,14 +54,9 @@ export function updatePiechartLeft(selectedState){
         "UK": "United Kingdom"
     }
 
-    // set the dimensions and margins of the graph
-    //var width = 700
-    //var height = 400
-    //var margin = 30
-
     var container = d3.select("#my_piechart_left").node();
     var width = container.getBoundingClientRect().width;
-    var height = Math.min(width, 400); // Set a maximum height or make it dynamic as well
+    var height = Math.min(width, 400); 
     var margin = 30;
 
     // Calculate the radius dynamically
@@ -74,8 +68,6 @@ export function updatePiechartLeft(selectedState){
     // append the svg object to the div called 'my_dataviz'
     var svg = d3.select("#my_piechart_left")
     .append("svg")
-        //.attr("width", width)
-        //.attr("height", height)
         .attr("width", "100%")
         .attr("height", "100%")
         .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`) // This makes the chart responsive
@@ -86,9 +78,7 @@ export function updatePiechartLeft(selectedState){
     d3.csv('./csv/heatmap_processed.csv', function(data) {
 
         var year = "2013";
-        //console.log("Original DATA:", data);
 
-        // Filter data to keep only the 2013 column
         var filteredYearData = data.map(function(row) {
             return {
                 '2013': row[year], // Keep only the 2013 data
@@ -101,13 +91,11 @@ export function updatePiechartLeft(selectedState){
         var state = selectedState;
         var filteredStateData = filteredYearData.filter(d => d.geo === state);
 
-        // Assuming 'filteredStateData' is your filtered dataset for 2013 and AT
         var data = filteredStateData;
 
-        // Sort the data by the '2013' values in descending order and take the top 5
         var top5Data = data.sort(function(a, b) {
-            return b['2013'] - a['2013']; // Sort in descending order
-        }).slice(0, 5); // Take the top 5
+            return b['2013'] - a['2013']; 
+        }).slice(0, 5); 
 
 
         // Set the color scale
@@ -118,7 +106,7 @@ export function updatePiechartLeft(selectedState){
 
         // Compute the position of each group on the pie:
         var pie = d3.pie()
-            .value(function(d) { return d['2013']; }); // Use the '2013' property for values
+            .value(function(d) { return d['2013']; }); 
 
         var data_ready = pie(top5Data); // Use top5Data here
 
@@ -131,9 +119,9 @@ export function updatePiechartLeft(selectedState){
         var tooltip = d3.select('body')
         .append("div")
         .style("position", "absolute")
-        .style("background", "#f0f0f0") // Use a light grey color for the background
+        .style("background", "#f0f0f0") 
         .style("padding", "10px")
-        .style("border", "1px solid #ccc") // Use a darker grey for the border
+        .style("border", "1px solid #ccc") 
         .style("border-radius", "8px")
         .style("pointer-events", "none")
         .style("opacity", 0)
@@ -147,7 +135,6 @@ export function updatePiechartLeft(selectedState){
         .append('path')
         .attr('d', arcGenerator)
         .attr("class", "slice")
-        // .attr('fill', function(d){ return color(d.data.indic_is); }) // Use 'indic_is' to set fill color
         .attr('fill', function(d){ return internetUseMapping[d.data.indic_is].color; }) 
         .attr("stroke", "black")
         .style("stroke-width", "2px")
@@ -165,7 +152,6 @@ export function updatePiechartLeft(selectedState){
 
             var value = (d.data['2013'] / totalValue * 100).toFixed(2); // One decimal place
 
-            // Ensure d.data exists
                 tooltip.transition()
                     .duration(200)
                     .style("opacity", 1);
@@ -216,10 +202,10 @@ export function updatePiechartLeft(selectedState){
             .enter()
             .append('polyline')
             .attr('points', function(d) {
-                var posA = arcGenerator.centroid(d) // line insertion in the slice
-                var posB = arcGenerator.centroid(d) // line break: we use the same points to add a break in the line
-                var posC = arcGenerator.centroid(d); // Label position
-                var midAngle = d.startAngle + (d.endAngle - d.startAngle) / 2 // Position the label on the left or right depending on the angle
+                var posA = arcGenerator.centroid(d) 
+                var posB = arcGenerator.centroid(d) 
+                var posC = arcGenerator.centroid(d); 
+                var midAngle = d.startAngle + (d.endAngle - d.startAngle) / 2 
                 posC[0] = radius * 1 * (midAngle < Math.PI ? 1 : -1);
                 return [posA, posB, posC]
             })
@@ -244,9 +230,7 @@ export function updatePiechartLeft(selectedState){
             })
             .style("font", "15px Montserrat")
             .each(function(d) {
-                // var text = internetUseMapping[d.data.indic_is];
                 var text = internetUseMapping[d.data.indic_is].text; // Use the text from the mapping
-
                 var words = text.split(' ');
                 var tspan = d3.select(this).append('tspan')
                     .attr('x', '0')
@@ -270,14 +254,12 @@ export function updatePiechartLeft(selectedState){
         .enter()
         .append('text')
         .text(function(d) {
-            // Calculate percentage
-            var percentage = (d.data['2013'] / totalValue * 100).toFixed(2); // One decimal place
-            return percentage + '%'; // Return the percentage text
+            var percentage = (d.data['2013'] / totalValue * 100).toFixed(2); 
+            return percentage + '%'; 
         })
         .attr('transform', function(d) {
             var centroid = arcGenerator.centroid(d);
-            // Move the label slightly upwards from the centroid
-            return 'translate(' + centroid[0] + ',' + (centroid[1] - 10) + ')'; // Adjust the '10' as needed
+            return 'translate(' + centroid[0] + ',' + (centroid[1] - 10) + ')'; 
         })
         .style('text-anchor', 'middle')
         .style('font', '15px Montserrat')

@@ -1,11 +1,8 @@
 
   export function updateMap(year) {
-    //console.log("SELECTED YEAR js:", year);
 
     var csvUrl = "./csv/map_processed_" + year + ".csv"
     var geoJsonUrl = "./json/europe.geojson"
-    //console.log("CSV URL:", csvUrl);
-    // var csvUrl = "./csv/map_processed_2015.csv"
 
     // Select the chart container and clear its content
     var mapContainer = d3.select("#my_map");
@@ -19,8 +16,6 @@
     // The svg
     var svg = d3.select("#my_map")
       .append("svg")
-      //.attr("width", width + margin.left + margin.right)
-      //.attr("height", height + margin.top + margin.bottom)
       .attr("width", "100%")
       .attr("height", "100%")
       .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`) // This makes the chart responsive
@@ -39,17 +34,12 @@
     // var colorScale = d3.scaleSequential(d3.interpolateRdBu)
     var colorScale = d3.scaleSequential(d3.interpolateRdYlGn)
       .domain([0, 65]);
-    
-      // MAX 2015: 55.89
-      // MAX 2016: 54.15
-      // MAX 2017: 58.31
-      // MAX 2019: 61.57
 
       // LEGEND
       var legendWidth = 90;
       var legendSpacing = 25;
-      var legendX = margin.left - legendWidth; // Adjust the X position as needed
-      var legendY = margin.top - 400; // Adjust the Y position as needed
+      var legendX = margin.left - legendWidth; 
+      var legendY = margin.top - 400; 
 
       // Create a group for the legend
       var legendGroup = svg.append("g")
@@ -110,8 +100,6 @@
       })
       .await(ready);
 
-    // console.log("DATA MAP", populationData)
-
     function ready(error, topo) {
       if (error) throw error;
 
@@ -148,9 +136,9 @@
       var tooltip = d3.select('body')
       .append("div")
       .style("position", "absolute")
-      .style("background", "#f0f0f0") // Use a light grey color for the background
+      .style("background", "#f0f0f0") 
       .style("padding", "10px")
-      .style("border", "1px solid #ccc") // Use a darker grey for the border
+      .style("border", "1px solid #ccc") 
       .style("border-radius", "8px")
       .style("pointer-events", "none")
       .style("opacity", 0)
@@ -211,14 +199,12 @@
       .append("path")
       .attr("d", d3.geoPath().projection(projection))
       .attr("fill", function (d) {
-        // Use ISO3 code from GeoJSON properties to get the population data
         d.total = populationData[d.properties.ISO3];
 
-        // Check for null, NaN, or zero values and apply the striped pattern
         if (d.total === null || isNaN(d.total) || d.total === 0) {
-          return "url(#stripes)"; // Use the defined striped pattern
+          return "url(#stripes)";
         } else {
-          return colorScale(d.total); // Use the color scale for other values
+          return colorScale(d.total); 
         }
       })
       .style("stroke", "black")

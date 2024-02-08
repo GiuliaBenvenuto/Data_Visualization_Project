@@ -57,8 +57,6 @@ export function updateBarchart(year, selection) {
     // append the svg object to the body of the page
     var svg = d3.select("#my_barchart")
     .append("svg")
-        //.attr("width", width + margin.left + margin.right)
-        //.attr("height", height + margin.top + margin.bottom)
         .attr("width", "100%")
         .attr("height", "100%")
         .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`) // This makes the chart responsive
@@ -71,8 +69,6 @@ export function updateBarchart(year, selection) {
     // load the data
     d3.csv('./csv/barchart_processed.csv', function(data) {
 
-        // PROVA
-        // Pre-process data: Convert values to numbers and handle missing values
         data.forEach(function(d) {
             d[year] = d[year] === ":" ? null : +d[year]; // Convert to null if value is ":", else convert to number
         });
@@ -90,15 +86,12 @@ export function updateBarchart(year, selection) {
                 return b[year] - a[year]; // Descending order
             });
         }
-        // ------------------------------
         
         // X axis
         var x = d3.scaleBand()
             .range([ 0, width ])
-            // .domain(data.map(function(d) { return d.geo; }))
             .domain(data.map(function(d) { 
-                // Use the countryMapping to convert geo codes to country names
-                return countryMapping[d.geo] || d.geo; // Fallback to geo code if no mapping is found
+                return countryMapping[d.geo] || d.geo;
             }))
             .padding(0.2);
 
@@ -120,7 +113,7 @@ export function updateBarchart(year, selection) {
             // Check each year's column
             for (let year = 2012; year <= 2023; year++) {
                 // Convert the value to a number and update maxValue if it's larger
-                const value = +row[year]; // Unary plus '+' is shorthand for converting strings to numbers
+                const value = +row[year]; 
                 if (value > maxValue) {
                     maxValue = value;
                 }
@@ -163,9 +156,9 @@ export function updateBarchart(year, selection) {
         var tooltip = d3.select('body')
             .append("div")
             .style("position", "absolute")
-            .style("background", "#f0f0f0") // Use a light grey color for the background
+            .style("background", "#f0f0f0") 
             .style("padding", "10px")
-            .style("border", "1px solid #ccc") // Use a darker grey for the border
+            .style("border", "1px solid #ccc") 
             .style("border-radius", "8px")
             .style("pointer-events", "none")
             .style("opacity", 0)
@@ -183,21 +176,16 @@ export function updateBarchart(year, selection) {
             .attr("y", function(d) { return y(+d[yearColumn]); })
             .attr("width", x.bandwidth())
             .attr("height", function(d) { return height - y(+d[yearColumn]); })
-            //.attr("rx", 5) // rounded corners
-            //.attr("ry", 5) // rounded corners
             .attr("fill", function(d) { return colorScale(+d[yearColumn]); })
             .on("mouseover", function(d) { 
 
-                // Reduce opacity of all bars except the hovered one
-                // d3.selectAll(".bar").style("opacity", o => (o === d ? 1.0 : 0.6));
                 d3.selectAll(".bar")
                 .transition()
                 .duration(200)
                 .attr("fill", function(o) {
-                    return (o === d) ? colorScale(+d[yearColumn]) : "#ccc"; // #ccc is the color for non-hovered bars
+                    return (o === d) ? colorScale(+d[yearColumn]) : "#ccc"; 
                 })
                 
-
                 tooltip.transition()        
                 .duration(100)      
                 .style("opacity", .9); 
@@ -216,14 +204,11 @@ export function updateBarchart(year, selection) {
                 .style("top", (d3.event.pageY > window.innerHeight / 2) ? (d3.event.pageY - 80) + "px" : (d3.event.pageY + 5) + "px");
             })         
             .on("mouseout", function(d) {  
-                // Reset opacity of all bars
-                // d3.selectAll(".bIar").style("opacity", 1.0);
                 d3.selectAll(".bar")
                 .transition()
                 .duration(200)
                 .attr("fill", function(d) { return colorScale(+d[yearColumn]); });
                 
-
                 tooltip.transition()        
                 .duration(100)      
                 .style("opacity", 0);   
@@ -234,7 +219,7 @@ export function updateBarchart(year, selection) {
             let sum = 0;
             let count = 0;
             data.forEach(function(d) {
-                if (d[yearColumn] !== ":") { // Assuming ":" is used for missing values
+                if (d[yearColumn] !== ":") { 
                     sum += +d[yearColumn];
                     count += 1;
                 }
@@ -247,8 +232,8 @@ export function updateBarchart(year, selection) {
             .attr("x2", width)
             .attr("y1", y(average))
             .attr("y2", y(average))
-            .attr("stroke", "red") // Color of the average line
-            .attr("stroke-width", "2") // Thickness of the average line
+            .attr("stroke", "red") 
+            .attr("stroke-width", "2") 
             .attr("stroke-dasharray", "5,5") 
             .attr("shape-rendering", "crispEdges")
             .style("z-index", "10"); 

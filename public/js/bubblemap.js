@@ -87,54 +87,52 @@ export function updateBubbleMap(use, selectedYear) {
       .scale(600)
       .translate([width / 2, height / 2]);
 
-  
 
-      // LEGEND
-      var legendWidth = 90;
-      var legendSpacing = 25;
-      var legendX = margin.left - legendWidth; // Adjust the X position as needed
-      var legendY = margin.top - 350; // Adjust the Y position as needed
+    // LEGEND
+    var legendWidth = 90;
+    var legendSpacing = 25;
+    var legendX = margin.left - legendWidth; // Adjust the X position as needed
+    var legendY = margin.top - 350; // Adjust the Y position as needed
 
-      // Create a group for the legend
-      var legendGroup = svg.append("g")
-        .attr("class", "legend")
-        .attr("transform", "translate(" + legendX + "," + legendY + ")");
+    // Create a group for the legend
+    var legendGroup = svg.append("g")
+      .attr("class", "legend")
+      .attr("transform", "translate(" + legendX + "," + legendY + ")");
 
-      // Data for legend items (5 items)
-      var legendData = [
-        { color: internetUseMapping[internetUseKey].color, label: internetUseMapping[internetUseKey].text },
-      ];
+    // Data for legend items (5 items)
+    var legendData = [
+      { color: internetUseMapping[internetUseKey].color, label: internetUseMapping[internetUseKey].text },
+    ];
 
-      // Create legend items
-      var legendItems = legendGroup.selectAll(".legend-item")
-        .data(legendData)
-        .enter()
-        .append("g")
-        .attr("class", "legend-item")
-        .attr("transform", function (d, i) {
-          return "translate(0," + (i * legendSpacing) + ")";
-        });
+    // Create legend items
+    var legendItems = legendGroup.selectAll(".legend-item")
+      .data(legendData)
+      .enter()
+      .append("g")
+      .attr("class", "legend-item")
+      .attr("transform", function (d, i) {
+        return "translate(0," + (i * legendSpacing) + ")";
+      });
 
-      // Add colored squares
-      legendItems
-        .append("rect")
-        .attr("width", 18)
-        .attr("height", 18)
-        .style("fill", function (d) { return d.color; })
-        .style("stroke", "#293241") // Add a black border
-        .style("stroke-width", 1);
+    // Add colored squares
+    legendItems
+      .append("rect")
+      .attr("width", 18)
+      .attr("height", 18)
+      .style("fill", function (d) { return d.color; })
+      .style("stroke", "#293241") // Add a black border
+      .style("stroke-width", 1);
 
-      // Add labels
-      legendItems
-        .append("text")
-        .attr("x", 25)
-        .attr("y", 10)
-        .attr("dy", ".35em")
-        .style("text-anchor", "start")
-        .style("color", "#293241")
-        .style("font", "18px Montserrat")
-        .text(function (d) { return d.label; });
-
+    // Add labels
+    legendItems
+      .append("text")
+      .attr("x", 25)
+      .attr("y", 10)
+      .attr("dy", ".35em")
+      .style("text-anchor", "start")
+      .style("color", "#293241")
+      .style("font", "18px Montserrat")
+      .text(function (d) { return d.label; });
 
 
     // Load external data
@@ -146,13 +144,9 @@ export function updateBubbleMap(use, selectedYear) {
 
     function ready(error, topo, data) {
         if (error) throw error;
-
-        // Assuming `data` is an array of objects where each object represents a row from the CSV
         var filteredData = data.filter(function(d) {
-            // Check only for "I_IHIF" and include all rows, regardless of the 2013 value
             return d["indic_is"] === use;
         }).map(function(d) {
-            // Return a new object containing only the year 2013, code, and geo fields
             return {
                 year: selectedYear,
                 value: d[selectedYear], // This can be null
@@ -167,9 +161,9 @@ export function updateBubbleMap(use, selectedYear) {
         var tooltip = d3.select('body')
         .append("div")
         .style("position", "absolute")
-        .style("background", "#f0f0f0") // Use a light grey color for the background
+        .style("background", "#f0f0f0")
         .style("padding", "10px")
-        .style("border", "1px solid #ccc") // Use a darker grey for the border
+        .style("border", "1px solid #ccc")
         .style("border-radius", "8px")
         .style("pointer-events", "none")
         .style("opacity", 0)
@@ -208,8 +202,7 @@ export function updateBubbleMap(use, selectedYear) {
 
         // Use an exponential scale for the bubble sizes
         var size = d3.scalePow()
-            .exponent(2) // Adjust the exponent as needed to make differences more visible
-            //.domain([minValue, maxValue]) // Set the domain dynamically based on the data
+            .exponent(2) 
             .domain([1, 100])
             .range([5, 50]);
 
@@ -220,9 +213,8 @@ export function updateBubbleMap(use, selectedYear) {
       
           // Check if the feature is Norway
           if (feature.properties.ISO3 === "NOR") {
-              // Adjust the centroid by moving it 'down' (increase y-coordinate)
-              centroid[1] += -3; // 'adjustmentValue' is the amount by which you want to move the centroid down
-              centroid[0] += -5; // 
+              centroid[1] += -3; 
+              centroid[0] += -5; 
           }
           return {
               code: feature.properties.ISO3,
@@ -234,27 +226,24 @@ export function updateBubbleMap(use, selectedYear) {
 
         // Create a map from `filteredData` for quick lookup based on 'code'
         var dataMap = filteredData.reduce(function(map, obj) {
-            map[obj.code] = obj.value; // Use 'value' for the year 2013 data
+            map[obj.code] = obj.value; 
             return map;
         }, {});
-        //console.log("DATA MAP", dataMap)
 
         // Add the bubbles
         centroids.forEach(function(centroid) {
-            var value = dataMap[centroid.code]; // Lookup the value for 2013 based on 'code'
-            if (value > 0 && !isNaN(value)) { // Check if there's data for this 'code'
-                // console.log("CENTROID", centroid.centroid[0], centroid.centroid[1])
+            var value = dataMap[centroid.code]; 
+            if (value > 0 && !isNaN(value)) { 
                 svg.append("circle")
                     .attr("cx", centroid.centroid[0])
                     .attr("cy", centroid.centroid[1])
-                    .attr("r", size(value)) // Use 'size' function to determine the radius based on the 2013 value
-                    // .style("fill", "rgba(0, 0, 255, 0.6)")
+                    .attr("r", size(value)) 
                     .style("fill", internetUseMapping[internetUseKey].color)
                     .style("opacity", 0.6)
                     .attr("stroke", "rgba(0, 0, 0, 0.2)")
                     .attr("stroke-width", 1)
                     .attr("class", "bubble")
-                    .on("mouseover", function(d) { // Updated to use 'event' and 'd'
+                    .on("mouseover", function(d) { 
                       svg.selectAll(".bubble")
                       .transition()
                       .duration(200)
@@ -309,101 +298,46 @@ export function updateBubbleMap(use, selectedYear) {
                   }
               });
 
+            // The position for the legend
+            var xCircle = 700; // Adjust based on your actual layout
+            var yCircle = height - 450; // Adjust based on your actual layout
+            var legendValues = [25, 75, 100]; // The percentages you want to show in the legend
 
-              /*
-              // Define the data for the new legend items (e.g., 0%, 25%, 50%, 75%, 100%)
-              var legendDataNew = [
-                { percentage: 0 },
-                { percentage: 25 },
-                { percentage: 50 },
-                { percentage: 75 },
-                { percentage: 100 }
-              ];
-
-              // Create a group for the new legend
-              var legendGroupNew = svg.append("g")
-                .attr("class", "legend")
-                .attr("transform", "translate(" + (width + 30) + "," + (height - 600) + ")"); // Adjust the position as needed
-
-              // Calculate the radius for each percentage circle based on the 'size' scale
-              var circleRadii = legendDataNew.map(function(item) {
-                return size(item.percentage);
-              });
-
-              // Add circles to the legend
-              legendGroupNew.selectAll(".legend-circle")
-                .data(legendDataNew)
+            // Add legend: circles
+            var legendCircles = svg.selectAll(".legend-circle")
+                .data(legendValues)
                 .enter()
                 .append("circle")
-                .attr("class", "legend-circle")
-                .attr("cx", 10) // Adjust the x-position as needed
-                .attr("cy", function(d, i) {
-                  return i * 25; // Adjust vertical spacing between circles
-                })
-                .attr("r", function(d, i) {
-                  return circleRadii[i];
-                })
-                .style("fill", "none")
-                .style("stroke", "black");
+                  .attr("class", "legend-circle")
+                  .attr("cx", xCircle)
+                  .attr("cy", function(d){ return yCircle - size(d); })
+                  .attr("r", size)
+                  .style("fill", "none")
+                  .attr("stroke", "black")
+                  .attr("stroke-width", 1)
 
-              // Add labels to the legend
-              legendGroupNew.selectAll(".legend-label")
-                .data(legendDataNew)
+            // Add legend: lines
+            svg.selectAll(".legend-line")
+                .data(legendValues)
+                .enter()
+                .append("line")
+                  .attr('x1', function(d){ return xCircle + size(d); })
+                  .attr('x2', xCircle + 95) 
+                  .attr('y1', function(d){ return yCircle - size(d); })
+                  .attr('y2', function(d){ return yCircle - size(d); })
+                  .attr('stroke', 'black')
+                  .style('stroke-dasharray', ('2,2'));
+
+            // Add legend: labels
+            svg.selectAll(".legend-label")
+                .data(legendValues)
                 .enter()
                 .append("text")
-                .attr("class", "legend-label")
-                .attr("x", 30) // Adjust the x-position as needed
-                .attr("y", function(d, i) {
-                  return i * 25; // Adjust vertical spacing between labels
-                })
-                .attr("dy", "0.35em")
-                .style("text-anchor", "start")
-                .style("font", "15px Montserrat")
-                .text(function(d) {
-                  return d.percentage + "%";
-                });
-                */
-
-                // The position for the legend
-                var xCircle = 700; // Adjust based on your actual layout
-                var yCircle = height - 450; // Adjust based on your actual layout
-                var legendValues = [25, 75, 100]; // The percentages you want to show in the legend
-
-                // Add legend: circles
-                var legendCircles = svg.selectAll(".legend-circle")
-                    .data(legendValues)
-                    .enter()
-                    .append("circle")
-                      .attr("class", "legend-circle")
-                      .attr("cx", xCircle)
-                      .attr("cy", function(d){ return yCircle - size(d); })
-                      .attr("r", size)
-                      .style("fill", "none")
-                      .attr("stroke", "black")
-                      .attr("stroke-width", 1)
-
-                // Add legend: lines
-                svg.selectAll(".legend-line")
-                    .data(legendValues)
-                    .enter()
-                    .append("line")
-                      .attr('x1', function(d){ return xCircle + size(d); })
-                      .attr('x2', xCircle + 95) // Adjust this value to fit your layout
-                      .attr('y1', function(d){ return yCircle - size(d); })
-                      .attr('y2', function(d){ return yCircle - size(d); })
-                      .attr('stroke', 'black')
-                      .style('stroke-dasharray', ('2,2'));
-
-                // Add legend: labels
-                svg.selectAll(".legend-label")
-                    .data(legendValues)
-                    .enter()
-                    .append("text")
-                      .attr('x', xCircle + 100) // Adjust this value to fit your layout
-                      .attr('y', function(d){ return yCircle - size(d) + 5; })
-                      .text(function(d){ return d + "%"; }) // Add '%' to the label
-                      .style("font", "16px Montserrat")
-        .attr('alignment-baseline', 'middle');
+                  .attr('x', xCircle + 100) 
+                  .attr('y', function(d){ return yCircle - size(d) + 5; })
+                  .text(function(d){ return d + "%"; }) 
+                  .style("font", "16px Montserrat")
+                  .attr('alignment-baseline', 'middle');
 
 
       

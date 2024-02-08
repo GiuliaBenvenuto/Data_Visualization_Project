@@ -7,12 +7,12 @@ export function updateLinechart(checkedValues) {
         'BG': {'name': 'Bulgaria', 'color': '#ffc107'},
         'CY': {'name': 'Cyprus', 'color': '#DC143C'},
         'CZ': {'name': 'Czechia', 'color': '#FF69B4'},
-        'DE': {'name': 'Germany', 'color': '#8B4513'},
+        'DE': {'name': 'Germany', 'color': '#4ff5ff'},
         'DK': {'name': 'Denmark', 'color': '#9ACD32'},
         'EE': {'name': 'Estonia', 'color': '#4169E1'},
-        'EL': {'name': 'Greece', 'color': '#8A2BE2'},
+        'EL': {'name': 'Greece', 'color': '#9b56dc'},
         'ES': {'name': 'Spain', 'color': '#FF8C00'},
-        'EU28': {'name': 'European Union', 'color': '#2E8B57'},
+        'EU28': {'name': 'European Union', 'color': '#00a94a'},
         'FI': {'name': 'Finland', 'color': '#C71585'},
         'FR': {'name': 'France', 'color': '#6A5ACD'},
         'HR': {'name': 'Croatia', 'color': '#008B8B'},
@@ -24,7 +24,7 @@ export function updateLinechart(checkedValues) {
         'LU': {'name': 'Luxembourg', 'color': '#483D8B'},
         'LV': {'name': 'Latvia', 'color': '#2F4F4F'},
         'ME': {'name': 'Montenegro', 'color': '#00CED1'},
-        'MK': {'name': 'North Macedonia', 'color': '#9400D3'},
+        'MK': {'name': 'North Macedonia', 'color': '#6b0099'},
         'MT': {'name': 'Malta', 'color': '#FF4500'},
         'NL': {'name': 'Netherlands', 'color': '#98FB98'},
         'NO': {'name': 'Norway', 'color': '#AFEEEE'},
@@ -33,8 +33,8 @@ export function updateLinechart(checkedValues) {
         'RO': {'name': 'Romania', 'color': '#FFC0CB'},
         'RS': {'name': 'Serbia', 'color': '#DDA0DD'},
         'SE': {'name': 'Sweden', 'color': '#BC8F8F'},
-        'SI': {'name': 'Slovenia', 'color': '#4169E1'},
-        'SK': {'name': 'Slovakia', 'color': '#8B4513'},
+        'SI': {'name': 'Slovenia', 'color': '#80c4fb'},
+        'SK': {'name': 'Slovakia', 'color': '#ff6a00'},
         'TR': {'name': 'Türkiye', 'color': '#FA8072'},
         'UK': {'name': 'United Kingdom', 'color': '#A0522D'},
         'XK': {'name': 'Kosovo*', 'color': '#C0C0C0'}
@@ -42,7 +42,6 @@ export function updateLinechart(checkedValues) {
     
 
     let countries = checkedValues;
-    // console.log("Checked Countries: " + countries);
 
     // set the dimensions and margins of the graph
     var margin = {top: 80, right: 280, bottom: 80, left: 280},
@@ -52,8 +51,6 @@ export function updateLinechart(checkedValues) {
     // append the svg object to the body of the page
     var svg = d3.select("#my_linechart")
         .append("svg")
-        //.attr("width", width + margin.left + margin.right)
-        //.attr("height", height + margin.top + margin.bottom)
         .attr("width", "100%")
         .attr("height", "100%")
         .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`) // This makes the chart responsive
@@ -71,17 +68,11 @@ export function updateLinechart(checkedValues) {
 
     d3.csv('./csv/linechart_processed.csv', function(data) {
 
-        // Assuming the first row of the dataset contains the column names
         var allColumns = Object.keys(data[0]);
-        // console.log("All Columns:", allColumns);
-
-        // Filter out the columns for the years 2006 to 2017
         var yearColumns = allColumns.filter(function(column) {
             var year = parseInt(column);
             return year >= 2006 && year <= 2017;
         });
-
-        // console.log("Colonne:" + yearColumns);
 
         // X axis 
         var x = d3.scalePoint()
@@ -99,21 +90,19 @@ export function updateLinechart(checkedValues) {
             .style("font", "15px Montserrat");
 
 
+        
         // Initialize max value
         let maxValue = Number.MIN_SAFE_INTEGER;
 
         // Find the maximum value in the dataset
         data.forEach(function(row) {
-            // Iterate over each year column
             yearColumns.forEach(function(year) {
-                // Convert the value to a number (assuming the data is numeric)
-                const value = +row[year]; // Unary plus '+' is shorthand for converting strings to numbers
+                const value = +row[year]; 
                 if (value > maxValue) {
                     maxValue = value;
                 }
             });
         });
-        // console.log("Maximum Value:", maxValue);
 
         // Add Y axis
         var y = d3.scaleLinear()
@@ -130,7 +119,7 @@ export function updateLinechart(checkedValues) {
         function drawEU28AverageLine() {
             // Extract the data for EU28
             const eu28Data = data.find(d => d.geo === 'EU28');
-            if (!eu28Data) return; // Exit if EU28 data is not found
+            if (!eu28Data) return; 
 
             // Process the EU28 data similar to other countries
             const processedEU28Data = yearColumns.map(year => ({
@@ -163,8 +152,6 @@ export function updateLinechart(checkedValues) {
                 .attr("fill", "red")
                 .attr("stroke", "#fff")
                 .on("mouseover", function (d) {
-                    //d3.selectAll("path:not(.eu28-average-line)").attr("stroke", "#ccc");
-                    //d3.selectAll("circle:not(.eu28-dot)").attr("fill", "#ccc");
                     d3.selectAll("path").attr("stroke", "#ccc");
                     d3.selectAll("circle").attr("fill", "#ccc");
     
@@ -195,10 +182,6 @@ export function updateLinechart(checkedValues) {
     
                     countries.forEach(function(country, index) {
                         var countryDataProcessed = processDataForCountry(country);
-                        // console.log("Country Data Processed:", countryDataProcessed);
-            
-                        // Assign a unique color for each line
-                        // var color = d3.schemeCategory10[index % 10]; // Change or expand this for more than 10 countries
             
                         addLineToChart(countryDataProcessed, country);
                         addDotsToChart(countryDataProcessed, country);
@@ -217,7 +200,6 @@ export function updateLinechart(checkedValues) {
                 // Find the last data point for positioning the label
                 const lastDataPoint = processedEU28Data[0];
             
-                // Add the label "avg" at the end of the line
                 svg.append("text")
                     .attr("x", x(lastDataPoint.date) - 33) // Position slightly to the right of the last data point
                     .attr("y", y(lastDataPoint.value)) // Align with the last data point's value on the y-axis
@@ -249,15 +231,12 @@ export function updateLinechart(checkedValues) {
             var countryData = data.filter(function(d) { return d.geo === countryCode; })[0];
         
             return yearColumns.map(year => {
-                // Check if the value is not a number (NaN) or is ":" and replace it with 0
                 var value = countryData[year];
                 if (value === ":" || isNaN(value)) {
                     value = 0;
                 } else {
-                    // Ensure the value is a number
                     value = +value;
                 }
-        
                 return { date: year, value: value };
             });
         }
@@ -292,7 +271,6 @@ export function updateLinechart(checkedValues) {
 
         // Function to add a dots to the chart
         function addDotsToChart(processedData, country) {
-            // console.log("Processed Data:", processedData);
             svg.append("g")
             .selectAll("dot")
             .attr("class", "chart-dot")
@@ -306,9 +284,6 @@ export function updateLinechart(checkedValues) {
                 .attr("stroke", "#fff")
 
             .on("mouseover", function (d) {
-                // Set all dots and lines to #333
-                // d3.selectAll("path").attr("stroke", "#ccc");
-                //d3.selectAll("circle").attr("fill", "#ccc");
                 d3.selectAll("path:not(.eu28-average-line)").attr("stroke", "#ccc");
                 d3.selectAll("circle:not(.eu28-dot)").attr("fill", "#ccc");
 
@@ -330,27 +305,19 @@ export function updateLinechart(checkedValues) {
 
             })
             .on("mouseout", function (d) {
-                // d3.selectAll("path").attr("stroke", countryMapping[country]["color"]);
-                // d3.selectAll("circle").attr("fill", countryMapping[country]["color"]);
                 svg.selectAll(".chart-line").remove();
                 svg.selectAll(".chart-dot").remove();
 
                 countries.forEach(function(country, index) {
                     var countryDataProcessed = processDataForCountry(country);
-                    // console.log("Country Data Processed:", countryDataProcessed);
-        
-                    // Assign a unique color for each line
-                    // var color = d3.schemeCategory10[index % 10]; // Change or expand this for more than 10 countries
         
                     addLineToChart(countryDataProcessed, country);
                     addDotsToChart(countryDataProcessed, country);
         
-                    // Add the processed data to the allCountriesData array
                     allCountriesData.push({ country: country, data: countryDataProcessed });
                     
                 });
     
-
                 tooltip.transition()
                     .duration(200)
                     .style("opacity", 0);
@@ -359,7 +326,6 @@ export function updateLinechart(checkedValues) {
 
         // Function to update the legend based on the selected years
         function updateLegend(allCountriesData) {
-            // Remove existing legend items
             legend.selectAll("*").remove();
         
             // Add a colored square and text for each country in allCountriesData
@@ -394,15 +360,10 @@ export function updateLinechart(checkedValues) {
         // Iterate over each country and add a line for each
         countries.forEach(function(country, index) {
             var countryDataProcessed = processDataForCountry(country);
-            // console.log("Country Data Processed:", countryDataProcessed);
-
-            // Assign a unique color for each line
-            // var color = d3.schemeCategory10[index % 10]; // Change or expand this for more than 10 countries
 
             addLineToChart(countryDataProcessed, country);
             addDotsToChart(countryDataProcessed, country);
 
-            // Add the processed data to the allCountriesData array
             allCountriesData.push({ country: country, data: countryDataProcessed });
             
         });
@@ -415,7 +376,7 @@ export function updateLinechart(checkedValues) {
         .call(d3.axisLeft(y)
             .tickSize(-width)
             .tickFormat("")
-            .tickSizeOuter(0) // Exclude the outer tick at the top
+            .tickSizeOuter(0) 
         );
 
         // Style the grid lines
