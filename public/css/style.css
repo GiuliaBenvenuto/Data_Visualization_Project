@@ -83,6 +83,12 @@ p{
     color: #293241;
 }
 
+#secondary_title_ridgeline{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: #293241;
+}
+
 
 #plot_title_small_multiple, 
 #plot_title_treemap, 

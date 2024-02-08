@@ -284,7 +284,7 @@
     <div class="mt-8 mb-8 md:mt-8"> 
         <p id="description" class="text-xl">
             This chart helps us see how internet became an integral part to our everyday life. <br> <br>
-            By adjusting the year, a clear pattern emerges, allowing us to see that the percentage of people that nerver used internet decrese drammaticaly. Going from an average of 23% of people in Europe that never used internet in 2012, to the more recent years where we can see that the same average oscillates from 8% to 6%.
+            By adjusting the year, a clear pattern emerges, allowing us to see that the percentage of people that never used internet decrease dramaticaly. Going from an average of 23% of people in Europe that never used internet in 2012, to the more recent years where we can see that the same average oscillates from 8% to 6%.
         </p>
     </div>
 
@@ -1065,20 +1065,25 @@
                 var checkedRadio_pie = pieDropdown.querySelector('.dropdown-content input[type="radio"][name="pie_state"]:checked');
                 if (checkedRadio_pie) {
                     checkedValue_pie = checkedRadio_pie.value;
-                    console.log("Checked value PIECHART updated:", checkedValue_pie); // Log the updated value
                 }
 
                 // Update the title with the selected country name
                 var plotTitleRight = document.getElementById('plot_title_piechart_right');
-                console.log("PLOT TITLE RIGHT:", plotTitleRight)
+
                 var plotTitleLeft = document.getElementById('plot_title_piechart_left');
-                console.log("PLOT TITLE LEFT:", plotTitleLeft)
+
                 if (plotTitleRight && plotTitleLeft) {
-                    console.log("HERE")
+
                     var selectedCountryName = countryMapping[checkedValue_pie] || 'Austria'; // Default to 'Austria' if the mapping fails
-                    console.log("SELECTED COUNTRY NAME:", selectedCountryName)
-                    plotTitleLeft.textContent = '2013 in ' + selectedCountryName;
-                    plotTitleRight.textContent = '2023 in ' + selectedCountryName;
+
+                    //plotTitleLeft.textContent = "2013 in " + selectedCountryName;
+                    //plotTitleRight.textContent = "2023 in " + selectedCountryName;
+
+                    const titleBasePieRight = "2013 in ";
+                    document.getElementById('plot_title_piechart_right').innerHTML = titleBasePieRight + " <span style='color: #5092b8;'>" + selectedCountryName + "</span>";
+                    const titleBasePieLeft = "2023 in ";
+                    document.getElementById('plot_title_piechart_left').innerHTML = titleBasePieLeft + " <span style='color: #5092b8;'>" + selectedCountryName + "</span>";
+
                     
                 }
         
@@ -1117,7 +1122,7 @@
     <div class="flex-container justify-center items-center">
         <div id="container_left" style="margin-right: 20px;">
             <h2 id="plot_title_piechart_left" class="text-3xl text-center">
-                2013 in Austria
+                2013 in <span style="color: #5092B8">Austria</span>
             </h2>
             <div id="my_piechart_left">
                 <script type="module" src="./js/piechart_left.js"></script>
@@ -1125,7 +1130,7 @@
         </div>
         <div id="container_right" style="margin-left: 20px;">
             <h2 id="plot_title_piechart_right" class="text-3xl text-center">
-                2023 in Austria
+                2023 in <span style="color: #5092B8">Austria</span>
             </h2>
             <div id="my_piechart_right">
                 <script type="module" src="./js/piechart_right.js"></script>
@@ -1189,7 +1194,7 @@
     <!-- Bubblemap -->
     <div class="mt-40 md:mt-40"> <!-- Adjust the margin-top (mt) values as needed -->
         <h2 id="plot_title_bubblemap" class="text-3xl text-center mt-12 mb-4">
-            Internet used for Health Information in Europe 
+            Internet used for Health Information in <span style="color: #5092B8">Europe</span>
         </h2>
 
         <p id="description" class="text-xl mb-6">
@@ -1529,7 +1534,7 @@
     <!-- Ridgeline -->
     <div class="mt-40 md:mt-40"> 
         <h2 id="plot_title_ridgeline" class="text-3xl text-center">
-            Percentage of individuals using the mobile phone to access Internet
+            Percentage of individuals using the mobile phone to access Internet in <span style="color: #5092B8">Europe</span>
         </h2>
         <p id="description" class="text-xl mb-6">
             Continuing our exploration of digital skills, the second visualization employs a ridgeline chart to highlight the remarkable growth in mobile phone usage for internet access. <br>
@@ -1661,7 +1666,7 @@
     <div class="mt-8 mb-8 md:mt-8"> 
         <p id="description" class="text-xl">
             The map utilizes a color spectrum to convey information, with shades of red indicating lower percentages and shades of green representing higher percentages. <br> <br>
-            Notaby, the map not only showcases the growth in the number of greener areas, indicating a rise in digital ability, but also emphasizes the gradual fading of reddish areas. 
+            Notably, the map not only showcases the growth in the number of greener areas, indicating a rise in digital ability, but also emphasizes the gradual fading of reddish areas. 
             This shift signals a notable improvement in digital skills, emphasizing the collective progress made in digital literacy across Europe.
         </p>
     </div>
