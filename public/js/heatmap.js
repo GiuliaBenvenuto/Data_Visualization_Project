@@ -117,9 +117,18 @@ export function updateHeatmap(checkedValue) {
             .select(".domain").remove()
 
 
+        
         var myColor = d3.scaleSequential()
             .interpolator(d3.interpolateBlues)
-            .domain([0, d3.max(heatmapData, d => d.value)])
+            //.domain([0, d3.max(heatmapData, d => d.value)])
+            .domain([0.5, 96.88]);
+            
+        // (0.5, 96.88)
+
+            /*
+        var myColor = d3.scaleSequential()
+        .interpolator(d3.interpolateBlues)
+        .domain([0, 100]);*/
             
 
         var tooltip = d3.select('body')
@@ -217,12 +226,34 @@ export function updateHeatmap(checkedValue) {
         var linearGradient = defs.append("linearGradient")
             .attr("id", "linear-gradient");
 
-        // Set the gradient color for various percentages
+        /* Set the gradient color for various percentages
         linearGradient.selectAll("stop")
             .data(myColor.ticks().map((t, i, n) => ({ offset: `${100*i/n.length}%`, color: myColor(t) })))
             .enter().append("stop")
             .attr("offset", d => d.offset)
             .attr("stop-color", d => d.color);
+            //.domain([0, d3.max(heatmapData, d => d.value)])*/
+            
+        // Generate stops for the gradient based on the myColor scale
+        /*
+        const numStops = 5; // For example, 5 stops at 0%, 25%, 50%, 75%, 100%
+        linearGradient.selectAll("stop")
+            .data(Array.from({length: numStops}, (_, i) => i / (numStops - 1)))
+            .enter().append("stop")
+            .attr("offset", d => `${d * 100}%`)
+            .attr("stop-color", d => myColor(d * (96.88 - 0.5) + 0.5)); // Map the stop to the data range*/
+            linearGradient.selectAll("stop")
+            .data([
+                {offset: "0%", color: "#f4f7fb"},   // Color for 0%
+                {offset: "25%", color: myColor(25)}, // Color for 25%
+                {offset: "50%", color: myColor(50)}, // Color for 50%
+                {offset: "75%", color: myColor(75)}, // Color for 75%
+                {offset: "100%", color: "#355584"}  // Color for 100%
+            ])
+            .enter().append("stop")
+            .attr("offset", d => d.offset)
+            .attr("stop-color", d => d.color);
+
 
         // Append the legend
         var legendWidth = 600, legendHeight = 25;
