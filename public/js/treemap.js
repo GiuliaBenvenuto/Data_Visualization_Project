@@ -183,7 +183,6 @@ export function updateTreemap(year) {
           return customTextMapping[d.data.name] || d.data.name; // Use custom text or fallback to name
         })
         .each(function(d) {
-          console.log("VAL", d.value)
           var text = d3.select(this),
               words = text.text().split(/\s+/),
               wordCount = words.length,

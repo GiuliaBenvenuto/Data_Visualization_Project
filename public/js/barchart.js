@@ -1,5 +1,4 @@
 export function updateBarchart(year, selection) {
-    console.log("Updating barchart for year " + year + " and selection " + selection);
 
     const countryMapping = {
         "AL": "Albania",
