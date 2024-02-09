@@ -8,7 +8,7 @@ export function updatePiechartRight(selectedState){
         "I_IUVOTE": { text: "Voting or online consultation", color: "#255be3" }, // Blue
         "I_IUOLC": { text: "Online course", color: "#547a2a " }, // Dark Verde
         "I_IUSNET": { text: "Social networks", color: "#ff6700 " }, // Arancione
-        "I_IUSELL": { text: "Selling goods or services", color: "#ffe505" }, // Yellow
+        "I_IUSELL": { text: "Selling goods or services", color: "#ebc00b" }, // Yellow
         "I_IUEM": { text: "Sending or receiving emails", color: "#ff0000" } // Red
     };
     

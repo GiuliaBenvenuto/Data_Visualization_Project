@@ -149,6 +149,18 @@
             "I_IUSELL": "Selling goods or services",
             "I_IUEM": "Sending or receiving emails" 
         }
+
+        const internetUseMappingColor = {
+            "I_IHIF": { text: "Health information", color: "#53b5ce" }, // Azzurro
+            "I_IUIF": { text: "Information for goods and services", color: "#75c359" }, //green
+            "I_IUBK": { text: "Internet banking", color: "#ff69b4" }, // Pink
+            "I_IUJOB": { text: "Looking for job / job application", color: "#9c27b0 " }, // Purple
+            "I_IUVOTE": { text: "Voting or online consultation", color: "#255be3" }, // Blue
+            "I_IUOLC": { text: "Online course", color: "#547a2a " }, // Dark Verde
+            "I_IUSNET": { text: "Social networks", color: "#ff6700 " }, // Arancione
+            "I_IUSELL": { text: "Selling goods or services", color: "#ebc00b" }, // Yellow
+            "I_IUEM": { text: "Sending or receiving emails", color: "#ff0000" } // Red
+            };
     </script>
 
 
@@ -1079,9 +1091,9 @@
                     //plotTitleLeft.textContent = "2013 in " + selectedCountryName;
                     //plotTitleRight.textContent = "2023 in " + selectedCountryName;
 
-                    const titleBasePieRight = "2013 in ";
+                    const titleBasePieRight = "2023 in ";
                     document.getElementById('plot_title_piechart_right').innerHTML = titleBasePieRight + " <span style='color: #5092b8;'>" + selectedCountryName + "</span>";
-                    const titleBasePieLeft = "2023 in ";
+                    const titleBasePieLeft = "2013 in ";
                     document.getElementById('plot_title_piechart_left').innerHTML = titleBasePieLeft + " <span style='color: #5092b8;'>" + selectedCountryName + "</span>";
 
                     
@@ -1194,7 +1206,7 @@
     <!-- Bubblemap -->
     <div class="mt-40 md:mt-40"> <!-- Adjust the margin-top (mt) values as needed -->
         <h2 id="plot_title_bubblemap" class="text-3xl text-center mt-12 mb-4">
-            Internet used for Health Information in <span style="color: #5092B8">Europe</span>
+            Internet used for <span style="color: #53b5ce">Health Information</span> in Europe
         </h2>
 
         <p id="description" class="text-xl mb-6">
@@ -1264,7 +1276,13 @@
                 var plotTitle = document.getElementById('plot_title_bubblemap');
                 if (plotTitle) {
                     var selectedInternetUse = internetUseMapping[checkedValue_bubblemap] || 'Health information'; // Default to 'Austria' if the mapping fails
-                    plotTitle.textContent = "Internet used for " + selectedInternetUse + " in Europe"
+                    //plotTitle.textContent = "Internet used for " + selectedInternetUse + " in Europe"
+
+                    //const titleBaseBubblemap = "Internet used for " + selectedInternetUse + " in ";
+                    // document.getElementById('plot_title_bubblemap').innerHTML = titleBaseBubblemap + " <span style='color: #5092b8;'> Europe </span>";
+
+                    const titleBaseBubblemap = "Internet used for " + "<span style='color: " + internetUseMappingColor[checkedValue_bubblemap].color + ";'>" + selectedInternetUse + "</span>" + " in ";
+                    document.getElementById('plot_title_bubblemap').innerHTML = titleBaseBubblemap + " Europe";
                 }
 
                 updateBubbleMap(checkedValue_bubblemap, selectedYear_bubblemap);
