@@ -5,12 +5,12 @@ export function updateLinechart(checkedValues) {
         'AT': {'name': 'Austria', 'color': '#4682B4'},
         'BE': {'name': 'Belgium', 'color': '#32CD32'},
         'BG': {'name': 'Bulgaria', 'color': '#ffc107'},
-        'CY': {'name': 'Cyprus', 'color': '#DC143C'},
+        'CY': {'name': 'Cyprus', 'color': '#c43753'},
         'CZ': {'name': 'Czechia', 'color': '#FF69B4'},
-        'DE': {'name': 'Germany', 'color': '#4ff5ff'},
+        'DE': {'name': 'Germany', 'color': '#04b7c2'},
         'DK': {'name': 'Denmark', 'color': '#9ACD32'},
         'EE': {'name': 'Estonia', 'color': '#4169E1'},
-        'EL': {'name': 'Greece', 'color': '#9b56dc'},
+        'EL': {'name': 'Greece', 'color': '#be9b7b'},
         'ES': {'name': 'Spain', 'color': '#FF8C00'},
         'EU28': {'name': 'European Union', 'color': '#00a94a'},
         'FI': {'name': 'Finland', 'color': '#C71585'},
@@ -27,15 +27,15 @@ export function updateLinechart(checkedValues) {
         'MK': {'name': 'North Macedonia', 'color': '#6b0099'},
         'MT': {'name': 'Malta', 'color': '#FF4500'},
         'NL': {'name': 'Netherlands', 'color': '#98FB98'},
-        'NO': {'name': 'Norway', 'color': '#AFEEEE'},
-        'PL': {'name': 'Poland', 'color': '#DB7093'},
-        'PT': {'name': 'Portugal', 'color': '#CD853F'},
+        'NO': {'name': 'Norway', 'color': '#ad1a66'},
+        'PL': {'name': 'Poland', 'color': '#82919a'},
+        'PT': {'name': 'Portugal', 'color': '#ff1100'},
         'RO': {'name': 'Romania', 'color': '#FFC0CB'},
         'RS': {'name': 'Serbia', 'color': '#DDA0DD'},
         'SE': {'name': 'Sweden', 'color': '#BC8F8F'},
         'SI': {'name': 'Slovenia', 'color': '#80c4fb'},
         'SK': {'name': 'Slovakia', 'color': '#ff6a00'},
-        'TR': {'name': 'Türkiye', 'color': '#FA8072'},
+        'TR': {'name': 'Türkiye', 'color': '#8a2879'},
         'UK': {'name': 'United Kingdom', 'color': '#A0522D'},
         'XK': {'name': 'Kosovo*', 'color': '#C0C0C0'}
     }
@@ -66,13 +66,15 @@ export function updateLinechart(checkedValues) {
 
 
 
-    d3.csv('./csv/linechart_processed.csv', function(data) {
+    d3.csv('./csv/prova.csv', function(data) {
 
         var allColumns = Object.keys(data[0]);
         var yearColumns = allColumns.filter(function(column) {
             var year = parseInt(column);
             return year >= 2006 && year <= 2017;
         });
+        console.log(yearColumns);
+
 
         // X axis 
         var x = d3.scalePoint()
@@ -106,7 +108,7 @@ export function updateLinechart(checkedValues) {
 
         // Add Y axis
         var y = d3.scaleLinear()
-            .domain([0, maxValue + 5]) 
+            .domain([20, maxValue + 5]) 
             .range([ height, 0]);
 
         // Call the Y axis on the svg
@@ -127,22 +129,33 @@ export function updateLinechart(checkedValues) {
                 value: eu28Data[year] === ":" || isNaN(eu28Data[year]) ? 0 : +eu28Data[year]
             }));
 
+            const filteredEU28Data = processedEU28Data.filter(d => d.date !== "2014" && d.date !== "2016");
+
+
             // Add the EU28 line to the chart
             svg.append("path")
-                .datum(processedEU28Data)
+                //.datum(processedEU28Data)
+                .datum(filteredEU28Data)
                 .attr("class", "eu28-average-line") // Class for styling and identification
                 .attr("fill", "none")
                 .attr("stroke", "red") // Red color for the EU28 average line
                 .attr("stroke-width", 2)
                 .attr("stroke-dasharray", "5,5")
                 .attr("d", d3.line()
+                    //.x(d => x(d.date))
+                    //.y(d => y(d.value))
+                    .defined(d => d.value !== 0) // This line ensures that the line is not drawn for missing data points
                     .x(d => x(d.date))
                     .y(d => y(d.value))
                 );
 
                 // Add dots for each year on the EU28 line
                 svg.selectAll(".eu28-dot")
-                .data(processedEU28Data)
+                //.data(processedEU28Data)
+                .data(processedEU28Data.filter(function(d) {
+                    // Exclude data points where the value is 0, ":", or NaN
+                    return d.value !== 0 && d.value !== ":" && !isNaN(d.value);
+                }))
                 .enter()
                 .append("circle")
                 .attr("class", "eu28-dot")
@@ -243,7 +256,7 @@ export function updateLinechart(checkedValues) {
         
 
         function addLineToChart(processedData, country) {
-            // Custom line generator
+            // Custom line generator for solid lines
             var lineGenerator = d3.line()
                 .defined(function(d) { return d.value !== 0; }) // Define where the line is drawn
                 .x(function(d) { return x(d.date); })
@@ -251,22 +264,43 @@ export function updateLinechart(checkedValues) {
         
             // Draw the line for defined areas
             svg.append("path")
-                .datum(processedData)
+                .datum(processedData.filter(lineGenerator.defined())) // Use only defined points for the solid line
                 .attr("class", "chart-line")
                 .attr("fill", "none")
                 .attr("stroke", countryMapping[country]["color"])
                 .attr("stroke-width", 2)
                 .attr("d", lineGenerator);
         
-            // Draw a dotted line for undefined areas
-            svg.append("path")
-                .datum(processedData)
+            // Custom line generator for dotted lines
+            var dottedLineGenerator = d3.line()
+                .defined(function(d, i, data) {
+                    // Check if the current point or the next point is defined
+                    if(i + 1 < data.length){
+                        return d.value === 0 && data[i + 1].value !== 0;
+                    }
+                    return false;
+                })
+                .x(function(d) { return x(d.date); })
+                .y(function(d) { return y(d.value); });
+        
+            // Draw the dotted line between points with data
+            svg.selectAll(".chart-dotted-line")
+                .data(processedData)
+                .enter().append("path")
+                .attr("class", "chart-dotted-line")
                 .attr("fill", "none")
                 .attr("stroke", countryMapping[country]["color"])
-                .attr("stroke-width", 1.5)
-                .attr("stroke-dasharray", "3,3") // This creates the dotted effect
-                .attr("d", lineGenerator.defined(function(d) { return d.value === 0; })); // Define where the dotted line is drawn
+                .attr("stroke-width", 2)
+                .attr("stroke-dasharray", "5,5") // This creates the dotted effect
+                .attr("d", function(d, i) {
+                    // Return the path for this segment if it's undefined and the next is defined
+                    if(i + 1 < processedData.length && !lineGenerator.defined()(d) && lineGenerator.defined()(processedData[i + 1])){
+                        return dottedLineGenerator([d, processedData[i + 1]]);
+                    }
+                    return null; // Skip other segments
+                });
         }
+        
         
 
         // Function to add a dots to the chart
@@ -274,7 +308,11 @@ export function updateLinechart(checkedValues) {
             svg.append("g")
             .selectAll("dot")
             .attr("class", "chart-dot")
-            .data(processedData)
+            //.data(processedData)
+            .data(processedData.filter(function(d) {
+                // Exclude data points where the value is 0, ":", or NaN
+                return d.value !== 0 && d.value !== ":" && !isNaN(d.value);
+            }))
             .enter()
             .append("circle")
                 .attr("cx", function(d) { return x(d.date) } )
