@@ -71,7 +71,7 @@
             <!-- Slightly larger width div for the paragraph -->
             <div class="mx-auto mt-4 w-4/5 sm:w-2/2 lg:w-2/3">
                 <p id="first_paragraph" class="text-xl md:text-3xl lg:text-4xl">
-                    Exploring how digital trends reshape our daily lives and personal experiences in an ever-connected world.
+                    Exploring how <span style="color: #5092B8;">digital trends in Europe</span> reshape our daily lives and personal experiences in an ever-connected world.
                 </p>
             </div>
         </div>
@@ -346,7 +346,7 @@
     <!-- Linechart -->
     <div class="mt-40 md:mt-40"> <!-- Adjust the margin-top (mt) values as needed -->
         <h2 id="plot_title" class="text-3xl text-center">
-            Increasing presence of computers over time
+            Increasing presence of computers over time in <span style="color: #5092B8">Europe</span>
             <!-- Availability of computers in households -->
         </h2>
 
@@ -542,7 +542,7 @@
     <!-- Treemap -->
     <div class="mt-40 md:mt-40"> <!-- Adjust the margin-top (mt) values as needed -->
         <h2 id="plot_title_treemap" class="text-3xl text-center">
-            Reasons for not having internet access at home in <span style="color: #5092b8;">2010</span>
+            Reasons for not having internet access at home in <span style="color: #5092b8;">2010</span> in Europe
         </h2>
 
         <p id="description" class="text-xl mb-8">
@@ -575,7 +575,7 @@
 
             function updateTitleTreemap(year_treemap) {
                 const titleBaseTreemap = "Reasons for not having Internet access at home in";
-                document.getElementById('plot_title_treemap').innerHTML = titleBaseTreemap + " <span style='color: #5092b8;'>" + year_treemap + "</span>";
+                document.getElementById('plot_title_treemap').innerHTML = titleBaseTreemap + " <span style='color: #5092b8;'>" + year_treemap + "</span>" + " in Europe";
             }
     
             // Function to update the value of the checked radio button
@@ -1623,7 +1623,7 @@
     <!-- Choropleth Map -->
     <div class="mt-40 md:mt-40"> <!-- Adjust the margin-top (mt) values as needed -->
         <h2 id="plot_title_map" class="text-3xl text-center">
-            Percentage of individuals with above basic digital skills in <span style="color: #5092b8;">2015</span>
+            Percentage of individuals with above basic digital skills in <span style="color: #5092b8;">2015</span> in Europe
         </h2>
 
         <p id="description" class="text-xl mb-8">
@@ -1652,7 +1652,7 @@
         
         function updateTitleMap(year) {
             const titleBaseMap = "Percentage of individuals with above basic digital skills in";
-            document.getElementById('plot_title_map').innerHTML = titleBaseMap + " <span style='color: #5092b8;'>" + year + "</span>";
+            document.getElementById('plot_title_map').innerHTML = titleBaseMap + " <span style='color: #5092b8;'>" + year + "</span>" + " in Europe";
         }
         
 
