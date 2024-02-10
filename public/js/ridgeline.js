@@ -170,7 +170,7 @@ d3.csv('./csv/ridgeline_processed.csv', function(data) {
                 .style("opacity", 0.9);
             tooltip.html(
                  "<strong>Year: </strong>" + year + "<br>" + 
-                 "<strong>Mean: </strong>" + meanValue.toFixed(2) + "%<br>" 
+                 "<strong>Mean probability: </strong>" + meanValue.toFixed(2) + "%<br>" 
                
                 )
                 .style("visibility", "visible")
