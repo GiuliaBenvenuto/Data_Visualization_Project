@@ -169,13 +169,44 @@ export function updateBarchart(year, selection) {
         svg.selectAll(".bar")
             .data(data)
             .enter()
-            .append("rect")
-            .attr("class", "bar")
-            .attr("x", function(d) { return x(countryMapping[d.geo]); })
-            .attr("y", function(d) { return y(+d[yearColumn]); })
-            .attr("width", x.bandwidth())
-            .attr("height", function(d) { return height - y(+d[yearColumn]); })
-            .attr("fill", function(d) { return colorScale(+d[yearColumn]); })
+            //.append("rect")
+            //.attr("class", "bar")
+            //.attr("x", function(d) { return x(countryMapping[d.geo]); })
+            //.attr("y", function(d) { return y(+d[yearColumn]); })
+            //.attr("width", x.bandwidth())
+            //.attr("height", function(d) { return height - y(+d[yearColumn]); })
+            //.attr("fill", function(d) { return colorScale(+d[yearColumn]); })
+            .append(function(d) {
+                if (d[yearColumn] === ":" || isNaN(d[yearColumn]) || +d[yearColumn] === 0) {
+                    return document.createElementNS(d3.namespaces.svg, 'text');
+                } else {
+                    return document.createElementNS(d3.namespaces.svg, 'rect');
+                }
+            })
+            .attr("class", function(d) {
+                return (d[yearColumn] === ":" || isNaN(d[yearColumn]) || +d[yearColumn] === 0) ? "no-data-label" : "bar";
+            })
+            .attr("x", function(d) {
+                return (d[yearColumn] === ":" || isNaN(d[yearColumn]) || +d[yearColumn] === 0) ? x(countryMapping[d.geo]) + x.bandwidth() / 2 +5 : x(countryMapping[d.geo]);
+            })
+            .attr("y", function(d) {
+                return (d[yearColumn] === ":" || isNaN(d[yearColumn]) || +d[yearColumn] === 0) ? y(0) - 5 : y(+d[yearColumn]);
+            })
+            .text("N/A")
+            .attr("transform", function(d) {
+                return (d[yearColumn] === ":" || isNaN(d[yearColumn]) || +d[yearColumn] === 0) ? "rotate( -90 " + (x(countryMapping[d.geo]) + x.bandwidth() / 2 +5) + "," + (y(0) - 5) + ")" : null;
+            })
+            .attr("width", function(d) {
+                return (d[yearColumn] === ":" || isNaN(d[yearColumn]) || +d[yearColumn] === 0) ? 0 : x.bandwidth();
+            })
+            .attr("height", function(d) {
+                return (d[yearColumn] === ":" || isNaN(d[yearColumn]) || +d[yearColumn] === 0) ? 0 : height - y(+d[yearColumn]);
+            })
+            .attr("fill", function(d) {
+                return (d[yearColumn] === ":" || isNaN(d[yearColumn]) || +d[yearColumn] === 0) ? "#999999" : colorScale(+d[yearColumn]);
+            })
+            .style("font-family", "Montserrat")
+            .style("font-weight", 500)
             .on("mouseover", function(d) { 
 
                 d3.selectAll(".bar")
@@ -192,7 +223,10 @@ export function updateBarchart(year, selection) {
                 tooltip.html(
                     "<span style='color: #333;'> <strong>State: </strong> " + countryMapping[d.geo] + "</span><br>" + 
                     "<span style='color: #333;'> <strong>Year: </strong> " + yearColumn + " </span><br>" +
-                    "<span style='color: #333;'> <strong>Percentage: </strong> " + d[yearColumn] + "% </span><br>" 
+                    "<span style='color: #333;'> <strong>Percentage: </strong> " + 
+                    (isNaN(d[yearColumn]) || d[yearColumn] === ":" || d[yearColumn] === null ? "No data available" : d[yearColumn] + "%") + 
+                    "</span><br>"
+                    // "<span style='color: #333;'> <strong>Percentage: </strong> " + d[yearColumn] + "% </span><br>" 
                 )
                 .style("left", (d3.event.pageX > window.innerWidth / 2) ? (d3.event.pageX - 180) + "px" : (d3.event.pageX + 5) + "px")
                 .style("top", (d3.event.pageY > window.innerHeight / 2) ? (d3.event.pageY - 80) + "px" : (d3.event.pageY + 5) + "px");   
