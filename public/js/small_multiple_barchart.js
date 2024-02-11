@@ -14,7 +14,7 @@ export function updateSmallMultiple(checkedValue) {
         "EE": "Estonia",
         "EL": "Greece",
         "ES": "Spain",
-        "EU28": "European Union",
+        "EU27_2020": "European Union",
         "FI": "Finland",
         "FR": "France",
         "HR": "Croatia",
